@@ -71,12 +71,35 @@ and applicable in many other algorithmic problem areas.</p>
 <p>On of the amazing things about discussing pathfinding algorithms
 is that pathfinding is something we do multiple times a day, without assistance from technology,
 and so its very intuitive to discuss topics here that might have seemed more abstract in a different problem domain.</p>
+<p>The key difference here is that while we pathfind often on a very small scale,
+we need fast computer algorithms to give us extremely optimal paths, or paths over incredibly large domain sizes.</p>
 <p>While you might have a particular image of a pathfinding algorithm telling you whether to turn left or go straight at the lights, it does help to abstract the problem a little bit, so that we can use those same algorithms in surprisingly varied problem domains.</p>
 <p>We'll define any pathfinding problem to contain two points of interest in a space:
 A <em>start</em> point and an <em>end</em> goal.</p>
 <p>We aim to begin at the start point, and via a process of movements between intermediate points, end up at the <em>end</em> goal.</p>
 <p>We might modify this definition later, to include some more interesting problems (multiple starts, multiple goals, path weighting, etc.), but for now this is more than enough to discuss baby's first pathfinding algorithm :)</p>
 <p><strong>Video of graph definition</strong></p>
+<p>From now on I'll call these 'points' <em>vertices</em> (<em>vertex</em> singular), and the connections between these <em>edges</em>.
+This is because the current definition shares its likeness with mathematical graphs,
+which has the same terminology.</p>
+<p>When writing algorithms, most of the time the cheapest/easiest queries to make on such a graph will be:</p>
+<ul>
+<li>What are the start and end vertices?</li>
+<li>What are the neighbours of vertex <code>a</code>?</li>
+<li>What edge(s) can I uses to get from vertex <code>a</code> to <code>b</code>?</li>
+</ul>
+<p>And so we'll write algorithms mostly in terms of these queries
+(However I will try to keep away from code of any form,
+most algorithms can be explained in plain english rather succinctly).</p>
+<h1>Keep it Simple Stupid</h1>
+<p>So let's do it! Let's get from A to B! I think it's first best to think how you'd approach this situation, and try as best you can to put that into algorithmic terms, using the queries mentioned above where  appropriate. Here's some flashing graphs, see what your brain first does when it tries to find a path between the red and green dots.</p>
+<p>For me personally, when I first am flashed a graph like the ones above,
+I kind of 'search out' from the start vertex. That is, I look at the neighbours of the start vertex,
+then looking at their neighbours, until I find the end vertex.</p>
+<p>Obviously my brain doesn't follow that to a tee,
+but for smaller graphs that's where my mind wanders most of the time.</p>
+<p>For a human, this might not make sense for increasingly big graphs, because we need to keep track of all of the current vertices we are looking at.
+Let's not worry about this for now, and try and turn it into an algorithm!</p>
 
         </section>
         <footer>
