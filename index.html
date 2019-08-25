@@ -3,19 +3,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <!-- Begin Jekyll SEO tag v2.5.0 -->
-    <title>{{ article_title }} | glipR.dev</title>
-    <meta name="generator" content="Jekyll v3.8.5">
-    <meta property="og:title" content="{{ article_title }}">
-    <meta property="og:locale" content="en_US">
-    <meta name="description" content="{{ article_description }}">
-    <meta property="og:description" content="{{ article_description }}">
-    <link rel="canonical" href="https://blog.glipr.dev/{{ local_link }}">
-    <meta property="og:url" content="https://blog.glipr.dev/{{ local_link }}">
-    <meta property="og:site_name" content="blog.glipR.dev">
-    <script type="application/ld+json">
-    {"@type":"WebPage","headline":"{{ article_title }}","url":"https://blog.glipr.dev/{{ local_link }}","description":"{{ article_description }}","@context":"http://schema.org"}</script>
-    <!-- End Jekyll SEO tag -->
+    {% include "includes/seo.html" %}
 
     <link rel="stylesheet" href="/assets/css/style.css">
     <script src="https://code.jquery.com/jquery-3.3.0.min.js" integrity="sha256-RTQy8VOmNlT6b2PIRur37p6JEBZUE7o8wPgMvu18MC4=" crossorigin="anonymous"></script>
@@ -43,9 +31,13 @@
     <div class="wrapper">
         <nav><ul>
             <!-- Auto filled navigation. -->
+            {% block navigation %}
+            {% endblock %}
         </ul></nav>
         <section style="height: 354px;">
             <!-- Inner Content -->
+            {% block content %}
+            {% endblock %}
         </section>
         <footer>
             <p><small>Hosted on GitHub Pages — Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
