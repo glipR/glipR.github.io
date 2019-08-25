@@ -53,16 +53,30 @@ permalink: Pathfinding/Intro
         <section style="height: 354px;">
             <!-- Inner Content -->
             
-    <h1>Section 1</h1>
-<div class="codehilite"><pre><span></span><span class="o">##</span> <span class="n">Section</span> <span class="mi">2</span> <span class="k">is</span> <span class="n">code</span>
-
-<span class="o">**</span><span class="n">Bold</span><span class="o">**</span> <span class="n">haha</span>
-</pre></div>
-
-
-<div class="codehilite"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">Hello</span> <span class="n">World</span><span class="err">!</span>
-</pre></div>
+    <h1>Why should I care?</h1>
+<p>It's hard to fathom how much we rely on computer algorithms to get around these days,
+and how much computational pathfinding is built in to many of the problems we solve,
+that aren't just 'get from here to there'.</p>
+<p>Do you remember the days of Melways, and other obscenely large books, containing just maps of your local area?
+There's obviously a reason those all seemed to vanish in a matter of years, and that's because
+we now have a little device which tells where to go, with better accuracy and more knowledge
+of the current road state than a book could ever encapsulate.</p>
+<p><em>Split me into a half page? For desktop view, mobile should still see me 1 by 1</em>
+On the contrary, we've all seen times where this reliance on algorithms has served us <strong>GIF</strong>poorly.</p>
+<p>However, if you don't care how your little machine does all the things for you,
+hopefully I can at least convince you that the discussion and evolution of these algorithms is beautiful,
+and applicable in many other algorithmic problem areas.</p>
+<p><strong>Flashy parts of pathfinding algorithms</strong></p>
+<h1>The general problem</h1>
+<p>On of the amazing things about discussing pathfinding algorithms
+is that pathfinding is something we do multiple times a day, without assistance from technology,
+and so its very intuitive to discuss topics here that might have seemed more abstract in a different problem domain.</p>
+<p>While you might have a particular image of a pathfinding algorithm telling you whether to turn left or go straight at the lights, it does help to abstract the problem a little bit, so that we can use those same algorithms in surprisingly varied problem domains.</p>
+<p>We'll define any pathfinding problem to contain two points of interest in a space:
+A <em>start</em> point and an <em>end</em> goal.</p>
+<p>We aim to begin at the start point, and via a process of movements between intermediate points, end up at the <em>end</em> goal.</p>
+<p>We might modify this definition later, to include some more interesting problems (multiple starts, multiple goals, path weighting, etc.), but for now this is more than enough to discuss baby's first pathfinding algorithm :)</p>
+<p><strong>Video of graph definition</strong></p>
 
         </section>
         <footer>
