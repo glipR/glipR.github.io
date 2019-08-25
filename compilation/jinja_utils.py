@@ -5,6 +5,6 @@ env = Environment(
     autoescape=select_autoescape(['html', 'xml']),
 )
 
-def compile_template_with_url(path, url):
+def compile_template_with_url(path, url, **options):
     template = env.get_template(path)
-    return template.render(url=url)
+    return template.render(url=url, local_link=url, **options)
