@@ -1,10 +1,10 @@
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 env = Environment(
-    loader=FileSystemLoader('.'),
+    loader=FileSystemLoader('source'),
     autoescape=select_autoescape(['html', 'xml']),
 )
 
-# template = env.get_template('includes/test_compilation.html')
-
-# print(template.render(article='test'))
+def compile_template_with_url(path, url):
+    template = env.get_template(path)
+    return template.render(url=url)
