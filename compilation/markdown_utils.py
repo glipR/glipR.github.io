@@ -160,8 +160,7 @@ class VideoProcessor(CustomBlockProcessor):
         TYPE_SECTIONED,
     )
 
-    def get_before_content(self, block_data, block_number):
-        # Split on video type here.
+    def video_div(self, block_data, block_number):
         return dedent("""\
             <video id='%s' class='video-js vjs-default-skin vjs-fluid vjs-big-play-centered' controls preload='auto'>
                 <source src='%s' type='video/mp4' label="%s" selected="true">
@@ -170,8 +169,7 @@ class VideoProcessor(CustomBlockProcessor):
                     To view this video please enable JavaScript, and consider upgrading to a web browser that
                     <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
                 </p>
-            </video>
-            <span class="video_description" markdown="1">\
+            </video>\
         """ % (
             'video_%s' % block_number,
             '/' + os.path.join(block_data['path'], '480p.mp4'),
@@ -179,6 +177,26 @@ class VideoProcessor(CustomBlockProcessor):
             '/' + os.path.join(block_data['path'], '1440p.mp4'),
             '1440p',
         ))
+
+    def get_before_content(self, block_data, block_number):
+        # Split on video type here.
+        if block_data["type"] == self.TYPE_FULLSCREEN:
+            return self.video_div(block_data, block_number) + dedent("""\
+                <span class="video_description" markdown="1">\
+            """)
+        elif block_data["type"] == self.TYPE_SECTIONED:
+            return (
+                "<div class='row'><div class='col-md-9 col-xs-12'>" +
+                self.video_div(block_data, block_number) +
+                "</div>" +
+                "<div class='col-md-3 col-xs-12'>%s</div>" % (
+                    self.section_div(time, title)
+                    for time, title in self.options['sections']
+                )
+            )
+
+    def section_div(self, time, title):
+        return "<div class='section_choice' data_time='%s'><p>%s</p></div>" % (time, title)
 
     def get_after_content(self, block_data, block_number):
         return dedent("""\
