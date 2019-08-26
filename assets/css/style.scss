@@ -101,6 +101,24 @@ p::empty {
     padding: 0;
 }
 
+.section_choice {
+    /* Selected marker goes to the left of the actual div  */
+    margin-left: -10px;
+    padding-left: 10px;
+    /* Selected marker goes across entire div */
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    p {
+        margin: 0;
+    }
+
+    /* Border fade transition */
+    border-left: 3px solid #e26c6100;
+    transition: border-left-color 0.5s;
+}
+
 .section_choice.selected {
-    border-left: 3px solid #e26c61;
+    border-left-color: #e26c61;
 }
