@@ -153,7 +153,7 @@ class VideoProcessor(CustomBlockProcessor):
     def get_before_content(self, block_data, block_number):
         # Split on video type here.
         return dedent("""\
-            <video id='%s' class='video-js vjs-default-skin' controls preload='auto' width='640' height='264'>
+            <video id='%s' class='video-js vjs-default-skin' controls preload='auto'>
                 <source src='%s' type='video/mp4' label="%s" selected="true">
                 <source src='%s' type='video/mp4' label="%s">
                 <p class='vjs-no-js'>

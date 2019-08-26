@@ -10,6 +10,7 @@ const options = {
             'fullscreenToggle',
         ],
     },
+    fluid: true,
 };
 
 $('video').each(function() {
