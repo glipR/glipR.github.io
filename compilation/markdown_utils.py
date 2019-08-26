@@ -23,7 +23,7 @@ class CustomBlockProcessor(markdown.blockprocessors.BlockProcessor):
     start_id = r'\(~'
     end_id = r'~\)'
 
-    option_matcher = re.compile(r'\s*(?P<key>\S+)\s*:\s*(?P<value>\S+)\s*')
+    option_matcher = re.compile(r'\s*(?P<key>\S+)\s*:\s*(?P<value>(\s*[^\[]\S+[^\]]\s*)|\[(.*)\])\s*')
     default_options = {
         'numbering': True,
     }
@@ -78,8 +78,10 @@ class CustomBlockProcessor(markdown.blockprocessors.BlockProcessor):
         if start_match is not None:
             self.block_data = start_match.groupdict()
             self.options = copy.copy(self.default_options)
-            for key, value in self.option_matcher.findall(self.block_data.get('options', '') or ''):
-                self.options[key] = eval(value)
+            options = self.option_matcher.findall(self.block_data.get('options', '') or '')
+            for key_and_value in self.option_matcher.findall(self.block_data.get('options', '') or ''):
+                # could have multiple matches, so pick the largest rather than assuming 1:
+                self.options[key_and_value[0]] = eval(key_and_value[1])
             return True
         return False
 
