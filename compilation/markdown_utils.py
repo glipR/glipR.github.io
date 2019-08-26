@@ -162,9 +162,9 @@ class VideoProcessor(CustomBlockProcessor):
                     <span class="video_description">\
         """ % (
             'video_%s' % block_number,
-            os.path.join(block_data['path'], '480p.mp4'),
+            '/' + os.path.join(block_data['path'], '480p.mp4'),
             '480p',
-            os.path.join(block_data['path'], '1440p.mp4'),
+            '/' + os.path.join(block_data['path'], '1440p.mp4'),
             '1440p',
         ))
 
