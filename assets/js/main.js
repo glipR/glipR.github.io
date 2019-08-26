@@ -64,4 +64,24 @@ $('.section_div').each(function () {
         const player = videos[video_id];
         player.currentTime($(this).attr('data_time'));
     })
+
 });
+
+setInterval(function() {
+    $('.section_div').each(function () {
+        top_div = $(this);
+        const video_id = top_div.find('.video-js').attr('id');
+        const player = videos[video_id];
+        const time = player.currentTime();
+        const available_sections = [];
+        $('.section_choice').removeClass('selected')
+        top_div.find('.section_choice').each(function () {
+            if ($(this).attr('data_time') <= time) {
+                available_sections.push($(this));
+            }
+        });
+        if (available_sections.length) {
+            available_sections[available_sections.length - 1].addClass('selected');
+        }
+    });
+}, 100);

@@ -100,3 +100,7 @@ p::empty {
     margin: 0;
     padding: 0;
 }
+
+.section_choice.selected {
+    border-left: 3px solid #e26c61;
+}
