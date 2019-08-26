@@ -1,5 +1,21 @@
 // Custom Stuff
 
+const options = {
+    controlBar: {
+        children: [
+            'playToggle',
+            'progressControl',
+            'volumePanel',
+            'qualitySelector',
+            'fullscreenToggle',
+        ],
+    },
+};
+
+$('video').each(function() {
+    var player = videojs($(this).attr('id'), options);
+});
+
 // Github Pages Theme by @mattgraham(https://twitter.com/michigangraham)
 // For auto-generating section height and sidebar links.
 var sectionHeight = function() {
