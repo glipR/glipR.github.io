@@ -1,5 +1,8 @@
+import copy
 import markdown
 import os.path
+import re
+from textwrap import dedent
 
 class CustomBlockProcessor(markdown.blockprocessors.BlockProcessor):
     """A custom block to be wrapped in custom HTML."""
@@ -135,12 +138,37 @@ class CustomBlockProcessor(markdown.blockprocessors.BlockProcessor):
             self.block_number += 1
 
 
+class VideoProcessor(CustomBlockProcessor):
+
+    start_defn = r'@\[video\]\[(?P<type>\S+)\]\((?P<path>\S+)\)'
+
+    TYPE_FULLSCREEN = 'fullscreen'
+    TYPE_SECTIONED = 'sectioned'
+
+    TYPES = (
+        TYPE_FULLSCREEN,
+        TYPE_SECTIONED,
+    )
+
+    def get_before_content(self, block_data, block_number):
+        # Split on video type here.
+        return dedent("""\
+            <video src="%s"><span class="video_description">\
+        """ % os.path.join(block_data['path'], 'video.mp4'))
+
+    def get_after_content(self, block_data, block_number):
+        return dedent("""\
+            </span></video>\
+        """)
+
+
 class MyExtension(markdown.extensions.Extension):
     def __init__(self, *args, **kwargs):
         self.relative_path = kwargs.pop('relative_path', None)
         super().__init__(*args, **kwargs)
 
     block_processors = [
+        (VideoProcessor, 5000),
     ]
 
     def extendMarkdown(self, md):
