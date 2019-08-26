@@ -159,7 +159,9 @@ class VideoProcessor(CustomBlockProcessor):
                 <p class='vjs-no-js'>
                     To view this video please enable JavaScript, and consider upgrading to a web browser that
                     <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
-                    <span class="video_description">\
+                </p>
+            </video>
+            <span class="video_description" markdown="1">\
         """ % (
             'video_%s' % block_number,
             '/' + os.path.join(block_data['path'], '480p.mp4'),
@@ -170,7 +172,7 @@ class VideoProcessor(CustomBlockProcessor):
 
     def get_after_content(self, block_data, block_number):
         return dedent("""\
-            </span></p></video>\
+            </span>\
         """)
 
 
