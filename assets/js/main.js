@@ -13,8 +13,12 @@ const options = {
     fluid: true,
 };
 
+const videos = {};
+
 $('video').each(function() {
-    var player = videojs($(this).attr('id'), options);
+    const _id = $(this).attr('id');
+    var player = videojs(_id, options);
+    videos[_id] = player;
 });
 
 // Github Pages Theme by @mattgraham(https://twitter.com/michigangraham)
@@ -51,4 +55,13 @@ $(function() {
     sectionHeight();
 
     $('img').on('load', sectionHeight);
+});
+
+$('.section_div').each(function () {
+    top_div = $(this);
+    $(this).find('.section_choice').click(function () {
+        const video_id = top_div.find('.video-js').attr('id');
+        const player = videos[video_id];
+        player.currentTime($(this).attr('data_time'));
+    })
 });

@@ -189,7 +189,7 @@ class VideoProcessor(CustomBlockProcessor):
             )
         elif block_data["type"] == self.TYPE_SECTIONED:
             return (
-                "<div class='row'><div class='col-md-9 col-xs-12'>" +
+                "<div class='row section_div'><div class='col-md-9 col-xs-12'>" +
                 self.video_div(block_data, block_number) +
                 "</div>" +
                 "<div class='col-md-3 col-xs-12'>%s</div></div>" % ' '.join(
