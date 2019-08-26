@@ -183,27 +183,26 @@ class VideoProcessor(CustomBlockProcessor):
     def get_before_content(self, block_data, block_number):
         # Split on video type here.
         if block_data["type"] == self.TYPE_FULLSCREEN:
-            return self.video_div(block_data, block_number) + dedent("""\
-                <span class="video_description" markdown="1">\
-            """)
+            return (
+                self.video_div(block_data, block_number) +
+                "<span class='video_description' markdown='1'>"
+            )
         elif block_data["type"] == self.TYPE_SECTIONED:
             return (
                 "<div class='row'><div class='col-md-9 col-xs-12'>" +
                 self.video_div(block_data, block_number) +
                 "</div>" +
-                "<div class='col-md-3 col-xs-12'>%s</div>" % (
+                "<div class='col-md-3 col-xs-12'>%s</div></div>" % ' '.join(
                     self.section_div(time, title)
                     for time, title in self.options['sections']
-                )
+                ) + "<span class='video_description' markdown='1'>"
             )
 
     def section_div(self, time, title):
         return "<div class='section_choice' data_time='%s'><p>%s</p></div>" % (time, title)
 
     def get_after_content(self, block_data, block_number):
-        return dedent("""\
-            </span>\
-        """)
+        return "</span>"
 
 
 class MyExtension(markdown.extensions.Extension):
