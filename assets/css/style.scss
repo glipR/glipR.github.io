@@ -87,3 +87,16 @@
     font-weight: 900;
     content: "\f013";
 }
+
+.video_description {
+    color: #0000004e;
+    font-size: 0.75rem;
+    font-style: italic;
+    display: block;
+    margin-left: 1.5rem;
+}
+
+p::empty {
+    margin: 0;
+    padding: 0;
+}
