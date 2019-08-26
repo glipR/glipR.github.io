@@ -76,6 +76,14 @@
 .codehilite .vm { color: #f8f8f2 } /* Name.Variable.Magic */
 .codehilite .il { color: #ae81ff } /* Literal.Number.Integer.Long */
 
+/* Ensure js help text is disabled normally. */
 .vjs-no-js {
     display: none;
+}
+
+/* Cog icon for videojs quality selector */
+.vjs-icon-placeholder::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f013";
 }
