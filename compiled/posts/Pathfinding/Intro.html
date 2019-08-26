@@ -23,6 +23,7 @@ permalink: Pathfinding/Intro
 
     <!-- Add FA icon/font family before anything else -->
     <script src="https://kit.fontawesome.com/cad86dcf3d.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://vjs.zencdn.net/7.6.0/video-js.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/style.css">
     <script src="https://code.jquery.com/jquery-3.3.0.min.js" integrity="sha256-RTQy8VOmNlT6b2PIRur37p6JEBZUE7o8wPgMvu18MC4=" crossorigin="anonymous"></script>
@@ -80,15 +81,14 @@ we need fast computer algorithms to give us extremely optimal paths, or paths ov
 A <em>start</em> point and an <em>end</em> goal.</p>
 <p>We aim to begin at the start point, and via a process of movements between intermediate points, end up at the <em>end</em> goal.</p>
 <p>We might modify this definition later, to include some more interesting problems (multiple starts, multiple goals, path weighting, etc.), but for now this is more than enough to discuss baby's first pathfinding algorithm :)</p>
-<p><video id='video_1' class='video-js vjs-default-skin vjs-fluid vjs-big-play-centered' controls preload='auto'>
+<p><div class='row'><div class='col-md-9 col-xs-12'><video id='video_1' class='video-js vjs-default-skin vjs-fluid vjs-big-play-centered' controls preload='auto'>
     <source src='/assets/videos/test/480p.mp4' type='video/mp4' label="480p" selected="true">
     <source src='/assets/videos/test/1440p.mp4' type='video/mp4' label="1440p">
     <p class='vjs-no-js'>
         To view this video please enable JavaScript, and consider upgrading to a web browser that
         <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
     </p>
-</video>
-<span class="video_description" markdown="1">
+</video>        </div><div class='col-md-3 col-xs-12'><div class='section_choice' data_time='0'><p>Here is text 1</p></div> <div class='section_choice' data_time='1.5'><p>Now we are at part 2</p></div></div></div><span class='video_description' markdown='1'>
 <p>Here's some <strong>example</strong> text</p>
 </span></p>
 <p>From now on I'll call these 'points' <em>vertices</em> (<em>vertex</em> singular), and the connections between these <em>edges</em>.

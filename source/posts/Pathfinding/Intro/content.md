@@ -36,7 +36,7 @@ We aim to begin at the start point, and via a process of movements between inter
 
 We might modify this definition later, to include some more interesting problems (multiple starts, multiple goals, path weighting, etc.), but for now this is more than enough to discuss baby's first pathfinding algorithm :)
 
-@[video][fullscreen](assets/videos/test)(~
+@[video][sectioned](assets/videos/test) {sections: [(0, 'Here is text 1'), (1.5, 'Now we are at part 2')]} (~
     Here's some **example** text
 ~)
 
