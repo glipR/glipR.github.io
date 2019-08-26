@@ -4,6 +4,16 @@ import os.path
 import re
 from textwrap import dedent
 
+
+class PTagCleanup(markdown.postprocessors.Postprocessor):
+
+    def run(self, text):
+        return re.sub(
+            r'<span([^>]*)></p>',
+            r'<span\1>',
+            text.replace('<p></span>', '</span>'),
+        )
+
 class CustomBlockProcessor(markdown.blockprocessors.BlockProcessor):
     """A custom block to be wrapped in custom HTML."""
 
@@ -185,11 +195,19 @@ class MyExtension(markdown.extensions.Extension):
         (VideoProcessor, 5000),
     ]
 
+    post_processors = [
+        (PTagCleanup, -1),
+    ]
+
     def extendMarkdown(self, md):
         for processor, priority in self.block_processors:
             p = processor(md.parser)
             p.relative_path = self.relative_path
             md.parser.blockprocessors.register(p, processor.__name__, priority)
+        for processor, priority in self.post_processors:
+            p = processor(md)
+            p.relative_path = self.relative_path
+            md.postprocessors.register(p, processor.__name__, priority)
 
 
 def compile_md_to_string(filename):
