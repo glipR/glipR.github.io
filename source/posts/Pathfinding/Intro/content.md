@@ -36,7 +36,9 @@ We aim to begin at the start point, and via a process of movements between inter
 
 We might modify this definition later, to include some more interesting problems (multiple starts, multiple goals, path weighting, etc.), but for now this is more than enough to discuss baby's first pathfinding algorithm :)
 
-**Video of graph definition**
+@[video][fullscreen](assets/videos/test)(~
+    Here's some **example** text
+~)
 
 From now on I'll call these 'points' *vertices* (*vertex* singular), and the connections between these *edges*.
 This is because the current definition shares its likeness with mathematical graphs,
