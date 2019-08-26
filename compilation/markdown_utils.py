@@ -153,12 +153,24 @@ class VideoProcessor(CustomBlockProcessor):
     def get_before_content(self, block_data, block_number):
         # Split on video type here.
         return dedent("""\
-            <video src="%s"><span class="video_description">\
-        """ % os.path.join(block_data['path'], 'video.mp4'))
+            <video id='%s' class='video-js vjs-default-skin' controls preload='auto' width='640' height='264' data-setup='{}'>
+                <source src='%s' type='video/mp4' label="%s" selected="true">
+                <source src='%s' type='video/mp4' label="%s">
+                <p class='vjs-no-js'>
+                    To view this video please enable JavaScript, and consider upgrading to a web browser that
+                    <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
+                    <span class="video_description">\
+        """ % (
+            'video_%s' % block_number,
+            os.path.join(block_data['path'], '480p.mp4'),
+            '480p',
+            os.path.join(block_data['path'], '1440p.mp4'),
+            '1440p',
+        ))
 
     def get_after_content(self, block_data, block_number):
         return dedent("""\
-            </span></video>\
+            </span></p></video>\
         """)
 
 
