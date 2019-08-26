@@ -21,9 +21,9 @@ permalink: Pathfinding/Intro
 {"@type":"WebPage","headline":"Pathfinding","url":"https://blog.glipr.dev/Pathfinding/Intro","description":"How computers get you from A to B","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
+    <link href="https://vjs.zencdn.net/7.6.0/video-js.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/style.css">
     <script src="https://code.jquery.com/jquery-3.3.0.min.js" integrity="sha256-RTQy8VOmNlT6b2PIRur37p6JEBZUE7o8wPgMvu18MC4=" crossorigin="anonymous"></script>
-    <script src="/assets/js/main.js"></script>
     <!--[if lt IE 9]>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g=" crossorigin="anonymous"></script>
     <![endif]-->
@@ -78,9 +78,15 @@ we need fast computer algorithms to give us extremely optimal paths, or paths ov
 A <em>start</em> point and an <em>end</em> goal.</p>
 <p>We aim to begin at the start point, and via a process of movements between intermediate points, end up at the <em>end</em> goal.</p>
 <p>We might modify this definition later, to include some more interesting problems (multiple starts, multiple goals, path weighting, etc.), but for now this is more than enough to discuss baby's first pathfinding algorithm :)</p>
-<p><video src="assets/videos/test/video.mp4"><span class="video_description"></p>
+<p><video id='video_1' class='video-js vjs-default-skin' controls preload='auto' width='640' height='264' data-setup='{}'>
+    <source src='assets/videos/test/480p.mp4' type='video/mp4' label="480p" selected="true">
+    <source src='assets/videos/test/1440p.mp4' type='video/mp4' label="1440p">
+    <p class='vjs-no-js'>
+        To view this video please enable JavaScript, and consider upgrading to a web browser that
+        <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
+        <span class="video_description"></p>
 <p>Here's some <strong>example</strong> text</p>
-<p></span></video></p>
+<p></span></p></video></p>
 <p>From now on I'll call these 'points' <em>vertices</em> (<em>vertex</em> singular), and the connections between these <em>edges</em>.
 This is because the current definition shares its likeness with mathematical graphs,
 which has the same terminology.</p>
@@ -109,5 +115,8 @@ Let's not worry about this for now, and try and turn it into an algorithm!</p>
         </footer>
     </div>
 
+    <script src='https://vjs.zencdn.net/7.6.0/video.js'></script>
+    <script src="https://unpkg.com/silvermine-videojs-quality-selector/dist/js/silvermine-videojs-quality-selector.min.js"></script>
+    <script src="/assets/js/main.js"></script>
 </body>
 </html>
