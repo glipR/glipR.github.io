@@ -82,8 +82,8 @@
 }
 
 /* Cog icon for videojs quality selector */
-.vjs-icon-placeholder::before {
-    font-family: "Font Awesome 5 Free";
+.vjs-quality-selector .vjs-icon-placeholder::before {
+    font-family: "FontAwesome";
     font-weight: 900;
     content: "\f013";
 }
