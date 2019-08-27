@@ -56,14 +56,61 @@ most algorithms can be explained in plain english rather succinctly).
 
 # Keep it Simple Stupid
 
+## Natural Approach
+
 So let's do it! Let's get from A to B! I think it's first best to think how you'd approach this situation, and try as best you can to put that into algorithmic terms, using the queries mentioned above where  appropriate. Here's some flashing graphs, see what your brain first does when it tries to find a path between the red and green dots.
 
+@[video][fullscreen](assets/videos/Pathfinding/flashing_graphs) (~
+    There's lots of different graph types, aren't there?
+~)
+
 For me personally, when I first am flashed a graph like the ones above,
-I kind of 'search out' from the start vertex. That is, I look at the neighbours of the start vertex,
-then looking at their neighbours, until I find the end vertex.
+I kind of 'search out' from the start vertex. That is, I look at the vertices close to the start vertex,
+then looking out a bit further, etc., until I find the end vertex.
 
 Obviously my brain doesn't follow that to a tee,
 but for smaller graphs that's where my mind wanders most of the time.
 
 For a human, this might not make sense for increasingly big graphs, because we need to keep track of all of the current vertices we are looking at.
 Let's not worry about this for now, and try and turn it into an algorithm!
+
+## Formalizing
+
+Rather than keeping these algorithms completely within our brains,
+let's turn this into a set of simple and unambiguous steps.
+
+First, we'll have the notion of vertices we are currently looking at.
+We'll call these the `expanding` nodes (Still applicable here, but moreso because its related to later algorithms.)
+
+The first algorithm we begin 'expanding' from is the start node
+
+```python3
+expanding = [graph.start]
+```
+
+Next, and most importantly, we need to formalise what we mean by 'searching out' is, and in what order we search out from vertices.
+
+First of all, I think it's most reasonable to define 'searching out' as appending all of a vertex's neighbours to the `expanding` set (That haven't already been expanded).
+
+After that, I think there are two natural ways to order the way we 'expand' these vertices:
+
+1. Expand the vertices in zones dependant on distance from the start vertex. (Favouring Breadth of Search)
+> More what I was describing with my approach
+2. Keep expanding neighbours until we hit the end of a graph, then begin backtracking (Favouring Depth of Search)
+> A good approach for testing whether a path exists, but maybe not for generating the shortest one.
+
+I'm going to write up the answer for (1), but it'd be a good exercise to try the same for (2):
+
+```python3
+for vertex in graph:
+    vertex.expanded = False
+expanding = [graph.start]
+while graph.end not in expanding:
+    new_expanding = []
+    for vertex in expanding:
+        for neighbour in graph.expanding(vertex):
+            if neighbour not in expanding and not neighbour.expanded:
+                new_expanding.append(neighbour)
+        vertex.expanded = True
+    expanding = new_expanding
+```

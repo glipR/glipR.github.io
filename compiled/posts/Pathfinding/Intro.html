@@ -104,14 +104,61 @@ which has the same terminology.</p>
 (However I will try to keep away from code of any form,
 most algorithms can be explained in plain english rather succinctly).</p>
 <h1>Keep it Simple Stupid</h1>
+<h2>Natural Approach</h2>
 <p>So let's do it! Let's get from A to B! I think it's first best to think how you'd approach this situation, and try as best you can to put that into algorithmic terms, using the queries mentioned above where  appropriate. Here's some flashing graphs, see what your brain first does when it tries to find a path between the red and green dots.</p>
+<p><video id='video_2' class='video-js vjs-default-skin vjs-fluid vjs-big-play-centered' controls preload='auto'>
+    <source src='/assets/videos/Pathfinding/flashing_graphs/480p.mp4' type='video/mp4' label="480p" selected="true">
+    <source src='/assets/videos/Pathfinding/flashing_graphs/1440p.mp4' type='video/mp4' label="1440p">
+    <p class='vjs-no-js'>
+        To view this video please enable JavaScript, and consider upgrading to a web browser that
+        <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
+    </p>
+</video>        <span class='video_description' markdown='1'>
+<p>There's lots of different graph types, aren't there?</p>
+</span></p>
 <p>For me personally, when I first am flashed a graph like the ones above,
-I kind of 'search out' from the start vertex. That is, I look at the neighbours of the start vertex,
-then looking at their neighbours, until I find the end vertex.</p>
+I kind of 'search out' from the start vertex. That is, I look at the vertices close to the start vertex,
+then looking out a bit further, etc., until I find the end vertex.</p>
 <p>Obviously my brain doesn't follow that to a tee,
 but for smaller graphs that's where my mind wanders most of the time.</p>
 <p>For a human, this might not make sense for increasingly big graphs, because we need to keep track of all of the current vertices we are looking at.
 Let's not worry about this for now, and try and turn it into an algorithm!</p>
+<h2>Formalizing</h2>
+<p>Rather than keeping these algorithms completely within our brains,
+let's turn this into a set of simple and unambiguous steps.</p>
+<p>First, we'll have the notion of vertices we are currently looking at.
+We'll call these the <code>expanding</code> nodes (Still applicable here, but moreso because its related to later algorithms.)</p>
+<p>The first algorithm we begin 'expanding' from is the start node</p>
+<div class="codehilite"><pre><span></span><span class="n">expanding</span> <span class="o">=</span> <span class="p">[</span><span class="n">graph</span><span class="o">.</span><span class="n">start</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Next, and most importantly, we need to formalise what we mean by 'searching out' is, and in what order we search out from vertices.</p>
+<p>First of all, I think it's most reasonable to define 'searching out' as appending all of a vertex's neighbours to the <code>expanding</code> set (That haven't already been expanded).</p>
+<p>After that, I think there are two natural ways to order the way we 'expand' these vertices:</p>
+<ol>
+<li>Expand the vertices in zones dependant on distance from the start vertex. (Favouring Breadth of Search)<blockquote>
+<p>More what I was describing with my approach</p>
+</blockquote>
+</li>
+<li>Keep expanding neighbours until we hit the end of a graph, then begin backtracking (Favouring Depth of Search)<blockquote>
+<p>A good approach for testing whether a path exists, but maybe not for generating the shortest one.</p>
+</blockquote>
+</li>
+</ol>
+<p>I'm going to write up the answer for (1), but it'd be a good exercise to try the same for (2):</p>
+<div class="codehilite"><pre><span></span><span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">:</span>
+    <span class="n">vertex</span><span class="o">.</span><span class="n">expanded</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">expanding</span> <span class="o">=</span> <span class="p">[</span><span class="n">graph</span><span class="o">.</span><span class="n">start</span><span class="p">]</span>
+<span class="k">while</span> <span class="n">graph</span><span class="o">.</span><span class="n">end</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">expanding</span><span class="p">:</span>
+    <span class="n">new_expanding</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">expanding</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">neighbour</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">expanding</span><span class="p">(</span><span class="n">vertex</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">neighbour</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">expanding</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">neighbour</span><span class="o">.</span><span class="n">expanded</span><span class="p">:</span>
+                <span class="n">new_expanding</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbour</span><span class="p">)</span>
+        <span class="n">vertex</span><span class="o">.</span><span class="n">expanded</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">expanding</span> <span class="o">=</span> <span class="n">new_expanding</span>
+</pre></div>
 
         </section>
         <footer>
