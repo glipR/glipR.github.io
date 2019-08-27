@@ -179,7 +179,7 @@ class VideoProcessor(CustomBlockProcessor):
 
     def video_div(self, block_data, block_number):
         return (
-            ("<video id='%s' class='video-js vjs-default-skin vjs-fluid vjs-big-play-centered' controls preload='auto'>" + 'video_%s' % block_number) +
+            ("<video id='%s' class='video-js vjs-default-skin vjs-fluid vjs-big-play-centered' controls preload='auto'>" % ('video_%s' % block_number)) +
             '\n'.join(self.source_divs(block_data, block_number)) +
             dedent("""\
                 <p class='vjs-no-js'>
