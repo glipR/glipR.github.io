@@ -162,23 +162,32 @@ class VideoProcessor(CustomBlockProcessor):
         TYPE_SECTIONED,
     )
 
+    def source_divs(self, block_data, block_number):
+        sources = []
+        for filename in os.listdir(block_data['path']):
+            if filename.endswith('mp4'):
+                label, extension = os.path.splitext(filename)
+                sources.append([label, "<source src='%s' type='video/%s' label='%s' selected='%s'>" % (
+                    '/' + os.path.join(block_data['path'], filename),
+                    extension.replace('.', ''),
+                    label,
+                    'false'
+                )])
+        sorted_sources_and_labels = sorted(sources, key=lambda x: int(x[0][:-1]), reverse=True)
+        sorted_sources_and_labels[-1][1] = sorted_sources_and_labels[-1][1].replace("selected='false'", "selected='true'")
+        return map(lambda x: x[1], sorted_sources_and_labels)
+
     def video_div(self, block_data, block_number):
-        return dedent("""\
-            <video id='%s' class='video-js vjs-default-skin vjs-fluid vjs-big-play-centered' controls preload='auto'>
-                <source src='%s' type='video/mp4' label="%s" selected="true">
-                <source src='%s' type='video/mp4' label="%s">
+        return (
+            ("<video id='%s' class='video-js vjs-default-skin vjs-fluid vjs-big-play-centered' controls preload='auto'>" + 'video_%s' % block_number) +
+            '\n'.join(self.source_divs(block_data, block_number)) +
+            dedent("""\
                 <p class='vjs-no-js'>
                     To view this video please enable JavaScript, and consider upgrading to a web browser that
                     <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
-                </p>
-            </video>\
-        """ % (
-            'video_%s' % block_number,
-            '/' + os.path.join(block_data['path'], '480p.mp4'),
-            '480p',
-            '/' + os.path.join(block_data['path'], '1440p.mp4'),
-            '1440p',
-        ))
+                </p></video>\
+            """)
+        )
 
     def get_before_content(self, block_data, block_number):
         # Split on video type here.

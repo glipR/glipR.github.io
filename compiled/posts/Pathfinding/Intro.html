@@ -81,14 +81,11 @@ we need fast computer algorithms to give us extremely optimal paths, or paths ov
 A <em>start</em> point and an <em>end</em> goal.</p>
 <p>We aim to begin at the start point, and via a process of movements between intermediate points, end up at the <em>end</em> goal.</p>
 <p>We might modify this definition later, to include some more interesting problems (multiple starts, multiple goals, path weighting, etc.), but for now this is more than enough to discuss baby's first pathfinding algorithm :)</p>
-<p><div class='row section_div'><div class='col-md-9 col-xs-12'><video id='video_1' class='video-js vjs-default-skin vjs-fluid vjs-big-play-centered' controls preload='auto'>
-    <source src='/assets/videos/test/480p.mp4' type='video/mp4' label="480p" selected="true">
-    <source src='/assets/videos/test/1440p.mp4' type='video/mp4' label="1440p">
-    <p class='vjs-no-js'>
-        To view this video please enable JavaScript, and consider upgrading to a web browser that
-        <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
-    </p>
-</video>        </div><div class='col-md-3 col-xs-12'><div class='section_choice' data_time='0'><p>Here is text 1</p></div> <div class='section_choice' data_time='1.5'><p>Now we are at part 2</p></div></div></div><span class='video_description' markdown='1'>
+<p><div class='row section_div'><div class='col-md-9 col-xs-12'><video id='%s' class='video-js vjs-default-skin vjs-fluid vjs-big-play-centered' controls preload='auto'>video_1<source src='/assets/videos/test/1440p.mp4' type='video/mp4' label='1440p' selected='false'>
+<source src='/assets/videos/test/480p.mp4' type='video/mp4' label='480p' selected='true'><p class='vjs-no-js'>
+    To view this video please enable JavaScript, and consider upgrading to a web browser that
+    <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
+</p></video>            </div><div class='col-md-3 col-xs-12'><div class='section_choice' data_time='0'><p>Here is text 1</p></div> <div class='section_choice' data_time='1.5'><p>Now we are at part 2</p></div></div></div><span class='video_description' markdown='1'>
 <p>Here's some <strong>example</strong> text</p>
 </span></p>
 <p>From now on I'll call these 'points' <em>vertices</em> (<em>vertex</em> singular), and the connections between these <em>edges</em>.
@@ -106,14 +103,12 @@ most algorithms can be explained in plain english rather succinctly).</p>
 <h1>Keep it Simple Stupid</h1>
 <h2>Natural Approach</h2>
 <p>So let's do it! Let's get from A to B! I think it's first best to think how you'd approach this situation, and try as best you can to put that into algorithmic terms, using the queries mentioned above where  appropriate. Here's some flashing graphs, see what your brain first does when it tries to find a path between the red and green dots.</p>
-<p><video id='video_2' class='video-js vjs-default-skin vjs-fluid vjs-big-play-centered' controls preload='auto'>
-    <source src='/assets/videos/Pathfinding/flashing_graphs/480p.mp4' type='video/mp4' label="480p" selected="true">
-    <source src='/assets/videos/Pathfinding/flashing_graphs/1440p.mp4' type='video/mp4' label="1440p">
-    <p class='vjs-no-js'>
-        To view this video please enable JavaScript, and consider upgrading to a web browser that
-        <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
-    </p>
-</video>        <span class='video_description' markdown='1'>
+<p><video id='%s' class='video-js vjs-default-skin vjs-fluid vjs-big-play-centered' controls preload='auto'>video_2<source src='/assets/videos/Pathfinding/flashing_graphs/1440p.mp4' type='video/mp4' label='1440p' selected='false'>
+<source src='/assets/videos/Pathfinding/flashing_graphs/720p.mp4' type='video/mp4' label='720p' selected='false'>
+<source src='/assets/videos/Pathfinding/flashing_graphs/480p.mp4' type='video/mp4' label='480p' selected='true'><p class='vjs-no-js'>
+    To view this video please enable JavaScript, and consider upgrading to a web browser that
+    <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
+</p></video>            <span class='video_description' markdown='1'>
 <p>There's lots of different graph types, aren't there?</p>
 </span></p>
 <p>For me personally, when I first am flashed a graph like the ones above,
