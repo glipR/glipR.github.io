@@ -151,14 +151,15 @@ We'll call these the <code>expanding</code> nodes (Still applicable here, but mo
 <p>I'm going to write up the answer for (1), but it'd be a good exercise to try the same for (2):</p>
 <div class="codehilite"><pre><span></span><span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">:</span>
     <span class="n">vertex</span><span class="o">.</span><span class="n">expanded</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="n">expanding</span> <span class="o">=</span> <span class="p">[</span><span class="n">graph</span><span class="o">.</span><span class="n">start</span><span class="p">]</span>
+<span class="n">expanding</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
 <span class="k">while</span> <span class="ow">not</span> <span class="n">graph</span><span class="o">.</span><span class="n">end</span><span class="o">.</span><span class="n">expanded</span><span class="p">:</span>
-    <span class="n">new_expanding</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">new_expanding</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">expanding</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">neighbour</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">expanding</span><span class="p">(</span><span class="n">vertex</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">neighbour</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">expanding</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">neighbour</span><span class="o">.</span><span class="n">expanded</span><span class="p">:</span>
-                <span class="n">new_expanding</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbour</span><span class="p">)</span>
         <span class="n">vertex</span><span class="o">.</span><span class="n">expanded</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">expanding</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">neighbour</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">neighbours</span><span class="p">(</span><span class="n">vertex</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">neighbour</span><span class="o">.</span><span class="n">expanded</span><span class="p">:</span>
+                <span class="n">new_expanding</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">neighbour</span><span class="p">)</span>
     <span class="n">expanding</span> <span class="o">=</span> <span class="n">new_expanding</span>
 </pre></div>
 

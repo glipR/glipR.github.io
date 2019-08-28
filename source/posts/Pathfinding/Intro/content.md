@@ -110,13 +110,14 @@ I'm going to write up the answer for (1), but it'd be a good exercise to try the
 ```python3
 for vertex in graph:
     vertex.expanded = False
-expanding = [graph.start]
+expanding = set(graph.start)
 while not graph.end.expanded:
-    new_expanding = []
+    new_expanding = set()
     for vertex in expanding:
-        for neighbour in graph.expanding(vertex):
-            if neighbour not in expanding and not neighbour.expanded:
-                new_expanding.append(neighbour)
         vertex.expanded = True
+    for vertex in expanding:
+        for neighbour in graph.neighbours(vertex):
+            if not neighbour.expanded:
+                new_expanding.add(neighbour)
     expanding = new_expanding
 ```
