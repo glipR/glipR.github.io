@@ -9,12 +9,14 @@ There's obviously a reason those all seemed to vanish in a matter of years, and 
 we now have a little device which tells where to go, with better accuracy and more knowledge
 of the current road state than a book could ever encapsulate.
 
-<div class="row">
-    <div class="col-md-6 col-xs-12" markdown="1">
+<div class="row" markdown="1">
+    <div class="col-md-6 col-xs-12">
         On the contrary, we've all seen times where this *reliance* on algorithms has served us poorly,
         or at the very least has confused us to see such a bad solution to a simple problem.
     </div>
-    <img class="col-md-6 col-xs-12" src="https://media.giphy.com/media/8vzg9PiyeBGgAxAs6d/giphy.gif" />
+    <div class="col-md-6 col-xs-12">
+        <img src="https://media.giphy.com/media/8vzg9PiyeBGgAxAs6d/giphy.gif" />
+    </div>
 </div>
 
 However, if you don't care how your little machine does all the things for you,
