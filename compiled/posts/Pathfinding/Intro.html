@@ -78,7 +78,7 @@ hopefully I can at least convince you that the discussion and evolution of these
 and applicable in many other algorithmic problem areas.</p>
 <p><strong>Flashy parts of pathfinding algorithms</strong></p>
 <h1>The general problem</h1>
-<p>On of the amazing things about discussing pathfinding algorithms
+<p>One of the amazing things about discussing pathfinding algorithms
 is that pathfinding is something we do multiple times a day, without assistance from technology,
 and so its very intuitive to discuss topics here that might have seemed more abstract in a different problem domain.</p>
 <p>The key difference here is that while we pathfind often on a very small scale,
@@ -88,12 +88,12 @@ we need fast computer algorithms to give us extremely optimal paths, or paths ov
 A <em>start</em> point and an <em>end</em> goal.</p>
 <p>We aim to begin at the start point, and via a process of movements between intermediate points, end up at the <em>end</em> goal.</p>
 <p>We might modify this definition later, to include some more interesting problems (multiple starts, multiple goals, path weighting, etc.), but for now this is more than enough to discuss baby's first pathfinding algorithm :)</p>
-<p><div class='row section_div'><div class='col-md-9 col-xs-12'><video id='video_1' class='video-js vjs-default-skin vjs-fluid vjs-big-play-centered' controls preload='auto'><source src='/assets/videos/test/1440p.mp4' type='video/mp4' label='1440p' selected='false'>
-<source src='/assets/videos/test/480p.mp4' type='video/mp4' label='480p' selected='true'><p class='vjs-no-js'>
+<p><div class='row section_div'><div class='col-md-9 col-xs-12'><video id='video_1' class='video-js vjs-default-skin vjs-fluid vjs-big-play-centered' controls preload='auto'><source src='/assets/videos/Pathfinding/generic_graph/1440p.mp4' type='video/mp4' label='1440p' selected='false'>
+<source src='/assets/videos/Pathfinding/generic_graph/720p.mp4' type='video/mp4' label='720p' selected='false'>
+<source src='/assets/videos/Pathfinding/generic_graph/480p.mp4' type='video/mp4' label='480p' selected='true'><p class='vjs-no-js'>
     To view this video please enable JavaScript, and consider upgrading to a web browser that
     <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
-</p></video>            </div><div class='col-md-3 col-xs-12'><div class='section_choice' data_time='0'><p>Here is text 1</p></div> <div class='section_choice' data_time='1.5'><p>Now we are at part 2</p></div></div></div><span class='video_description' markdown='1'>
-<p>Here's some <strong>example</strong> text</p>
+</p></video>            </div><div class='col-md-3 col-xs-12'><div class='section_choice' data_time='0'><p>Start and End</p></div> <div class='section_choice' data_time='5'><p>Add Intermediate Points</p></div> <div class='section_choice' data_time='9'><p>The Wider Domain</p></div></div></div><span class='video_description' markdown='1'>
 </span></p>
 <p>From now on I'll call these 'points' <em>vertices</em> (<em>vertex</em> singular), and the connections between these <em>edges</em>.
 This is because the current definition shares its likeness with mathematical graphs,

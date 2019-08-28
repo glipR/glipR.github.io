@@ -27,7 +27,7 @@ and applicable in many other algorithmic problem areas.
 
 # The general problem
 
-On of the amazing things about discussing pathfinding algorithms
+One of the amazing things about discussing pathfinding algorithms
 is that pathfinding is something we do multiple times a day, without assistance from technology,
 and so its very intuitive to discuss topics here that might have seemed more abstract in a different problem domain.
 
@@ -43,8 +43,7 @@ We aim to begin at the start point, and via a process of movements between inter
 
 We might modify this definition later, to include some more interesting problems (multiple starts, multiple goals, path weighting, etc.), but for now this is more than enough to discuss baby's first pathfinding algorithm :)
 
-@[video][sectioned](assets/videos/test) {sections: [(0, 'Here is text 1'), (1.5, 'Now we are at part 2')]} (~
-    Here's some **example** text
+@[video][sectioned](assets/videos/Pathfinding/generic_graph) {sections: [(0, 'Start and End'), (5, 'Add Intermediate Points'), (9, 'The Wider Domain')]} (~
 ~)
 
 From now on I'll call these 'points' *vertices* (*vertex* singular), and the connections between these *edges*.
