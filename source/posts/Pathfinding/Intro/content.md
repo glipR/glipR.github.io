@@ -9,8 +9,12 @@ There's obviously a reason those all seemed to vanish in a matter of years, and 
 we now have a little device which tells where to go, with better accuracy and more knowledge
 of the current road state than a book could ever encapsulate.
 
-*Split me into a half page? For desktop view, mobile should still see me 1 by 1*
-On the contrary, we've all seen times where this reliance on algorithms has served us **GIF**poorly.
+<div class="row">
+    <div class="col-md-6 col-xs-12">
+        On the contrary, we've all seen times where this reliance on algorithms has served us poorly.
+    </div>
+    <img class="col-md-6 col-xs-12" src="https://media.giphy.com/media/8vzg9PiyeBGgAxAs6d/giphy.gif" />
+</div>
 
 However, if you don't care how your little machine does all the things for you,
 hopefully I can at least convince you that the discussion and evolution of these algorithms is beautiful,
@@ -105,7 +109,7 @@ I'm going to write up the answer for (1), but it'd be a good exercise to try the
 for vertex in graph:
     vertex.expanded = False
 expanding = [graph.start]
-while graph.end not in expanding:
+while not graph.end.expanded:
     new_expanding = []
     for vertex in expanding:
         for neighbour in graph.expanding(vertex):

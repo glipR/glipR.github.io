@@ -64,8 +64,13 @@ that aren't just 'get from here to there'.</p>
 There's obviously a reason those all seemed to vanish in a matter of years, and that's because
 we now have a little device which tells where to go, with better accuracy and more knowledge
 of the current road state than a book could ever encapsulate.</p>
-<p><em>Split me into a half page? For desktop view, mobile should still see me 1 by 1</em>
-On the contrary, we've all seen times where this reliance on algorithms has served us <strong>GIF</strong>poorly.</p>
+<div class="row">
+    <div class="col-md-6 col-xs-12">
+        On the contrary, we've all seen times where this reliance on algorithms has served us poorly.
+    </div>
+    <img class="col-md-6 col-xs-12" src="https://media.giphy.com/media/8vzg9PiyeBGgAxAs6d/giphy.gif" />
+</div>
+
 <p>However, if you don't care how your little machine does all the things for you,
 hopefully I can at least convince you that the discussion and evolution of these algorithms is beautiful,
 and applicable in many other algorithmic problem areas.</p>
@@ -145,7 +150,7 @@ We'll call these the <code>expanding</code> nodes (Still applicable here, but mo
 <div class="codehilite"><pre><span></span><span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">:</span>
     <span class="n">vertex</span><span class="o">.</span><span class="n">expanded</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="n">expanding</span> <span class="o">=</span> <span class="p">[</span><span class="n">graph</span><span class="o">.</span><span class="n">start</span><span class="p">]</span>
-<span class="k">while</span> <span class="n">graph</span><span class="o">.</span><span class="n">end</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">expanding</span><span class="p">:</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">graph</span><span class="o">.</span><span class="n">end</span><span class="o">.</span><span class="n">expanded</span><span class="p">:</span>
     <span class="n">new_expanding</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">expanding</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">neighbour</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">expanding</span><span class="p">(</span><span class="n">vertex</span><span class="p">):</span>
