@@ -10,8 +10,9 @@ we now have a little device which tells where to go, with better accuracy and mo
 of the current road state than a book could ever encapsulate.
 
 <div class="row">
-    <div class="col-md-6 col-xs-12">
-        On the contrary, we've all seen times where this reliance on algorithms has served us poorly.
+    <div class="col-md-6 col-xs-12" markdown="1">
+        On the contrary, we've all seen times where this *reliance* on algorithms has served us poorly,
+        or at the very least has confused us to see such a bad solution to a simple problem.
     </div>
     <img class="col-md-6 col-xs-12" src="https://media.giphy.com/media/8vzg9PiyeBGgAxAs6d/giphy.gif" />
 </div>
