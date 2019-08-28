@@ -10,13 +10,13 @@ we now have a little device which tells where to go, with better accuracy and mo
 of the current road state than a book could ever encapsulate.
 
 <div class="row" markdown="1">
-    <div class="col-md-6 col-xs-12">
-        On the contrary, we've all seen times where this *reliance* on algorithms has served us poorly,
-        or at the very least has confused us to see such a bad solution to a simple problem.
-    </div>
-    <div class="col-md-6 col-xs-12">
-        <img src="https://media.giphy.com/media/8vzg9PiyeBGgAxAs6d/giphy.gif" />
-    </div>
+<div class="col-md-6 col-xs-12">
+    On the contrary, we've all seen times where this *reliance* on algorithms has served us poorly,
+    or at the very least has confused us to see such a bad solution to a simple problem.
+</div>
+<div class="col-md-6 col-xs-12">
+    <img src="https://media.giphy.com/media/8vzg9PiyeBGgAxAs6d/giphy.gif" />
+</div>
 </div>
 
 However, if you don't care how your little machine does all the things for you,
