@@ -74,7 +74,7 @@ setInterval(function() {
         let player = videos[video_id];
         let time = player.currentTime();
         let available_sections = [];
-        $('.section_choice').removeClass('selected')
+        top_div.find('.section_choice').removeClass('selected')
         top_div.find('.section_choice').each(function () {
             if ($(this).attr('data_time') <= time) {
                 available_sections.push($(this));
