@@ -70,10 +70,10 @@ $('.section_div').each(function () {
 setInterval(function() {
     $('.section_div').each(function () {
         let top_div = $(this);
-        const video_id = top_div.find('.video-js').attr('id');
-        const player = videos[video_id];
-        const time = player.currentTime();
-        const available_sections = [];
+        let video_id = top_div.find('.video-js').attr('id');
+        let player = videos[video_id];
+        let time = player.currentTime();
+        let available_sections = [];
         $('.section_choice').removeClass('selected')
         top_div.find('.section_choice').each(function () {
             if ($(this).attr('data_time') <= time) {
