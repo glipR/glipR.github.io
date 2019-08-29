@@ -21,8 +21,6 @@ $('video').each(function() {
     videos[_id] = player;
 });
 
-console.log(videos);
-
 // Github Pages Theme by @mattgraham(https://twitter.com/michigangraham)
 // For auto-generating section height and sidebar links.
 var sectionHeight = function() {
@@ -60,11 +58,9 @@ $(function() {
 });
 
 $('.section_div').each(function () {
-    top_div = $(this);
+    let top_div = $(this);
     $(this).find('.section_choice').click(function () {
-        console.log(top_div);
         const video_id = top_div.find('.video-js').attr('id');
-        console.log(video_id);
         const player = videos[video_id];
         player.currentTime($(this).attr('data_time'));
     })
@@ -73,7 +69,7 @@ $('.section_div').each(function () {
 
 setInterval(function() {
     $('.section_div').each(function () {
-        top_div = $(this);
+        let top_div = $(this);
         const video_id = top_div.find('.video-js').attr('id');
         const player = videos[video_id];
         const time = player.currentTime();
