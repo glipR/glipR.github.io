@@ -76,7 +76,11 @@ of the current road state than a book could ever encapsulate.</p>
 <p>However, if you don't care how your little machine does all the things for you,
 hopefully I can at least convince you that the discussion and evolution of these algorithms is beautiful,
 and applicable in many other algorithmic problem areas.</p>
-<p><strong>Flashy parts of pathfinding algorithms</strong></p>
+<p><div class='row section_div'><div class='col-md-9 col-xs-12'><video id='video_1' class='video-js vjs-default-skin vjs-fluid vjs-big-play-centered' controls preload='auto'><source src='/assets/videos/Pathfinding/highlights/480p.mp4' type='video/mp4' label='480p' selected='true'><p class='vjs-no-js'>
+    To view this video please enable JavaScript, and consider upgrading to a web browser that
+    <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
+</p></video>            </div><div class='col-md-3 col-xs-12'><div class='section_choice' data_time='0'><p>BFS Graphs</p></div> <div class='section_choice' data_time='24'><p>Interesting Puzzle</p></div> <div class='section_choice' data_time='34'><p>Jump Point Search</p></div> <div class='section_choice' data_time='45'><p>LPA Star</p></div></div></div><span class='video_description' markdown='1'>
+</span></p>
 <h1>The general problem</h1>
 <p>One of the amazing things about discussing pathfinding algorithms
 is that pathfinding is something we do multiple times a day, without assistance from technology,
@@ -88,7 +92,7 @@ we need fast computer algorithms to give us extremely optimal paths, or paths ov
 A <em>start</em> point and an <em>end</em> goal.</p>
 <p>We aim to begin at the start point, and via a process of movements between intermediate points, end up at the <em>end</em> goal.</p>
 <p>We might modify this definition later, to include some more interesting problems (multiple starts, multiple goals, path weighting, etc.), but for now this is more than enough to discuss baby's first pathfinding algorithm :)</p>
-<p><div class='row section_div'><div class='col-md-9 col-xs-12'><video id='video_1' class='video-js vjs-default-skin vjs-fluid vjs-big-play-centered' controls preload='auto'><source src='/assets/videos/Pathfinding/generic_graph/1440p.mp4' type='video/mp4' label='1440p' selected='false'>
+<p><div class='row section_div'><div class='col-md-9 col-xs-12'><video id='video_2' class='video-js vjs-default-skin vjs-fluid vjs-big-play-centered' controls preload='auto'><source src='/assets/videos/Pathfinding/generic_graph/1440p.mp4' type='video/mp4' label='1440p' selected='false'>
 <source src='/assets/videos/Pathfinding/generic_graph/720p.mp4' type='video/mp4' label='720p' selected='false'>
 <source src='/assets/videos/Pathfinding/generic_graph/480p.mp4' type='video/mp4' label='480p' selected='true'><p class='vjs-no-js'>
     To view this video please enable JavaScript, and consider upgrading to a web browser that
@@ -110,7 +114,7 @@ most algorithms can be explained in plain english rather succinctly).</p>
 <h1>Keep it Simple Stupid</h1>
 <h2>Natural Approach</h2>
 <p>So let's do it! Let's get from A to B! I think it's first best to think how you'd approach this situation, and try as best you can to put that into algorithmic terms, using the queries mentioned above where  appropriate. Here's some flashing graphs, see what your brain first does when it tries to find a path between the red and green dots.</p>
-<p><video id='video_2' class='video-js vjs-default-skin vjs-fluid vjs-big-play-centered' controls preload='auto'><source src='/assets/videos/Pathfinding/flashing_graphs/1440p.mp4' type='video/mp4' label='1440p' selected='false'>
+<p><video id='video_3' class='video-js vjs-default-skin vjs-fluid vjs-big-play-centered' controls preload='auto'><source src='/assets/videos/Pathfinding/flashing_graphs/1440p.mp4' type='video/mp4' label='1440p' selected='false'>
 <source src='/assets/videos/Pathfinding/flashing_graphs/720p.mp4' type='video/mp4' label='720p' selected='false'>
 <source src='/assets/videos/Pathfinding/flashing_graphs/480p.mp4' type='video/mp4' label='480p' selected='true'><p class='vjs-no-js'>
     To view this video please enable JavaScript, and consider upgrading to a web browser that

@@ -23,7 +23,9 @@ However, if you don't care how your little machine does all the things for you,
 hopefully I can at least convince you that the discussion and evolution of these algorithms is beautiful,
 and applicable in many other algorithmic problem areas.
 
-**Flashy parts of pathfinding algorithms**
+@[video][sectioned](assets/videos/Pathfinding/highlights) {sections: [(0, 'BFS Graphs'), (24, 'Interesting Puzzle'), (34, 'Jump Point Search'), (45, 'LPA Star')]} (~
+
+~)
 
 # The general problem
 
