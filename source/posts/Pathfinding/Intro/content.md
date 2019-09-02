@@ -123,3 +123,123 @@ while not graph.end.expanded:
                 new_expanding.add(neighbour)
     expanding = new_expanding
 ```
+
+So, to keep it in simple english, we first look at all vertices which are 0 distance from the start,
+then 1 distance from the start, then 2 distance, and so on, until we find the end vertex.
+
+We can generate all n-distance vertices from the graph, after knowing the (n-1)-distance vertices, by visiting all of their neighbours, and marking any that we haven't seen yet.
+
+This is because the distance from the start between any two adjacent vertices is at most 1.
+(Otherwise we'd be able to generate a shorter distance to the start vertex than we'd originally defined)
+
+# Divining a path
+
+So we can locate the end all well and good, but how do we create a path now that we've searched the entire way?
+
+I'll pose two solutions here, each which assume some computation/memory has been going on as we've been searching the graph.
+
+## Closing the distance
+
+Rather than pathing from the start to the end, let's traverse the other way!
+Let's assume that while we've been searching, we've been keeping track off the distance from the start node.
+
+*This would be relatively simple, as we can just keep a counter in the `while` loop*
+
+Next, I don't think its too much of a mental leap to say that a good path from the end to the start is one that always reduces the distance to the start vertex as you move across the path.
+
+Such a path can always exist, and we can generate it algorithmically:
+
+* Start at the end vertex.
+* Look at all of the current vertex's neighbours
+* There **must** be some neighbour where the distance from the start vertex decreases by 1 (*)
+* Move to this new vertex
+* Repeat back to the second step
+* Once we reach a vertex with distance 0 from the start vertex, this must be the start vertex.
+
+(*) The above is true because for there to be an $n$ length path from the start vertex to this one,
+we must have an $n-1$ length path from the start vertex to one of its neighbours, followed by a 1 length path from that neighbour to our vertex.
+
+This neighbour must have distance $n-1$, as if it was some $k < n-1$, then we'd have a $k + 1 < n$ length path from the start vertex to our vertex.
+
+## Remembering your roots
+
+Let's instead say that as we are searching, each vertex remembers how it was discovered (For example what vertex in the previous iteration caused it to be `expanded`.)
+We'll call this the vertex's `parent` (Because it gave 'birth' to this new vertex)
+
+Then we can simply algorithmically generate a path from end to start by:
+
+* Start at the end vertex.
+* Move back to the parent vertex.
+* Repeat until we hit the start vertex.
+
+We are guaranteed to hit the start vertex, because that's where the entire search originated from.
+
+# An unlikely application
+
+Now that we've completed our first pathfinding algorithm (🎉 Woo! 🎉),
+Lets take a break from the abstract and tackle a real problem.
+
+One puzzle from the game [Professor Layton and the Curious Village](https://en.wikipedia.org/wiki/Professor_Layton_and_the_Curious_Village) (A *treasure trove* of algorithmically enticing puzzles) is as follows:
+
+We have 3 chickens, and 3 wolves on one side of a river.
+All of the animals want to reach the other side of the river, luckily they have a raft!
+
+There are two main rules which restrict the solutions to this problem:
+
+1. The raft only fits two animals at once
+2. If at any point either side of the river has more wolves than chickens, then the chickens get eaten!
+
+Is there a set of moves that take all animals from one side of the river to the other?
+
+***Video, with subtext:***
+
+*This problem pops up in a number of other areas, but I'm attributing it to this game so I have an excuse to use the nice artwork. Seriously play this game.*
+
+As a pathfinding problem, the solution doesn't exactly stick out immediately.
+Sure the problem is asking for a path, but this path is just continual moves between two different places!
+So what next? One thing I mentioned when we were first discussing pathfinding as a solution to other problems is that often times we need to abstract the solution to weird definitions of what a vertex, and edge is.
+
+In this example, rather than thinking of our vertices as left and right of the river (Actual locations in the puzzle), lets think of each vertex we are moving to and from, to be a bit more specific.
+
+It should encode the location of the wolves, chickens, as well as the raft into a single point.
+This would ensure that two different *game states* are different, even if the raft is currently at the right side of the river in both.
+
+One simple way would be to simply encode a string, where the first 3 characters would represent the wolf locations, the next three the chickens, and the last 1 the raft's location:
+
+* LLR RRL R would mean 2 wolves and 1 chicken on the left, with the raft and the rest on the right
+* RRR LLL L would mean wolves on the right, chickens on the left, raft on the left.
+
+Notice how when we describe the encoding, we don't actually care which chicken/wolf is on which side, we only talk quantities. This is because it doesn't really affect the problem state which individual chicken is where, the rules are only affected by **how many** chickens/wolves there are.
+
+So instead of encoding each chicken/wolf location, we can reduce the number of vertices greatly by simply decoding a game state to number how many chickens/wolves are on the left side, with a 0/1 on the end to denote whether the raft is on the right/left side:
+
+* 210 would be equivalent to LLR RRL R (or LRL LRR R, or many others)
+* 031 would be equivalent to RRR LLL L (and thats the only encoding in the previous schema)
+
+Overall we've reduced our vertex amount from $2^7 = 128$ to $4 * 4 * 2 = 32$.
+Now that we've got a tight definition of valid vertices, we can define an edge in our new graph to mean a valid transition between the two encoded states existing!
+
+Now, all we need to do to construct a solution to our problem is:
+
+1. Construct a graph describing the entire problem state and how we can move around it
+2. Start at vertex 331 (All on the left)
+3. Use our previous algorithm to pathfind to 000 (All on the right)
+4. Decode such a path into actual movements in the puzzle
+
+*Note that vertex 001 would technically also satisfy a solution, but is unreachable.*
+
+So let's do it! Let's construct the graph based on our previous rules.
+First, we'll remove any vertices whose state violates rule 2 (More wolves than chickens),
+then we'll add edges which are valid state transitions ($<= 2$ animals changing, raft direction changes)
+
+***VIDEO***
+
+Next, we can pathfind using our algorithm described above:
+
+***VIDEO***
+
+This gives us that path 331 -> ... -> 000,
+Which we can decode to:
+
+* Move across x and y
+* Take back z and w
