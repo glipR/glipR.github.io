@@ -85,3 +85,8 @@ setInterval(function() {
         }
     });
 }, 100);
+
+// Allow inline Math
+MathJax.Hub.Config({
+    "tex2jax": { inlineMath: [ [ '$', '$' ] ] }
+});
