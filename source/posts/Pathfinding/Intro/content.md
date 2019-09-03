@@ -127,7 +127,7 @@ while not graph.end.expanded:
 So, to keep it in simple english, we first look at all vertices which are 0 distance from the start,
 then 1 distance from the start, then 2 distance, and so on, until we find the end vertex.
 
-We can generate all n-distance vertices from the graph, after knowing the (n-1)-distance vertices, by visiting all of their neighbours, and marking any that we haven't seen yet.
+We can generate all $n$-distance vertices from the graph, after knowing the $n-1$-distance vertices, by visiting all of their neighbours, and marking any that we haven't seen yet.
 
 This is because the distance from the start between any two adjacent vertices is at most 1.
 (Otherwise we'd be able to generate a shorter distance to the start vertex than we'd originally defined)
@@ -230,7 +230,7 @@ Now, we can construct a solution to our problem by:
 
 So let's do it! Let's construct the graph based on our previous rules.
 First, we'll remove any vertices whose state violates rule 2 (More wolves than chickens),
-then we'll add edges which are valid state transitions ($0 < x <= 2$ animals changing, raft direction changes)
+then we'll add edges which are valid state transitions ($0 < x /leq 2$ animals changing, raft direction changes)
 
 ***VIDEO***
 
