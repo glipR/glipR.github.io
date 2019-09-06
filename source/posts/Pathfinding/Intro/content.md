@@ -234,12 +234,21 @@ First, we'll remove any vertices whose state violates rule 2 (More wolves than c
 then we'll add edges which are valid state transitions ($0 < x \leq 2$ animals changing, raft direction changes).
 And lastly, we apply our algorithm!
 
-@[video][sectioned](assets/videos/Pathfinding/pathfind_river) {sections: [(0, 'Generate States'), (16, 'Apply Rule 2'), (17, 'Add edges based on Rule 1'), (18, 'Find a solution!')]} (~
+@[video][sectioned](assets/videos/Pathfinding/pathfind_river) {sections: [(0, 'Generate States'), (16, 'Apply Rule 2'), (17, 'Add edges based on Rule 1'), (19, 'Find a solution!')]} (~
 
 ~)
 
 This gives us that path 331 -> ... -> 000,
 Which we can decode to:
 
-* Move across x and y
-* Take back z and w
+* Send over a chicken and wolf
+* Take back a chicken
+* Send over the last 2 wolves
+* Take back 1 wolf
+* Send over 2 chickens
+* Take back a chicken and wolf
+* Send over 2 chickens
+* Take back a wolf
+* Send over two wolves
+* Take back a chicken (or a wolf)
+* Send over the remaining wolf and chicken/wolf
