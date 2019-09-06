@@ -186,6 +186,8 @@ class VideoProcessor(CustomBlockProcessor):
                     'false'
                 )])
         sorted_sources_and_labels = sorted(sources, key=lambda x: int(x[0][:-1]), reverse=True)
+        if not sorted_sources_and_labels:
+            return []
         sorted_sources_and_labels[-1][1] = sorted_sources_and_labels[-1][1].replace("selected='false'", "selected='true'")
         return map(lambda x: x[1], sorted_sources_and_labels)
 
