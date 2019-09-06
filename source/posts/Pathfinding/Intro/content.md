@@ -231,10 +231,10 @@ Now, we can construct a solution to our problem by:
 
 So let's do it! Let's construct the graph based on our previous rules.
 First, we'll remove any vertices whose state violates rule 2 (More wolves than chickens),
-then we'll add edges which are valid state transitions ($0 < x /leq 2$ animals changing, raft direction changes).
+then we'll add edges which are valid state transitions ($0 < x \leq 2$ animals changing, raft direction changes).
 And lastly, we apply our algorithm!
 
-@[video][sectioned](assets/videos/Pathfinding/pathfind_river) {sections: [(0, 'Generate States'), (4, 'Apply Rule 2'), (5, 'Add edges based on Rule 1'), (6, 'Find a solution!')]} (~
+@[video][sectioned](assets/videos/Pathfinding/pathfind_river) {sections: [(0, 'Generate States'), (16, 'Apply Rule 2'), (17, 'Add edges based on Rule 1'), (18, 'Find a solution!')]} (~
 
 ~)
 
