@@ -238,7 +238,7 @@ And lastly, we apply our algorithm!
 
 ~)
 
-This gives us that path 331 -> ... -> 000,
+This gives us that path 331 -> 220 -> 321 -> 300 -> 311 -> 110 -> 221 -> 020 -> 031 -> 010 -> 111 -> 000,
 Which we can decode to:
 
 * Send over a chicken and wolf
