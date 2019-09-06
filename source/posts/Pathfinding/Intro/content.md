@@ -191,9 +191,10 @@ There are two main rules which restrict the solutions to this problem:
 
 Is there a set of moves that take all animals from one side of the river to the other?
 
-***Video, with subtext:***
+@[video][fullscreen](assets/videos/Pathfinding/river_example) (~
+    This problem pops up in a number of other areas, but I'm attributing it to this game so I have an excuse to use the nice artwork. Seriously play this game.
+~)
 
-*This problem pops up in a number of other areas, but I'm attributing it to this game so I have an excuse to use the nice artwork. Seriously play this game.*
 
 As a pathfinding problem, the solution doesn't exactly stick out immediately.
 Sure the problem is asking for a path, but this path is just continual moves between two different places!
@@ -230,13 +231,12 @@ Now, we can construct a solution to our problem by:
 
 So let's do it! Let's construct the graph based on our previous rules.
 First, we'll remove any vertices whose state violates rule 2 (More wolves than chickens),
-then we'll add edges which are valid state transitions ($0 < x /leq 2$ animals changing, raft direction changes)
+then we'll add edges which are valid state transitions ($0 < x /leq 2$ animals changing, raft direction changes).
+And lastly, we apply our algorithm!
 
-***VIDEO***
+@[video][sectioned](assets/videos/Pathfinding/pathfind_river) {sections: [(0, 'Generate States'), (4, 'Apply Rule 2'), (5, 'Add edges based on Rule 1'), (6, 'Find a solution!')]} (~
 
-Next, we can pathfind using our algorithm described above:
-
-***VIDEO***
+~)
 
 This gives us that path 331 -> ... -> 000,
 Which we can decode to:
