@@ -107,7 +107,9 @@ After that, I think there are two natural ways order our 'expansion' of these ve
 2. Keep expanding neighbours until we hit the end of a graph, then begin backtracking (Favouring Depth of Search)
 > A good approach for testing whether a path exists, but maybe not for generating the shortest one.
 
-***VIDEO Showing the breadth and depth approaches - USE COLOR.***
+@[video][sectioned](assets/videos/Pathfinding/bfs_dfs) { sections: [(0, 'Breadth Favouring'), (16, 'Depth Favouring')] } (~
+
+~)
 
 I'm going to write up the answer for (1), but it'd be a good exercise to try the same for (2):
 

@@ -153,7 +153,13 @@ We'll call these the <code>expanding</code> vertex (Because we want to 'expand' 
 </blockquote>
 </li>
 </ol>
-<p><strong><em>VIDEO Showing the breadth and depth approaches - USE COLOR.</em></strong></p>
+<p><div class='row section_div'><div class='col-md-9 col-xs-12'><video id='video_4' class='video-js vjs-default-skin vjs-fluid vjs-big-play-centered' controls preload='auto'><source src='/assets/videos/Pathfinding/bfs_dfs/1440p.mp4' type='video/mp4' label='1440p' selected='false'>
+<source src='/assets/videos/Pathfinding/bfs_dfs/720p.mp4' type='video/mp4' label='720p' selected='false'>
+<source src='/assets/videos/Pathfinding/bfs_dfs/480p.mp4' type='video/mp4' label='480p' selected='true'><p class='vjs-no-js'>
+    To view this video please enable JavaScript, and consider upgrading to a web browser that
+    <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
+</p></video>            </div><div class='col-md-3 col-xs-12'><div class='section_choice' data_time='0'><p>Breadth Favouring</p></div> <div class='section_choice' data_time='16'><p>Depth Favouring</p></div></div></div><span class='video_description' markdown='1'>
+</span></p>
 <p>I'm going to write up the answer for (1), but it'd be a good exercise to try the same for (2):</p>
 <div class="codehilite"><pre><span></span><span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">:</span>
     <span class="n">vertex</span><span class="o">.</span><span class="n">expanded</span> <span class="o">=</span> <span class="kc">False</span>
@@ -218,7 +224,7 @@ All of the animals want to reach the other side of the river, luckily they have 
 <li>If at any point either side of the river has more wolves than chickens, then the chickens get eaten!</li>
 </ol>
 <p>Is there a set of moves that take all animals from one side of the river to the other?</p>
-<p><video id='video_4' class='video-js vjs-default-skin vjs-fluid vjs-big-play-centered' controls preload='auto'><source src='/assets/videos/Pathfinding/river_example/1440p.mp4' type='video/mp4' label='1440p' selected='false'>
+<p><video id='video_5' class='video-js vjs-default-skin vjs-fluid vjs-big-play-centered' controls preload='auto'><source src='/assets/videos/Pathfinding/river_example/1440p.mp4' type='video/mp4' label='1440p' selected='false'>
 <source src='/assets/videos/Pathfinding/river_example/720p.mp4' type='video/mp4' label='720p' selected='false'>
 <source src='/assets/videos/Pathfinding/river_example/480p.mp4' type='video/mp4' label='480p' selected='true'><p class='vjs-no-js'>
     To view this video please enable JavaScript, and consider upgrading to a web browser that
@@ -259,7 +265,7 @@ Now that we've got a tight definition of valid vertices, we can define an edge b
 First, we'll remove any vertices whose state violates rule 2 (More wolves than chickens),
 then we'll add edges which are valid state transitions ($0 &lt; x \leq 2$ animals changing, raft direction changes).
 And lastly, we apply our algorithm!</p>
-<p><div class='row section_div'><div class='col-md-9 col-xs-12'><video id='video_5' class='video-js vjs-default-skin vjs-fluid vjs-big-play-centered' controls preload='auto'><source src='/assets/videos/Pathfinding/pathfind_river/1440p.mp4' type='video/mp4' label='1440p' selected='false'>
+<p><div class='row section_div'><div class='col-md-9 col-xs-12'><video id='video_6' class='video-js vjs-default-skin vjs-fluid vjs-big-play-centered' controls preload='auto'><source src='/assets/videos/Pathfinding/pathfind_river/1440p.mp4' type='video/mp4' label='1440p' selected='false'>
 <source src='/assets/videos/Pathfinding/pathfind_river/720p.mp4' type='video/mp4' label='720p' selected='false'>
 <source src='/assets/videos/Pathfinding/pathfind_river/480p.mp4' type='video/mp4' label='480p' selected='true'><p class='vjs-no-js'>
     To view this video please enable JavaScript, and consider upgrading to a web browser that
