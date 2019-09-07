@@ -258,3 +258,12 @@ Which we can decode to:
 * Send over two wolves
 * Take back a chicken (or a wolf)
 * Send over the remaining wolf and chicken/wolf
+
+And there we have it! We've found a solution (and also concluded that there are really only 4 valid and short options) to the problem! (🎉 Double Woo! 🎉)
+
+I think it is important to note that your abstraction has a big effect on how easy or hard a problem becomes.
+As a good example, here is what our graph, and subsequent solution, looks like if we use the first encoding we came up with, with 4 times the vertices at first:
+
+***VIDEO shitty pathfinding example. Enjoy compiling!***
+
+In the next post on this I'm aiming to add edge weights into the mix, and alter our natural method into one of the most popular algorithms, period - Dijkstra's Algorithm!
