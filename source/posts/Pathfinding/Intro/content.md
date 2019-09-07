@@ -19,11 +19,11 @@ of the current road state than a book could ever encapsulate.
 </div>
 </div>
 
-However, if you don't care how your little machine does all the things for you,
+But even if you don't care how your little machine does all the things for you,
 hopefully I can at least convince you that the discussion and evolution of these algorithms is beautiful,
 and applicable in many other algorithmic problem areas.
 
-@[video][sectioned](assets/videos/Pathfinding/highlights) {sections: [(0, 'BFS Graphs'), (24, 'Interesting Puzzle'), (34, 'Jump Point Search'), (45, 'LPA Star')]} (~
+@[video][sectioned](assets/videos/Pathfinding/highlights) {sections: [(0, 'BFS Graphs'), (24, 'An Interesting Puzzle'), (34, 'Jump Point Search'), (45, 'LPA Star')]} (~
 
 ~)
 
@@ -36,7 +36,7 @@ and so it is very intuitive to discuss topics here that might have seemed more a
 The key difference here is that while we pathfind often on a very small scale,
 we need fast computer algorithms to give us extremely optimal paths, or paths over incredibly large domain sizes.
 
-While you might have a particular image of a pathfinding algorithm telling you whether to turn left or go straight at the lights, it does help to abstract the problem a little bit, so that we can use those same algorithms in surprisingly varied problem domains.
+While you might have a particular image of a pathfinding algorithm telling you whether to turn left or go straight at the traffic lights, it does help to abstract the problem a little bit, so that we can use those same algorithms in surprisingly varied problem domains.
 
 We'll define any pathfinding problem to contain two points of interest in a space:
 A *start* point and an *end* goal.
@@ -87,13 +87,13 @@ Let's not worry about this for now, and try and turn it into an algorithm!
 Rather than keeping these algorithms completely within our brains,
 let's turn this into a set of simple and unambiguous steps.
 
-First, we'll have the notion of vertices we are currently looking at.
-We'll call these the `expanding` nodes (Still applicable here, but moreso because its related to later algorithms.)
+First, we'll have the notion of vertices we are currently looking at in the algorithm.
+We'll call these the `expanding` vertex (Because we want to 'expand' our range of vision from the start vertex, but moreso because it is a term related to later algorithms.)
 
-The first algorithm we begin 'expanding' from is the start node
+The first vertex we begin 'expanding' from is the start:
 
 ```python3
-expanding = [graph.start]
+expanding = set(graph.start)
 ```
 
 Next, and most importantly, we need to formalise what 'searching out' is, and in what order we search out from vertices.
@@ -106,6 +106,8 @@ After that, I think there are two natural ways order our 'expansion' of these ve
 > More what I was describing with my approach
 2. Keep expanding neighbours until we hit the end of a graph, then begin backtracking (Favouring Depth of Search)
 > A good approach for testing whether a path exists, but maybe not for generating the shortest one.
+
+***VIDEO Showing the breadth and depth approaches - USE COLOR.***
 
 I'm going to write up the answer for (1), but it'd be a good exercise to try the same for (2):
 
@@ -141,9 +143,9 @@ I'll pose two solutions here, each which assume some computation/memory has been
 ## Closing the distance
 
 Rather than pathing from the start to the end, let's traverse the other way!
-Let's assume that while we've been searching, we've been keeping track off the distance from the start node for each vertex we expand.
+Let's assume that while we've been searching, we've been keeping track of the distance from the start vertex for each vertex we expand.
 
-*This would be relatively simple, as we can just keep a counter in the *`while`* loop*
+*This would be relatively simple, as we can just keep a counter in the *`while`* loop above.*
 
 Next, I don't think its too much of a mental leap to say that a good path from the end to the start is one that always reduces the distance to the start vertex as you move across the path.
 
@@ -163,18 +165,19 @@ This neighbour must have distance $n-1$, as if it was some $k < n-1$, then we'd 
 
 ## Remembering your roots
 
-Let's instead say that as we are searching, each vertex remembers how it was discovered (For example what vertex in the previous iteration caused it to be `expanded`.)
+Let's instead say that as we are searching, each vertex remembers how it was discovered (What vertex in the previous iteration caused it to be `expanded`.)
 We'll call this the vertex's `parent` (Because it gave 'birth' to this new vertex)
 
 Then we can simply algorithmically generate a path from end to start by:
 
 * Start at the end vertex.
-* Move back to the parent vertex.
+* Move back to the current vertex's parent.
 * Repeat until we hit the start vertex.
 
 We are guaranteed to hit the start vertex, because that's where the entire search originated from.
 
 # An unlikely application
+## Introduction
 
 Now that we've completed our first pathfinding algorithm (🎉 Woo! 🎉),
 Lets take a break from the abstract and tackle a real problem.
@@ -195,12 +198,13 @@ Is there a set of moves that take all animals from one side of the river to the 
     This problem pops up in a number of other areas, but I'm attributing it to this game so I have an excuse to use the nice artwork. Seriously play this game.
 ~)
 
+## Where's the graph?
 
 As a pathfinding problem, the solution doesn't exactly stick out immediately.
 Sure the problem is asking for a path, but this path is just continual moves between two different places!
 So what next? One thing I mentioned when we were first discussing pathfinding as a solution to other problems is that often times we need to abstract the solution to weird definitions of what a vertex and edge is, in order for our algorithms to be appropriate.
 
-In this example, rather than thinking of our vertices as left and right of the river (Actual locations in the puzzle), lets think of each vertex we are moving to and from, to be a bit more specific.
+In this example, rather than thinking of our vertices as left and right of the river (Actual locations in the puzzle), let us think of each vertex we are moving to and from, to be a bit more specific.
 
 It should encode the location of the wolves, chickens, as well as the raft into a single point.
 This would ensure that two different *game states* are different, even if the raft is currently at the right side of the river in both.
@@ -215,10 +219,12 @@ Notice how when we describe the encoding, we don't actually care which chicken/w
 So instead of encoding each chicken/wolf location, we can reduce the number of vertices greatly by simply decoding a game state to number how many chickens/wolves are on the left side, as well as how many rafts are on the left side (0 or 1):
 
 * 210 would be equivalent to LLR RRL R (or LRL LRR R, or many others)
-* 031 would be equivalent to RRR LLL L (and thats the only encoding in the previous schema)
+* 031 would be equivalent to RRR LLL L (and that is the only encoding in the previous schema)
 
 Overall we've reduced our vertex amount from $2^7 = 128$ to $4 * 4 * 2 = 32$.
 Now that we've got a tight definition of valid vertices, we can define an edge between two vertices to mean a valid transition between the two decoded states existing!
+
+## Let's move these animals
 
 Now, we can construct a solution to our problem by:
 
