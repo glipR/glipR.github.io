@@ -267,7 +267,7 @@ I think it is important to note that your abstraction has a big effect on how ea
 As a good example, here is what our graph, and subsequent solution, looks like if we use the first encoding we came up with, with 4 times the vertices at first:
 
 @[video][fullscreen](assets/videos/Pathfinding/bad_river) (~
-
+    As you can see it's hard to gather much more information from this graph.
 ~)
 
 In the next post on this I'm aiming to add edge weights into the mix, and alter our natural method into one of the most popular algorithms, period - Dijkstra's Algorithm!
