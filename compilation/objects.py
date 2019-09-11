@@ -1,7 +1,7 @@
 class Post(object):
 
     title = 'blog.glipr.dev'
-    description = 'Ramblings of a naive developer'
+    description = 'What goes here lol'
 
     @property
     def url(self):
