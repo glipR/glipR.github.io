@@ -869,6 +869,10 @@ input[value="none"]:checked ~ #intro .intronav-guide {
     .panel-game {
         opacity: 1;
     }
+    #intro h2 {
+        padding-left: 8pt;
+        padding-right: 8pt;
+    }
 
     #bgcanvas-wrap > video {
         position: fixed;
