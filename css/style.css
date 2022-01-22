@@ -871,6 +871,12 @@ input[value="none"]:checked ~ #intro .intronav-guide {
     }
 }
 
+@media only screen and (min-width: 800px) and (max-width: 900px) {
+    .toppanel-content {
+        width: calc(100vw - 20px);
+    }
+}
+
 input[value="current"]:checked ~ #current,
 input[value="past"]:checked ~ #past,
 input[value="more"]:checked ~ #more,
