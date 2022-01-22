@@ -36,6 +36,7 @@
         }
     </script>
     <script src="https://pixijs.download/release/pixi.js"></script>
+    <script src="./js/scrolls.js" async></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
@@ -80,10 +81,10 @@
                                     <h1>glipR (Jackson)</h1>
                                 </div>
                                 <div class="introrow">
-                                    <h2><a href="#about">about</a></h2>
-                                    <h2><a href="#tutoring">tutoring</a></h2>
-                                    <h2><a href="#projects">projects</a></h2>
-                                    <h2><a href="#games">games</a></h2>
+                                    <h2><a href="#about" onclick="setScrolls()">about</a></h2>
+                                    <h2><a href="#tutoring"  onclick="setScrolls()">tutoring</a></h2>
+                                    <h2><a href="#projects"  onclick="setScrolls()">projects</a></h2>
+                                    <h2><a href="#games" onclick="setScrolls()">games</a></h2>
                                 </div>
                             </div>
                         </div>
@@ -101,10 +102,10 @@
                                     <h1>glipR (Jackson)</h1>
                                 </div>
                                 <div class="introrow">
-                                    <h2><a href="#about">about</a></h2>
-                                    <h2><a href="#tutoring">tutoring</a></h2>
-                                    <h2><a href="#projects">projects</a></h2>
-                                    <h2><a href="#games">games</a></h2>
+                                    <h2><a href="#about" onclick="setScrolls()">about</a></h2>
+                                    <h2><a href="#tutoring" onclick="setScrolls()">tutoring</a></h2>
+                                    <h2><a href="#projects" onclick="setScrolls()">projects</a></h2>
+                                    <h2><a href="#games" onclick="setScrolls()">games</a></h2>
                                 </div>
                             </div>
                         </div>
@@ -271,7 +272,7 @@
                     </div>
                     <div class="panel panel-icon" style="--panel-icon: url(../img/robotics.png);">
                         <p>
-                            <h1 class="hinline"><a href="https://mhsrobotics.club/">MHS Robotics Club</a></h1><br>
+                            <h1><a href="https://mhsrobotics.club/">MHS Robotics Club</a></h1><br>
                             I'm one of the mentors at my old highschool robotics club.
 
                             Over the years this has meant I've been working on:<br><br>
@@ -312,14 +313,14 @@
                     <div class="panel panel-game">
                         <h2>Professor Layton Series</h2>
                         <div class="panel-image-container">
+                            <div class="panel-image" style="float: left">
+                                <img src="./img/layton.jpg"></img>
+                            </div>
                             <div class="panel-image-text">
                                 <p>
                                     Probably a bit more on the nose than all other entries, Professor Layton got me interested in puzzles, teaching and logic.<br>
                                     To this day I'm using it as inspiration for designing course content.
                                 </p>
-                            </div>
-                            <div class="panel-image">
-                                <img src="./img/layton.jpg"></img>
                             </div>
                         </div>
                         Favourite Track:
@@ -328,7 +329,7 @@
                     <div class="panel panel-game">
                         <h2>Portal 2</h2>
                         <div class="panel-image-container">
-                            <div class="panel-image">
+                            <div class="panel-image" style="float: right">
                                 <img src="./img/portal2.jpg"></img>
                             </div>
                             <div class="panel-image-text">
@@ -348,15 +349,15 @@
                     <div class="panel panel-game">
                         <h2>Undertale</h2>
                         <div class="panel-image-container">
+                            <div class="panel-image" style="float: left">
+                                <img src="./img/undertale.jpg"></img>
+                            </div>
                             <div class="panel-image-text">
                                 <p>
                                     Undertale tells stories in a way I haven't experienced before or since playing it in 2020.<br>
                                     Luckily enough I was able to play it knowing barely anything about it before then, except for funny blue eye man.<br>
                                     This entire experience is a deeply personal one, shared only with the lead developer, discussing your choices in a level of detail that speaks to the passion this game has received from Toby Fox.
                                 </p>
-                            </div>
-                            <div class="panel-image">
-                                <img src="./img/undertale.jpg"></img>
                             </div>
                         </div>
                         <p>
@@ -368,7 +369,7 @@
                     <div class="panel panel-game">
                         <h2>Celeste</h2>
                         <div class="panel-image-container">
-                            <div class="panel-image">
+                            <div class="panel-image" style="float: right">
                                 <img src="./img/celeste.jpg"></img>
                             </div>
                             <div class="panel-image-text">
@@ -388,6 +389,9 @@
                     <div class="panel panel-game">
                         <h2>Chicory: A Colorful Tale</h2>
                         <div class="panel-image-container">
+                            <div class="panel-image" style="float: left">
+                                <img src="./img/chicory.jpg"></img>
+                            </div>
                             <div class="panel-image-text">
                                 <p>
                                     Chicory tells a wonderful story. For me that story was about what makes someone strong.<br>
@@ -395,9 +399,6 @@
                                     This game also touches on the potential of every person to realise amazing things, something that I think is missing from a lot of today's media with superheroes and the supernatural.<br>
                                     Chicory is my #1 recommendation for anyone who hasn't really played many games but wants to give it a shot.
                                 </p>
-                            </div>
-                            <div class="panel-image">
-                                <img src="./img/chicory.jpg"></img>
                             </div>
                         </div>
                         <p>
