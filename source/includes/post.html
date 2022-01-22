@@ -1,9 +1,0 @@
-{% extends 'includes/base.html' %}
-
-{% block banner %}
-    Last Updated {{ post.get_last_updated() }}
-{% endblock %}
-
-{% block content %}
-    {{ post.content | safe }}
-{% endblock %}
