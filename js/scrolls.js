@@ -9,7 +9,7 @@ function setScrolls(show) {
     }
     for (var i=0; i<el.length; i++) {
         el[i].scrollTo(0, 0);
-        window.scroll(0, document.body.scrollHeight)
+        setTimeout(()=>{window.scroll(0, document.body.scrollHeight)}, 100)
     }
 }
 window.onload = ()=>{setScrolls("nothing")};
