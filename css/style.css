@@ -869,6 +869,12 @@ input[value="none"]:checked ~ #intro .intronav-guide {
     .panel-game {
         opacity: 1;
     }
+
+    #bgcanvas-wrap > video {
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
 }
 
 @media only screen and (min-width: 800px) and (max-width: 900px) {

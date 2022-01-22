@@ -3,9 +3,10 @@ import hsl from 'https://cdn.skypack.dev/hsl-to-hex';
 import debounce from 'https://cdn.skypack.dev/debounce';
 
 var p = document.getElementById("bgcanvas-wrap");
-
 var w = p.offsetWidth;
 var h = p.offsetHeight;
+
+if (w >= 799) {
 
 const app = new PIXI.Application({ antialias: true, width: w, height: h, backgroundColor: 0xbbbbbb });
 
@@ -13,8 +14,6 @@ p.appendChild(app.view);
 
 app.stage.interactive = true;
 
-
-const graphics = new PIXI.Graphics();
 const orbBlur = new PIXI.filters.BlurFilter();
 const raindropBlur = new PIXI.filters.BlurFilter();
 orbBlur.blur = 40;
@@ -285,4 +284,23 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         raindrop.update();
         raindrop.render();
     });
+}
+
+} else {
+
+    // If on phone, use video.
+
+    var el = document.createElement("video");
+    el.src = "./assets/videos/bg/phone-video.mp4";
+    el.muted = "true";
+    el.autoplay = "true";
+    el.loop = "true";
+    p.appendChild(el);
+
+    var el2 = document.createElement("video");
+    el2.src = "./assets/videos/bg/phone-video-big.mp4";
+    el2.muted = "true";
+    el2.autoplay = "true";
+    el2.loop = "true";
+    p.appendChild(el2);
 }
