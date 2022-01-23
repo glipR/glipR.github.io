@@ -460,6 +460,14 @@ a label {
     color: black;
 }
 
+#credit {
+    color: var(--main-fg);
+    position: absolute;
+    bottom: 2px;
+    right: 5px;
+    text-align: right;
+}
+
 @keyframes anim-introlayer-mask {
     0% { opacity: 1; }
     60% { opacity: 1; }
@@ -878,6 +886,11 @@ input[value="none"]:checked ~ #intro .intronav-guide {
         position: fixed;
         top: 0;
         left: 0;
+    }
+
+    #credit {
+        font-size: 9px;
+        line-height: 1em;
     }
 }
 
