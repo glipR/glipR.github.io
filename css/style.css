@@ -560,9 +560,13 @@ a label {
 }
 
 .toppanel-content {
-    width: 100vw;
+    width: 100%;
     max-width: 900px;
     margin: 0 auto;
+}
+
+.toppanel-content-container {
+    width: 100vw;
     padding-top: 120px;
     height: calc(100vh - 120px);
     overflow-y: scroll;
@@ -570,7 +574,7 @@ a label {
     scrollbar-width: none; 
 }
 
-.toppanel-content::-webkit-scrollbar {
+.toppanel-content-container::-webkit-scrollbar {
     display: none; 
 }
 
@@ -707,6 +711,9 @@ html::-webkit-scrollbar {
     display: inline-block;
     width: calc(60% - 20px);
     height: 100%;
+}
+.panel-image-container {
+    overflow-y: auto;
 }
 .panel-fav-track {
     text-align: right;
@@ -895,7 +902,7 @@ input[value="none"]:checked ~ #intro .intronav-guide {
 }
 
 @media only screen and (min-width: 800px) and (max-width: 900px) {
-    .toppanel-content {
+    .toppanel-content-container {
         width: calc(100vw - 20px);
     }
 }

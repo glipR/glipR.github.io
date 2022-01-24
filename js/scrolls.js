@@ -1,15 +1,19 @@
 function setScrolls(show) {
     const el = document.getElementsByClassName("toppanel-content");
     for (var i=0; i<el.length; i++) {
-        if (el[i].parentElement.id == show) {
-            el[i].parentElement.hidden = false;
+        if (el[i].parentElement.parentElement.id == show) {
+            el[i].parentElement.parentElement.hidden = false;
         } else {
-            el[i].parentElement.hidden = true;
+            if (show != "none")
+                el[i].parentElement.parentElement.hidden = true;
         }
     }
     for (var i=0; i<el.length; i++) {
         el[i].scrollTo(0, 0);
-        setTimeout(()=>{window.scroll(0, document.body.scrollHeight)}, 100)
+        if (show != "none")            
+            setTimeout(()=>{window.scroll(0, document.body.scrollHeight)}, 100)
+        else
+            setTimeout(()=>{window.scroll(0, 0)}, 100)
     }
 }
-window.onload = ()=>{setScrolls("nothing")};
+window.onload = ()=>{setScrolls("none")};
