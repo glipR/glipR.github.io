@@ -683,7 +683,7 @@ html::-webkit-scrollbar {
     box-shadow: 0pt 0pt 0pt 2pt var(--panel-border-hover) inset;
 }
 
-.panel > h2 {
+.panel > h2, .panel > h2 > a {
     font-weight: 700;
 }
 
