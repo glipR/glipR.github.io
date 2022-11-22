@@ -15,6 +15,10 @@
     */
     --toppanel-header-bg-lght: #0a0411;
     --toppanel-header-bg-dark: #fce9ff;
+    --toppanel-content-header-bg-lght: #fcdeb863;
+    --toppanel-content-header-bg-dark: #311c0d59;
+    --post-bg-lght: #fff5e9de;
+    --post-bg-dark: #110a04c5;
     --about-bg-lght: #fce9ffde;
     --about-bg-dark: #0a0411c5;
     --tutoring-bg-lght: #ecffe9de;
@@ -38,6 +42,7 @@
     --padding-bottom: 0;
     --panel-radius: 16pt;
     --up-icon: url(../img/up.png);
+    --home-icon: url(../img/home.png);
 }
 
 .topswitch {
@@ -134,6 +139,23 @@
     background-image: var(--up-icon);
 }
 
+.home-link {
+    position: absolute;
+    top: calc(120px / 2 - 64px / 2);
+    left: 10pt;
+}
+.home-switch {
+    position: relative;
+    top: 0;
+    width: 48pt;
+    height: 48pt;
+}
+.home-switch::before {
+    background-image: var(--home-icon);
+}
+.home-switch::after {
+    background-image: var(--home-icon);
+}
 
 #themeswitch,
 #themeswitch ~ #realbody {
@@ -142,14 +164,17 @@
     --themeicon-a: var(--themeicon-lght);
     --themeicon-b: var(--themeicon-dark);
     --mono-filter: var(--mono-filter-lght);
+    --mono-filter-contrast: var(--mono-filter-dark);
     --intro-mask: var(--intro-mask-lght);
     --main-bg: var(--main-bg-lght);
     --main-bg-inv: var(--main-bg-dark);
     --about-bg: var(--about-bg-lght);
+    --post-bg: var(--post-bg-lght);
     --tutoring-bg: var(--tutoring-bg-lght);
     --projects-bg: var(--projects-bg-lght);
     --games-bg: var(--games-bg-lght);
     --toppanel-header-bg: var(--toppanel-header-bg-lght);
+    --toppanel-content-header-bg: var(--toppanel-content-header-bg-lght);
     --panel-border: var(--panel-border-lght);
     --panel-border-hover: var(--panel-border-hover-lght);
     --main-fg: var(--main-fg-lght);
@@ -161,14 +186,17 @@
     --darkmode: ;
     --lightmode: none;
     --mono-filter: var(--mono-filter-dark);
+    --mono-filter-contrast: var(--mono-filter-lght);
     --intro-mask: var(--intro-mask-dark);
     --main-bg: var(--main-bg-dark);
     --main-bg-inv: var(--main-bg-lght);
     --about-bg: var(--about-bg-dark);
+    --post-bg: var(--post-bg-dark);
     --tutoring-bg: var(--tutoring-bg-dark);
     --projects-bg: var(--projects-bg-dark);
     --games-bg: var(--games-bg-dark);
     --toppanel-header-bg: var(--toppanel-header-bg-dark);
+    --toppanel-content-header-bg: var(--toppanel-content-header-bg-dark);
     --panel-border: var(--panel-border-dark);
     --panel-border-hover: var(--panel-border-hover-dark);
     --main-fg: var(--main-fg-dark);
@@ -182,14 +210,17 @@
         --darkmode: ;
         --lightmode: none;
         --mono-filter: var(--mono-filter-dark);
+        --mono-filter-contrast: var(--mono-filter-lght);
         --intro-mask: var(--intro-mask-dark);
         --main-bg: var(--main-bg-dark);
         --main-bg-inv: var(--main-bg-lght);
         --about-bg: var(--about-bg-dark);
+        --post-bg: var(--post-bg-dark);
         --tutoring-bg: var(--tutoring-bg-dark);
         --projects-bg: var(--projects-bg-dark);
         --games-bg: var(--games-bg-dark);
         --toppanel-header-bg: var(--toppanel-header-bg-dark);
+        --toppanel-content-header-bg: var(--toppanel-content-header-bg-dark);
         --panel-border: var(--panel-border-dark);
         --panel-border-hover: var(--panel-border-hover-dark);
         --main-fg: var(--main-fg-dark);
@@ -203,14 +234,17 @@
         --themeicon-a: var(--themeicon-lght);
         --themeicon-b: var(--themeicon-dark);
         --mono-filter: var(--mono-filter-lght);
+        --mono-filter-contrast: var(--mono-filter-dark);
         --intro-mask: var(--intro-mask-lght);
         --main-bg: var(--main-bg-lght);
         --main-bg-inv: var(--main-bg-dark);
         --about-bg: var(--about-bg-lght);
+        --post-bg: var(--post-bg-lght);
         --tutoring-bg: var(--tutoring-bg-lght);
         --projects-bg: var(--projects-bg-lght);
         --games-bg: var(--games-bg-lght);
         --toppanel-header-bg: var(--toppanel-header-bg-lght);
+        --toppanel-content-header-bg: var(--toppanel-content-header-bg-lght);
         --panel-border: var(--panel-border-lght);
         --panel-border-hover: var(--panel-border-hover-lght);
         --main-fg: var(--main-fg-lght);
@@ -530,6 +564,9 @@ a label {
     height: calc(100vh);
     position: relative;
 }
+.toppanel#post {
+    background-color: var(--post-bg);
+}
 .toppanel#about {
     background-color: var(--about-bg);
 }
@@ -553,7 +590,20 @@ a label {
     color: var(--contrast-fg);
     z-index: 20;
 }
-.toppanel-nav > h1 {
+.toppanel-nav .topswitch::before,
+.toppanel-nav .topswitch::after {
+    filter: var(--mono-filter-contrast);
+}
+.toppanel-post {
+    position: relative;
+    background-color: var(--toppanel-content-header-bg);
+    color: var(--main-fg);
+    width: 100%;
+    height: 120px;
+    z-index: 20;
+}
+.toppanel-nav > h1,
+.toppanel-post > h1 {
     padding-top: calc(120px/2 - 64px/2);
     text-align: center;
     vertical-align: middle;
@@ -570,16 +620,21 @@ a label {
     padding-top: 120px;
     height: calc(100vh - 120px);
     overflow-y: scroll;
-    -ms-overflow-style: none; 
-    scrollbar-width: none; 
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+#post_body .toppanel-content-container {
+    padding-top: 0px;
+    height: 100vh;
 }
 
 .toppanel-content-container::-webkit-scrollbar {
-    display: none; 
+    display: none;
 }
 
 html {
-    -ms-overflow-style: none; 
+    -ms-overflow-style: none;
     scrollbar-width: none;
 }
 html::-webkit-scrollbar {
@@ -801,7 +856,6 @@ div#mainicon > div.panel > img {
     right: 0;
 }
 
-#darken,
 #intro label[for="nav-none"] {
     position: absolute;
     top: 0;
@@ -810,10 +864,6 @@ div#mainicon > div.panel > img {
     height: 100%;
     opacity: 0;
     z-index: 0;
-}
-#darken {
-    background-color: var(--main-bg);
-    pointer-events: none;
 }
 
 .toppanel label[for="nav-none"] {
@@ -831,7 +881,7 @@ div#mainicon > div.panel > img {
     filter: var(--mono-filter);
 }
 
-input[value="none"] ~ #darken {
+input[value="none"] {
     /* pointer-events: unset; */
     pointer-events: none; /* otherwise it gets too confusing */
     transition:
@@ -842,7 +892,7 @@ input[value="none"] ~ #darken {
 input[value="none"] ~ #intro .intronav-guide {
     transform: translateX(calc(max(-15vw, -250pt)));
 }
-input[value="none"]:checked ~ #darken {
+input[value="none"]:checked {
     pointer-events: none;
     transition:
         background-color 0.2s ease-in-out,
@@ -918,7 +968,7 @@ dummy {
 
 input[value="status"]:checked ~ #intro .intronav-guide,
 input[value="bg"]:checked ~ #intro .introlayer,
-input[value="bg"]:checked ~ #darken {
+input[value="bg"]:checked {
     opacity: 0;
 }
 

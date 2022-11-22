@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+
+    <title>glipR | Jackson's site</title>
+
+    <meta property="og:title" content="glipR" />
+    <meta name="author" content="glipR" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="description" content="Jackson's site" />
+    <meta property="og:description" content="Jackson's site" />
+    <link rel="canonical" href="https://glipR.xyz/" />
+    <meta property="og:url" content="https://glipR.xyz/" />
+    <meta property="og:site_name" content="glipR" />
+    <meta property="og:image" content="https://glipR.xyz/favicon.png" />
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "headline": "glipR",
+            "sameAs": [
+                "https://github.com/glipR",
+            ],
+            "url": "https://glipR.xyz/",
+            "name": "glipR",
+            "author": {
+                "@type": "Person",
+                "name": "glipR"
+            },
+            "image": "https://glipR.xyz/favicon.png",
+            "description": "Jackson's site"
+        }
+    </script>
+    <script src="https://pixijs.download/release/pixi.min.js"></script>
+    <script src="./js/scrolls.js" async></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Quicksand:wght@300;400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./css/style.css">
+
+    </head>
+    <body id="post_body">
+        <input type="checkbox" class="topswitch" id="themeswitch" name="themeswitch" alt="Change theme" title="Change theme">
+
+        <div id="realbody">
+
+            <input type="checkbox" class="topswitch" id="bgswitch" name="bgwitch" alt="Toggle background" title="Toggle background">
+
+            <div id="bgcanvas-wrap"></div>
+            <script type="module" src="./js/bg.js" async></script>
+
+            <div id="post" class="main toppanel">
+                <div class="toppanel-content-container">
+                    <div class="toppanel-post">
+                        <a class="no-invert home-link" href="index.html"><input type="checkbox" class="topswitch home-switch" name="home-switch" alt="Go home" title="Go home"></a>
+                        <h1>My Post</h1>
+                    </div>
+                    <div class="toppanel-content">
+                        <div id="replace_with_content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
