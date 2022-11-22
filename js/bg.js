@@ -1,6 +1,8 @@
-import SimplexNoise from 'https://cdn.skypack.dev/simplex-noise';
+import {createNoise2D} from 'https://cdn.skypack.dev/simplex-noise@4.0.0';
 import hsl from 'https://cdn.skypack.dev/hsl-to-hex';
 import debounce from 'https://cdn.skypack.dev/debounce';
+
+const noise2D = createNoise2D();
 
 var p = document.getElementById("bgcanvas-wrap");
 var w = p.offsetWidth;
@@ -29,8 +31,6 @@ function map(n, start1, end1, start2, end2) {
     return ((n - start1) / (end1 - start1)) * (end2 - start2) + start2;
 }
 
-// Create a new simplex noise instance
-const simplex = new SimplexNoise();
 
 // Orb class
 class Orb {
@@ -82,7 +82,7 @@ class Orb {
             maxDist = window.innerHeight / 1.2;
         const originX = window.innerWidth / 2.0;
         const originY = window.innerHeight / 2.0;
-      
+
         // allow each orb to move x distance away from it's { x, y }origin
         return {
             x: {
@@ -98,10 +98,10 @@ class Orb {
 
     update() {
         // self similar "psuedo-random" or noise values at a given point in "time"
-        const xNoise = simplex.noise2D(this.xOff, this.xOff);
-        const yNoise = simplex.noise2D(this.yOff, this.yOff);
-        const scaleNoise = simplex.noise2D(this.xOff, this.yOff);
-        const colorNoise = simplex.noise2D(this.yOff, this.xOff);
+        const xNoise = noise2D(this.xOff, this.xOff);
+        const yNoise = noise2D(this.yOff, this.yOff);
+        const scaleNoise = noise2D(this.xOff, this.yOff);
+        const colorNoise = noise2D(this.yOff, this.xOff);
 
         var h = this.hue + map(colorNoise, -1, 1, -3000, 3000);
         while (h >= 360) h = h - 360;
@@ -109,13 +109,13 @@ class Orb {
         if (h < 2) h = 2;
         if (h > 358) h = 358;
         this.fill = hsl(h, this.saturation, this.lightness).replace('#','0x');
-      
+
         // map the xNoise/yNoise values (between -1 and 1) to a point within the orb's bounds
         this.x = map(xNoise, -1, 1, this.bounds["x"].min, this.bounds["x"].max);
         this.y = map(yNoise, -1, 1, this.bounds["y"].min, this.bounds["y"].max);
         // map scaleNoise (between -1 and 1) to a scale value somewhere between half of the orb's original size, and 100% of it's original size
         this.scale = map(scaleNoise, -1, 1, 0.5, 1);
-      
+
         // step through "time"
         this.xOff += this.inc;
         this.yOff += this.inc;
@@ -126,10 +126,10 @@ class Orb {
         this.graphics.x = this.x;
         this.graphics.y = this.y;
         this.graphics.scale.set(this.scale);
-      
+
         // clear anything currently drawn to graphics
         this.graphics.clear();
-      
+
         // tell graphics to fill any shapes drawn after this with the orb's fill color
         this.graphics.beginFill(this.fill);
         // draw a circle at { 0, 0 } with it's size set by this.radius
@@ -189,7 +189,7 @@ class Raindrop {
         const maxYDist = window.innerHeight / 1.5;
         const originX = window.innerWidth / 2.0;
         const originY = window.innerHeight / 2.0;
-      
+
         // allow each orb to move x distance away from it's { x, y }origin
         return {
             x: {
@@ -210,7 +210,7 @@ class Raindrop {
         }
 
         // self similar "psuedo-random" or noise values at a given point in "time"
-        const colorNoise = simplex.noise2D(this.yOff, this.xOff);
+        const colorNoise = noise2D(this.yOff, this.xOff);
 
         var h = this.hue + map(colorNoise, -1, 1, -8000, 8000);
         while (h >= 360) h = h - 360;
@@ -218,9 +218,9 @@ class Raindrop {
         if (h < 2) h = 2;
         if (h > 358) h = 358;
         this.fill = hsl(h, this.saturation, this.lightness).replace('#','0x');
-      
+
         this.y += this.gravity;
-      
+
         // step through "time"
         this.xOff += this.inc;
         this.yOff += this.inc;
@@ -230,10 +230,10 @@ class Raindrop {
         // update the PIXI.Graphics position and scale values
         this.graphics.x = this.x;
         this.graphics.y = this.y;
-      
+
         // clear anything currently drawn to graphics
         this.graphics.clear();
-      
+
         // tell graphics to fill any shapes drawn after this with the orb's fill color
         this.graphics.beginFill(this.fill);
         // draw a circle at { 0, 0 } with it's size set by this.radius
