@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+
+    <title>glipR | Jackson's site</title>
+
+    <meta property="og:title" content="glipR" />
+    <meta name="author" content="glipR" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="description" content="Jackson's site" />
+    <meta property="og:description" content="Jackson's site" />
+    <link rel="canonical" href="https://glipR.xyz/" />
+    <meta property="og:url" content="https://glipR.xyz/" />
+    <meta property="og:site_name" content="glipR" />
+    <meta property="og:image" content="https://glipR.xyz/favicon.png" />
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "headline": "glipR",
+            "sameAs": [
+                "https://github.com/glipR",
+            ],
+            "url": "https://glipR.xyz/",
+            "name": "glipR",
+            "author": {
+                "@type": "Person",
+                "name": "glipR"
+            },
+            "image": "https://glipR.xyz/favicon.png",
+            "description": "Jackson's site"
+        }
+    </script>
+    <script src="../js/pixi.min.js"></script>
+    <script src="../js/particle-emitter.min.js"></script>
+    <script src="../js/scrolls.js" async></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Quicksand:wght@300;400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    </head>
+    <body id="post_body">
+        <input type="checkbox" class="topswitch" id="themeswitch" name="themeswitch" alt="Change theme" title="Change theme">
+
+        <div id="realbody">
+
+            <input type="checkbox" class="topswitch" id="bgswitch" name="bgwitch" alt="Toggle background" title="Toggle background">
+
+            <div id="bgcanvas-wrap"></div>
+            <script type="module" src="../js/bg.js" async></script>
+
+            <div id="post" class="main toppanel">
+                <div class="toppanel-content-container">
+                    <div class="toppanel-post">
+                        <a class="no-invert home-link" href="index.html"><input type="checkbox" class="topswitch home-switch" name="home-switch" alt="Go home" title="Go home"></a>
+                        <h1>My Post</h1>
+                    </div>
+                    <div class="toppanel-content">
+                        <h1>Why should I care?</h1>
+<p>It's hard to fathom how much we rely on computer algorithms to get around these days,
+and how much computational pathfinding is built in to many of the problems we solve,
+that aren't just 'get from here to there'.</p>
+<p>Do you remember the days of Melways, and other obscenely large books, containing just maps of your local area?
+There's obviously a reason those all seemed to vanish in a matter of years, and that's because
+we now have a little device which tells where to go, with better accuracy and more knowledge
+of the current road state than a book could ever encapsulate.</p>
+<div class="row">
+<div class="col-md-6 col-xs-12">
+    On the contrary, we've all seen times where this *reliance* on algorithms has served us poorly,
+    or at the very least has confused us to see such a bad solution to a simple problem.
+</div>
+<div class="col-md-6 col-xs-12">
+    <img src="https://media.giphy.com/media/8vzg9PiyeBGgAxAs6d/giphy.gif" />
+</div>
+</div>
+<p>But even if you don't care how your little machine does all the things for you,
+hopefully I can at least convince you that the discussion and evolution of these algorithms is beautiful,
+and applicable in many other algorithmic problem areas.</p>
+<p>@[video]<a target="_blank" href="assets/videos/Pathfinding/highlights">sectioned</a> {sections: [(0, 'BFS Graphs'), (24, 'An Interesting Puzzle'), (34, 'Jump Point Search'), (45, 'LPA Star')]} (~</p>
+<p>~)</p>
+<h1>The general problem</h1>
+<p>One of the amazing things about discussing pathfinding algorithms
+is that pathfinding is something we do multiple times a day, without assistance from technology,
+and so it is very intuitive to discuss topics here that might have seemed more abstract in a different problem domain.</p>
+<p>The key difference here is that while we pathfind often on a very small scale,
+we need fast computer algorithms to give us extremely optimal paths, or paths over incredibly large domain sizes.</p>
+<p>While you might have a particular image of a pathfinding algorithm telling you whether to turn left or go straight at the traffic lights, it does help to abstract the problem a little bit, so that we can use those same algorithms in surprisingly varied problem domains.</p>
+<p>We'll define any pathfinding problem to contain two points of interest in a space:
+A <em>start</em> point and an <em>end</em> goal.</p>
+<p>We aim to begin at the start point, and via a process of movements between intermediate points, end up at the <em>end</em> goal.</p>
+<p>We might modify this definition later, to include some more interesting problems (multiple starts, multiple goals, path weighting, etc.), but for now this is more than enough to discuss baby's first pathfinding algorithm :)</p>
+<p>@[video]<a target="_blank" href="assets/videos/Pathfinding/generic_graph">sectioned</a> {sections: [(0, 'Start and End'), (5, 'Add Intermediate Points'), (9, 'The Wider Domain')]} (~
+~)</p>
+<p>From now on I'll call these 'points' <em>vertices</em> (<em>vertex</em> singular), and the connections between these <em>edges</em>.
+This is because the current definition shares its likeness with mathematical graphs,
+which has the same terminology.</p>
+<p>When writing algorithms, most of the time the cheapest/easiest queries to make on such a graph will be:</p>
+<ul>
+<li>What are the start and end vertices?</li>
+<li>What are the neighbours of vertex <code>a</code>?</li>
+<li>What edge(s) can I uses to get from vertex <code>a</code> to <code>b</code>?</li>
+</ul>
+<p>And so we'll write algorithms mostly in terms of these queries
+(However I will try to keep away from code of any form,
+most algorithms can be explained in plain english rather succinctly).</p>
+<h1>Keep it Simple Stupid</h1>
+<h2>Natural Approach</h2>
+<p>So let's do it! Let's get from A to B! Let's first try to think how you'd approach this situation, and try as best you can to put that into algorithmic terms, using the queries mentioned above where  appropriate. Here are some flashing graphs, see what your brain first does when it tries to find a path between the red and green dots/squares.</p>
+<p>@[video]<a target="_blank" href="assets/videos/Pathfinding/flashing_graphs">fullscreen</a> (~
+    There's lots of different graph types, aren't there?
+~)</p>
+<p>For me personally, when I'm flashed a graph like the ones above,
+I kind of 'search out' from the start vertex. That is, I look at the vertices close to the start vertex,
+then looking out a bit further, etc., until I find the end vertex.</p>
+<p>Obviously my brain doesn't follow that to a tee,
+but for smaller graphs that's where my mind wanders most of the time.</p>
+<p>For a human, this might not make sense for increasingly big graphs, because we need to keep track of all of the current vertices we are looking at.
+Let's not worry about this for now, and try and turn it into an algorithm!</p>
+<h2>Formalizing</h2>
+<p>Rather than keeping these algorithms completely within our brains,
+let's turn this into a set of simple and unambiguous steps.</p>
+<p>First, we'll have the notion of vertices we are currently looking at in the algorithm.
+We'll call these the <code>expanding</code> vertex (Because we want to 'expand' our range of vision from the start vertex, but moreso because it is a term related to later algorithms.)</p>
+<p>The first vertex we begin 'expanding' from is the start:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">expanding</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Next, and most importantly, we need to formalise what 'searching out' is, and in what order we search out from vertices.</p>
+<p>First of all, I think it's most reasonable to define 'searching out' as appending all of a vertex's neighbours to the <code>expanding</code> set (At least those that we haven't already been expanded).</p>
+<p>After that, I think there are two natural ways order our 'expansion' of these vertices:</p>
+<ol>
+<li>Expand the vertices in zones dependant on distance from the start vertex. (Favouring Breadth of Search)<blockquote>
+<p>More what I was describing with my approach</p>
+</blockquote>
+</li>
+<li>Keep expanding neighbours until we hit the end of a graph, then begin backtracking (Favouring Depth of Search)<blockquote>
+<p>A good approach for testing whether a path exists, but maybe not for generating the shortest one.</p>
+</blockquote>
+</li>
+</ol>
+<p>@[video]<a target="_blank" href="assets/videos/Pathfinding/bfs_dfs">sectioned</a> { sections: [(0, 'Breadth Favouring'), (16, 'Depth Favouring')] } (~</p>
+<p>~)</p>
+<p>I'm going to write up the answer for (1), but it'd be a good exercise to try the same for (2):</p>
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">:</span>
+    <span class="n">vertex</span><span class="o">.</span><span class="n">expanded</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">expanding</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">graph</span><span class="o">.</span><span class="n">end</span><span class="o">.</span><span class="n">expanded</span><span class="p">:</span>
+    <span class="n">new_expanding</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">expanding</span><span class="p">:</span>
+        <span class="n">vertex</span><span class="o">.</span><span class="n">expanded</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">expanding</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">neighbour</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">neighbours</span><span class="p">(</span><span class="n">vertex</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">neighbour</span><span class="o">.</span><span class="n">expanded</span><span class="p">:</span>
+                <span class="n">new_expanding</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">neighbour</span><span class="p">)</span>
+    <span class="n">expanding</span> <span class="o">=</span> <span class="n">new_expanding</span>
+</code></pre></div>
+
+<p>So, to keep it in simple english, we first look at all vertices which are 0 distance from the start,
+then 1 distance from the start, then 2 distance, and so on, until we find the end vertex.</p>
+<p>We can generate all $n$-distance vertices from the graph, after knowing the $n-1$-distance vertices, by visiting all of their neighbours, and marking any that we haven't seen yet.</p>
+<p>This is because the distance from the start between any two adjacent vertices is at most 1.
+(Otherwise we'd be able to generate a shorter distance to the start vertex than we'd originally defined)</p>
+<h1>Divining a path</h1>
+<p>So we can locate the end all well and good, but how do we create a path now that we've searched the entire way?</p>
+<p>I'll pose two solutions here, each which assume some computation/memory has been going on as we've been searching the graph.</p>
+<h2>Closing the distance</h2>
+<p>Rather than pathing from the start to the end, let's traverse the other way!
+Let's assume that while we've been searching, we've been keeping track of the distance from the start vertex for each vertex we expand.</p>
+<p><em>This would be relatively simple, as we can just keep a counter in the </em><code>while</code><em> loop above.</em></p>
+<p>Next, I don't think its too much of a mental leap to say that a good path from the end to the start is one that always reduces the distance to the start vertex as you move across the path.</p>
+<p>Such a path can always exist, and we can generate it algorithmically:</p>
+<ul>
+<li>Start at the end vertex.</li>
+<li>Look at all of the current vertex's neighbours</li>
+<li>There <strong>must</strong> be some neighbour where the distance from the start vertex decreases by 1 (*)</li>
+<li>Move to this new vertex</li>
+<li>Repeat back to the second step</li>
+<li>Once we reach a vertex with distance 0 from the start vertex, we must have reached the start vertex.</li>
+</ul>
+<p>(*) The above is true because for there to be an $n$ length path from the start vertex to this one,
+we must have an $n-1$ length path from the start vertex to one of its neighbours, followed by a 1 length path from that neighbour to our vertex.</p>
+<p>This neighbour must have distance $n-1$, as if it was some $k &lt; n-1$, then we'd have a $k + 1 &lt; n$ length path from the start vertex to our vertex. (Drawing a diagram helps here if you are stuck)</p>
+<h2>Remembering your roots</h2>
+<p>Let's instead say that as we are searching, each vertex remembers how it was discovered (What vertex in the previous iteration caused it to be <code>expanded</code>.)
+We'll call this the vertex's <code>parent</code> (Because it gave 'birth' to this new vertex)</p>
+<p>Then we can simply algorithmically generate a path from end to start by:</p>
+<ul>
+<li>Start at the end vertex.</li>
+<li>Move back to the current vertex's parent.</li>
+<li>Repeat until we hit the start vertex.</li>
+</ul>
+<p>We are guaranteed to hit the start vertex, because that's where the entire search originated from.</p>
+<h1>An unlikely application</h1>
+<h2>Introduction</h2>
+<p>Now that we've completed our first pathfinding algorithm (🎉 Woo! 🎉),
+Lets take a break from the abstract and tackle a real problem.</p>
+<p>One puzzle from the game <a target="_blank" href="https://en.wikipedia.org/wiki/Professor_Layton_and_the_Curious_Village">Professor Layton and the Curious Village</a> (A <em>treasure trove</em> of algorithmically enticing puzzles) is as follows:</p>
+<p>We have 3 chickens, and 3 wolves on one side of a river.
+All of the animals want to reach the other side of the river, luckily they have a raft!</p>
+<p>There are two main rules which restrict the solutions to this problem:</p>
+<ol>
+<li>The raft only fits two animals at once (And there needs to be an animal on board for the raft to move)</li>
+<li>If at any point either side of the river has more wolves than chickens, then the chickens get eaten!</li>
+</ol>
+<p>Is there a set of moves that take all animals from one side of the river to the other?</p>
+<p>@[video]<a target="_blank" href="assets/videos/Pathfinding/river_example">fullscreen</a> (~
+    This problem pops up in a number of other areas, but I'm attributing it to this game so I have an excuse to use the nice artwork. Seriously play this game.
+~)</p>
+<h2>Where's the graph?</h2>
+<p>As a pathfinding problem, the solution doesn't exactly stick out immediately.
+Sure the problem is asking for a path, but this path is just continual moves between two different places!
+So what next? One thing I mentioned when we were first discussing pathfinding as a solution to other problems is that often times we need to abstract the solution to weird definitions of what a vertex and edge is, in order for our algorithms to be appropriate.</p>
+<p>In this example, rather than thinking of our vertices as left and right of the river (Actual locations in the puzzle), let us think of each vertex we are moving to and from, to be a bit more specific.</p>
+<p>It should encode the location of the wolves, chickens, as well as the raft into a single point.
+This would ensure that two different <em>game states</em> are different, even if the raft is currently at the right side of the river in both.</p>
+<p>One simple way would be to simply encode a string, where the first 3 characters would represent the wolf locations, the next three the chickens, and the last 1 the raft's location:</p>
+<ul>
+<li>LLR RRL R would mean 2 wolves and 1 chicken on the left, with the raft and the rest on the right</li>
+<li>RRR LLL L would mean wolves on the right, chickens on the left, raft on the left.</li>
+</ul>
+<p>Notice how when we describe the encoding, we don't actually care which chicken/wolf is on which side, we only talk quantities. This is because the problem state isn't affected by the location of individual chickens, rather the rules are only affected by <strong>how many</strong> chickens/wolves there are on either side (As well as the raft).</p>
+<p>So instead of encoding each chicken/wolf location, we can reduce the number of vertices greatly by simply decoding a game state to number how many chickens/wolves are on the left side, as well as how many rafts are on the left side (0 or 1):</p>
+<ul>
+<li>210 would be equivalent to LLR RRL R (or LRL LRR R, or many others)</li>
+<li>031 would be equivalent to RRR LLL L (and that is the only encoding in the previous schema)</li>
+</ul>
+<p>Overall we've reduced our vertex amount from $2^7 = 128$ to $4 * 4 * 2 = 32$.
+Now that we've got a tight definition of valid vertices, we can define an edge between two vertices to mean a valid transition between the two decoded states existing!</p>
+<h2>Let's move these animals</h2>
+<p>Now, we can construct a solution to our problem by:</p>
+<ol>
+<li>Constructing a graph describing the entire problem state and how we can move around it</li>
+<li>Starting at vertex 331 (All on the left)</li>
+<li>Using our previous algorithm to pathfind to vertex 000 (All on the right)</li>
+<li>Decode such a path into actual movements in the puzzle</li>
+</ol>
+<p><em>Note that vertex 001 would technically also satisfy a solution, but is unreachable.</em></p>
+<p>So let's do it! Let's construct the graph based on our previous rules.
+First, we'll remove any vertices whose state violates rule 2 (More wolves than chickens),
+then we'll add edges which are valid state transitions ($0 &lt; x \leq 2$ animals changing, raft direction changes).
+And lastly, we apply our algorithm!</p>
+<p>@[video]<a target="_blank" href="assets/videos/Pathfinding/pathfind_river">sectioned</a> {sections: [(0, 'Generate States'), (16, 'Apply Rule 2'), (17, 'Add edges based on Rule 1'), (19, 'Find a solution!')]} (~</p>
+<p>~)</p>
+<p>This gives us that path 331 -&gt; 220 -&gt; 321 -&gt; 300 -&gt; 311 -&gt; 110 -&gt; 221 -&gt; 020 -&gt; 031 -&gt; 010 -&gt; 111 -&gt; 000,
+Which we can decode to:</p>
+<ul>
+<li>Send over a chicken and wolf</li>
+<li>Take back a chicken</li>
+<li>Send over the last 2 wolves</li>
+<li>Take back 1 wolf</li>
+<li>Send over 2 chickens</li>
+<li>Take back a chicken and wolf</li>
+<li>Send over 2 chickens</li>
+<li>Take back a wolf</li>
+<li>Send over two wolves</li>
+<li>Take back a chicken (or a wolf)</li>
+<li>Send over the remaining wolf and chicken/wolf</li>
+</ul>
+<p>And there we have it! We've found a solution (and also concluded that there are really only 4 valid and short options) to the problem! (🎉 Double Woo! 🎉)</p>
+<p>I think it is important to note that your abstraction has a big effect on how easy or hard a problem becomes.
+As a good example, here is what our graph, and subsequent solution, looks like if we use the first encoding we came up with, with 4 times the vertices at first:</p>
+<p>@[video]<a target="_blank" href="assets/videos/Pathfinding/bad_river">fullscreen</a> (~
+    As you can see it's hard to gather much more information from this graph.
+~)</p>
+<p>In the next post on this I'm aiming to add edge weights into the mix, and alter our natural method into one of the most popular algorithms, period - Dijkstra's Algorithm!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

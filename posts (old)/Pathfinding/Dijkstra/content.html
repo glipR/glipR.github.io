@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+
+    <title>glipR | Jackson's site</title>
+
+    <meta property="og:title" content="glipR" />
+    <meta name="author" content="glipR" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="description" content="Jackson's site" />
+    <meta property="og:description" content="Jackson's site" />
+    <link rel="canonical" href="https://glipR.xyz/" />
+    <meta property="og:url" content="https://glipR.xyz/" />
+    <meta property="og:site_name" content="glipR" />
+    <meta property="og:image" content="https://glipR.xyz/favicon.png" />
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "headline": "glipR",
+            "sameAs": [
+                "https://github.com/glipR",
+            ],
+            "url": "https://glipR.xyz/",
+            "name": "glipR",
+            "author": {
+                "@type": "Person",
+                "name": "glipR"
+            },
+            "image": "https://glipR.xyz/favicon.png",
+            "description": "Jackson's site"
+        }
+    </script>
+    <script src="../js/pixi.min.js"></script>
+    <script src="../js/particle-emitter.min.js"></script>
+    <script src="../js/scrolls.js" async></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Quicksand:wght@300;400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    </head>
+    <body id="post_body">
+        <input type="checkbox" class="topswitch" id="themeswitch" name="themeswitch" alt="Change theme" title="Change theme">
+
+        <div id="realbody">
+
+            <input type="checkbox" class="topswitch" id="bgswitch" name="bgwitch" alt="Toggle background" title="Toggle background">
+
+            <div id="bgcanvas-wrap"></div>
+            <script type="module" src="../js/bg.js" async></script>
+
+            <div id="post" class="main toppanel">
+                <div class="toppanel-content-container">
+                    <div class="toppanel-post">
+                        <a class="no-invert home-link" href="index.html"><input type="checkbox" class="topswitch home-switch" name="home-switch" alt="Go home" title="Go home"></a>
+                        <h1>My Post</h1>
+                    </div>
+                    <div class="toppanel-content">
+                        <h1>A weighty decision</h1>
+<p>In the previous post, we formalised a simple algorithm that should give us the shortest number of edges to traverse a graph. Extremely useful, and pretty to look at, but no doubt limited.</p>
+<p>The main difference between the problems we can solve now, and the problems that a maps app will solve, is that certain paths/edges in a map take more effort/time to traverse than others, and our algorithm doesn't take this into account. For example, in the following two graphs, there is a disconnect between what is the least edges path, and the least distance path.</p>
+<p>@[video]<a target="_blank" href="assets/videos/Pathfinding/distance_differing">fullscreen</a> (~
+    Even having octal directions of movement forces our algorithm to fail on a simple tiling map!
+~)</p>
+<p>So how can we fix our previous algorithm to cover this outcome?
+There are a number simple patchwork methods to try transform this harder problem into a version suitable for our original solution. For example, if all edge weights are whole numbers, then we can separate a long edge into a long chain of vertices.</p>
+<p>@[video]<a target="_blank" href="assets/videos/Pathfinding/graph_mappings">sectioned</a> { sections: [(0, 'Decompose edges'), (1, 'Irrational edge decomposition')] } (~</p>
+<p>~)</p>
+<p>But for any given bit of patchwork, you can always give some graph representation for which this fails.
+This is because adding edge weights simply makes this a harder problem to solve, and we need a heavy duty algorithm to tackle this problem. That being said the concept itself isn't too hard to grasp.</p>
+<p>And that's not to say we have to throw out our old algorithm entirely, in fact we really just need to make one change.</p>
+<p>Let's take a closer look at how our algorithm performs on these new graphs. The reason our algorithm worked before was because we expanded vertices in order of increasing distance from the start vertex (However for us distance only meant number of edges). The problem now is that expanding all of the neighbours of a vertex at once doesn't quite make sense, as some neighbours are closer than others.</p>
+<p>This difference in approach means that we don't consider vertices in order of distance anymore, as you can see below:</p>
+<p>@[video]<a target="_blank" href="assets/videos/Pathfinding/BFS_distance_order">fullscreen</a> (~</p>
+<p>~)</p>
+<p>So how can we remedy this? Let's assume (rather reasonably, I hope) that every edge weight here is positive, as with normal roads.</p>
+<p>Rather than trying to find the entire ordering of the graph distances, let's try to think what the closest vertex to the start vertex is, by total distance:</p>
+<p>@[video]<a target="_blank" href="assets/videos/Pathfinding/closest_vertex">fullscreen</a>(~
+    Do you see the pattern?
+~)</p>
+<p>As you hopefully see; The closest vertex always has to be a neighbour of the start vertex! This is because any path from the start vertex to any other vertex has to include an edge from the start vertex to one of it's neighbours, so obviously one of these neighbours must be the closest.
+Moreover, the neighbour closest must have the smallest edge weight between it and the start vertex, by similar reasoning.</p>
+<p>Great, we're one step of the way! What about the second closest?
+Well, using similar logic to above, we can deduce that the path between this next shortest vertex and the start vertex must pass through one of the neighbours of the start vertex:</p>
+<ul>
+<li>If that neighbour isn't the closest vertex to the start, then this neighbour is the second closest<blockquote>
+<p>This is because the path from the start to this neighbour is definitely shorter than the any other path which passes through both the neighbour and the start vertex.</p>
+</blockquote>
+</li>
+<li>If that neighbour is the closest vertex to the start, then a neighbour of the closest vertex is the second closest<blockquote>
+<p>This is due to similar logic to deducing the closest was a neighbour of the start.</p>
+</blockquote>
+</li>
+</ul>
+<p>In general, if we denote $T_n$ to be subgraph of the $n^{\text{th}}$ closest vertices to the start (including the start vertex itself), then we know the $(n+1)^{\text{th}}$ closest vertex must share an edge with some vertex in $T_{n}$. If this was not, the case, then the path from this new vertex to the start vertex could be shortened to some other vertex not in $T_n$:</p>
+<p>@[video]<a target="_blank" href="assets/videos/Pathfinding/nth_closest_proof">sectioned</a> { sections: [(0, 'Generate $T_n$'), (1, 'Take some $x_{n+1}$ not neighbouring'), (2, 'Improve $x_{n+1}$')] } (~</p>
+<p>~)</p>
+<p>Therefore, we are guaranteed to find each vertex in increasing distance while only looking at those adjacent to our currently expanding vertices. As such we don't need to change our original algorithm much, but just the order in which we expand vertices, namely <strong>Expand in order of increasing distance from the start vertex.</strong>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
