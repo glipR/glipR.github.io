@@ -82,6 +82,8 @@ function map(n, start1, end1, start2, end2) {
 const vertices = {};
 const edges = [];
 
+var particle = PIXI.Texture.from("img/particle.png");
+
 class Vertex {
     // Pixi takes hex colors as hexidecimal literals (0x rather than a string with '#')
     constructor(position, size) {
@@ -154,6 +156,15 @@ class Edge {
         this.graphics.alpha = 1;
         this.graphics.x = 0;
         this.graphics.y = 0;
+        this.mask_graphics = new PIXI.Graphics();
+        this.graphics.alpha = 1;
+        this.graphics.x = 0;
+        this.graphics.y = 0;
+        this.emitter_graphics = new PIXI.Graphics();
+        this.emitter_graphics.alpha = 1;
+        this.emitter_graphics.x = 0;
+        this.emitter_graphics.y = 0;
+        this.emitter_graphics.mask = this.mask_graphics;
         this.start_vertex = start_vertex
         this.start_position = start_vertex.position;
         this.end_vertex = end_vertex
@@ -164,8 +175,73 @@ class Edge {
 
         this.line_color = "0x000000"
         this.background = "0xeeeeee"
+        this.edge_dist = 0;
+        this.edge_mult = 1;
 
         this.changed = true;
+
+        this.emitter = new PIXI.particles.Emitter(
+            this.emitter_graphics,
+            PIXI.particles.upgradeConfig({
+                "alpha": {
+                    "start": 1,
+                    "end": 0.5
+                },
+                "scale": {
+                    "start": 0.8,
+                    "end": 0.2,
+                    "minimumScaleMultiplier": 0.5
+                },
+                "color": {
+                    "start": "#b5eaff",
+                    "end": "#29cdff"
+                },
+                "speed": {
+                    "start": 0,
+                    "end": 0,
+                    "minimumSpeedMultiplier": 0.6
+                },
+                "acceleration": {
+                    "x": 0,
+                    "y": 0
+                },
+                "maxSpeed": 0,
+                "startRotation": {
+                    "min": -90,
+                    "max": -90
+                },
+                "noRotation": true,
+                "rotationSpeed": {
+                    "min": 0,
+                    "max": 0
+                },
+                "lifetime": {
+                    "min": 0.2,
+                    "max": 0.8
+                },
+                "blendMode": "normal",
+                "frequency": 0.003,
+                "emitterLifetime": -1,
+                "maxParticles": 500,
+                "pos": {
+                    "x": start_vertex.position.x,
+                    "y": start_vertex.position.y
+                },
+                "addAtBack": true,
+                "spawnType": "rect",
+                "spawnRect": {
+                    "x": -10,
+                    "y": 0,
+                    "w": 20,
+                    "h": 0
+                }
+            }, particle)
+        )
+        var vec = this.end_position.sub(this.start_position);
+        var rot = -Math.atan2(-vec.y, vec.x);
+        console.log(vec.x, vec.y, rot * 180 / Math.PI)
+        this.emitter.rotate(rot - Math.PI/2);
+        this.emitter.emit = true;
     }
 
     update() {
@@ -176,6 +252,16 @@ class Edge {
         if (this.end_position != this.end_vertex.position) {
             this.changed = true;
             this.end_position = this.end_vertex.position;
+        }
+
+        this.emitter.update(0.01);
+        this.emitter_position = this.start_position.add(this.end_position.sub(this.start_position).mult(this.edge_dist));
+        this.emitter.updateSpawnPos(this.emitter_position.x, this.emitter_position.y);
+        this.edge_dist += 0.01 * this.edge_mult;
+        if (this.edge_dist >= 1 || this.edge_dist <= 0) {
+            this.edge_mult = this.edge_mult * -1;
+            this.emitter.rotate(this.emitter.rotation + Math.PI)
+            this.edge_dist = Math.max(0, Math.min(this.edge_dist, 1));
         }
     }
 
@@ -199,6 +285,17 @@ class Edge {
                 new PIXI.Point(pipe_1_end.x, pipe_1_end.y),
             ]);
             this.graphics.endFill();
+            this.graphics.clear();
+
+            // Mask
+            this.mask_graphics.beginFill(this.background);
+            this.mask_graphics.drawPolygon([
+                new PIXI.Point(pipe_1_start.x, pipe_1_start.y),
+                new PIXI.Point(pipe_2_start.x, pipe_2_start.y),
+                new PIXI.Point(pipe_2_end.x, pipe_2_end.y),
+                new PIXI.Point(pipe_1_end.x, pipe_1_end.y),
+            ]);
+            this.mask_graphics.endFill();
 
             // BORDER
             this.graphics.beginFill(this.line_color);
@@ -219,8 +316,8 @@ class Edge {
 var graph_definition = {
     "vertex_positions": {
         "A": [20, 40],
-        "B": [135, 85],
-        "C": [75, 190],
+        "B": [250, 120],
+        "C": [100, 300],
     },
     "edges": [
         "AC",
@@ -228,13 +325,6 @@ var graph_definition = {
         "BC"
     ]
 }
-
-const bg = new PIXI.Graphics();
-app.stage.addChild(bg);
-bg.alpha = 0.5;
-bg.beginFill(0xffffff);
-bg.drawRect(0, 0, w, h);
-bg.endFill();
 
 Object.keys(graph_definition.vertex_positions).forEach(key => {
     let v = new Vertex(
@@ -257,7 +347,15 @@ graph_definition.edges.forEach(edge => {
     )
     edges.push(e);
     app.stage.addChildAt(e.graphics, 0);
+    app.stage.addChildAt(e.emitter_graphics, 0);
 })
+
+const bg = new PIXI.Graphics();
+app.stage.addChildAt(bg, 0);
+bg.alpha = 0.4;
+bg.beginFill(0xffffff);
+bg.drawRect(0, 0, w, h);
+bg.endFill();
 
 // Animate!
 if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
