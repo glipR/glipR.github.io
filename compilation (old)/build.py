@@ -6,14 +6,15 @@ from jinja_utils import compile_template_with_url
 from markdown_utils import compile_md_to_string
 
 # Top level pages
-for top_level_file in os.listdir('source'):
-    full_path = os.path.join('source', top_level_file)
+for top_level_file in os.listdir("source"):
+    full_path = os.path.join("source", top_level_file)
     if os.path.isfile(full_path):
-        url = top_level_file.replace('.html', '')
-        if top_level_file == 'index.html':
-            url = '/'
-        with open(os.path.join('compiled', top_level_file), 'w') as f:
+        url = top_level_file.replace(".html", "")
+        if top_level_file == "index.html":
+            url = "/"
+        with open(os.path.join("compiled", top_level_file), "w") as f:
             f.write(compile_template_with_url(top_level_file, url))
+
 
 def path_import(absolute_path):
     """Implementation taken from https://docs.python.org/3/library/importlib.html#importing-a-source-file-directly"""
@@ -22,20 +23,21 @@ def path_import(absolute_path):
     spec.loader.exec_module(module)
     return module
 
+
 # Posts
-for root, dirs, files in os.walk('source', topdown=False):
+for root, dirs, files in os.walk("source", topdown=False):
     for name in files:
-        if name == 'info.py':
+        if name == "info.py":
             break
     else:
         continue
-    post = path_import(os.path.join(root, 'info.py')).Post()
+    post = path_import(os.path.join(root, "info.py")).Post()
 
-    new_filepath = os.path.join('compiled', (root + '.html').replace('source/', ''))
+    new_filepath = os.path.join("compiled", (root + ".html").replace("source/", ""))
     directory = os.path.dirname(new_filepath)
     if not os.path.exists(directory):
         os.makedirs(directory)
-    with open(new_filepath, 'w') as f:
-        content = compile_md_to_string(os.path.join(root, 'content.md'))
+    with open(new_filepath, "w") as f:
+        content = compile_md_to_string(os.path.join(root, "content.md"))
         post.content = content
-        f.write(compile_template_with_url('includes/post.html', post.url, post=post))
+        f.write(compile_template_with_url("includes/post.html", post.url, post=post))

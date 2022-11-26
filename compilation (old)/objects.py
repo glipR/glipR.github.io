@@ -1,9 +1,10 @@
 from datetime import date
 
+
 class Post(object):
 
-    title = 'blog.glipr.dev'
-    description = 'What goes here lol'
+    title = "blog.glipr.dev"
+    description = "What goes here lol"
 
     last_updated = date.today()
 
@@ -12,4 +13,4 @@ class Post(object):
         return self.title
 
     def get_last_updated(self):
-        return self.last_updated.strftime('%B %d, %Y')
+        return self.last_updated.strftime("%B %d, %Y")
