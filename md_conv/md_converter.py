@@ -200,6 +200,29 @@ class CustomBlockProcessor(markdown.blockprocessors.BlockProcessor):
             self.block_number += 1
 
 
+class FlowProcessor(CustomBlockProcessor):
+    """
+    Creates a flow diagram with given edge and vertex set.
+    @flow (~
+        V:
+            A:
+            B:
+        E:
+            A:
+            B:
+        other_settings:
+    ~)
+    """
+
+    start_defn = r"@flow"
+
+    def get_before_content(self, block_data, block_number):
+        return f"<div id='flow-{block_number}'>"
+
+    def get_after_content(self, block_data, block_number):
+        return "</div>"
+
+
 class OutputColorer(CustomBlockProcessor):
     """
     Colors output based on some simple coloring rules:
@@ -503,6 +526,7 @@ class MyExtension(markdown.extensions.Extension):
 
     block_processors = [
         (CodeIncluder, 3000),
+        (FlowProcessor, 5000),
         (TaskProcessor, 5000),
         (CheckpointProcessor, 5000),
         (NoteProcessor, 5000),

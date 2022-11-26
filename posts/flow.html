@@ -35,9 +35,9 @@
             "description": "Jackson's site"
         }
     </script>
-    <script src="./js/pixi.min.js"></script>
-    <script src="./js/particle-emitter.min.js"></script>
-    <script src="./js/scrolls.js" async></script>
+    <script src="../js/pixi.min.js"></script>
+    <script src="../js/particle-emitter.min.js"></script>
+    <script src="../js/scrolls.js" async></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
@@ -46,7 +46,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Quicksand:wght@300;400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 
     </head>
     <body id="post_body">
@@ -57,7 +57,7 @@
             <input type="checkbox" class="topswitch" id="bgswitch" name="bgwitch" alt="Toggle background" title="Toggle background">
 
             <div id="bgcanvas-wrap"></div>
-            <script type="module" src="./js/bg.js" async></script>
+            <script type="module" src="../js/bg.js" async></script>
 
             <div id="post" class="main toppanel">
                 <div class="toppanel-content-container">
@@ -66,9 +66,22 @@
                         <h1>My Post</h1>
                     </div>
                     <div class="toppanel-content">
+                        <script type="module" src="../js/flow.js" async></script>
+<script type="module" src="../js/js-yaml.js" async></script>
 
-                        <div id="flow-test"></div>
-                        <script type="module" src="./js/flow.js" async></script>
+<div id='flow-1'>
+<p>V:
+  A: [20, 40]
+  B: [250, 120]
+  C: [100, 300]
+E:
+- start: A
+  end:   C
+- start: A
+  end:   B
+- start: B
+  end:   C</p>
+</div>
                     </div>
                 </div>
             </div>

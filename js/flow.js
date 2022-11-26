@@ -1,14 +1,18 @@
 import {createNoise2D} from 'https://cdn.skypack.dev/simplex-noise@4.0.0';
 import hsl from 'https://cdn.skypack.dev/hsl-to-hex';
 import debounce from 'https://cdn.skypack.dev/debounce';
+import yaml from "../js/js-yaml.mjs";
 
 const noise2D = createNoise2D();
 
-var p = document.getElementById("flow-test");
+var p = document.getElementById("flow-1");
 var w = p.offsetWidth;
 var h = p.offsetHeight;
 
 if (w >= 799) {
+
+var graph = yaml.load(p.getElementsByTagName("p")[0].innerHTML.trim());
+p.innerHTML = "";
 
 const app = new PIXI.Application({
     antialias: true,
@@ -82,7 +86,7 @@ function map(n, start1, end1, start2, end2) {
 const vertices = {};
 const edges = [];
 
-var particle = PIXI.Texture.from("img/particle.png");
+var particle = PIXI.Texture.from("../img/particle.png");
 
 class Vertex {
     // Pixi takes hex colors as hexidecimal literals (0x rather than a string with '#')
@@ -326,21 +330,21 @@ var graph_definition = {
     ]
 }
 
-Object.keys(graph_definition.vertex_positions).forEach(key => {
+Object.keys(graph.V).forEach(key => {
     let v = new Vertex(
         new Vector(
-            graph_definition.vertex_positions[key][0],
-            graph_definition.vertex_positions[key][1]
+            graph.V[key][0],
+            graph.V[key][1]
         ),
         20
     );
     vertices[key] = v;
     app.stage.addChild(v.graphics);
 })
-graph_definition.edges.forEach(edge => {
+graph.E.forEach(edge => {
     let e = new Edge(
-        vertices[edge[0]],
-        vertices[edge[1]],
+        vertices[edge.start],
+        vertices[edge.end],
         5,
         30,
         0

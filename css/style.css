@@ -312,7 +312,7 @@ body[data-bg="on"] #bgcanvas {
     opacity: 1;
 }
 
-#flow-test {
+#flow-1 {
     width: 100%;
     height: calc(100vh - 120px);
     opacity: 1;
