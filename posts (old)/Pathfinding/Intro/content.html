@@ -39,6 +39,19 @@
     <script src="../js/particle-emitter.min.js"></script>
     <script src="../js/scrolls.js" async></script>
 
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['$$', '$$']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#000000">
@@ -57,7 +70,7 @@
             <input type="checkbox" class="topswitch" id="bgswitch" name="bgwitch" alt="Toggle background" title="Toggle background">
 
             <div id="bgcanvas-wrap"></div>
-            <script type="module" src="../js/bg.js" async></script>
+            <!--<script type="module" src="../js/bg.js" async></script>-->
 
             <div id="post" class="main toppanel">
                 <div class="toppanel-content-container">
@@ -132,8 +145,8 @@ let's turn this into a set of simple and unambiguous steps.</p>
 <p>First, we'll have the notion of vertices we are currently looking at in the algorithm.
 We'll call these the <code>expanding</code> vertex (Because we want to 'expand' our range of vision from the start vertex, but moreso because it is a term related to later algorithms.)</p>
 <p>The first vertex we begin 'expanding' from is the start:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">expanding</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
-</code></pre></div>
+<pre class="codehilite"><code class="language-python3">expanding = set(graph.start)
+</code></pre>
 
 <p>Next, and most importantly, we need to formalise what 'searching out' is, and in what order we search out from vertices.</p>
 <p>First of all, I think it's most reasonable to define 'searching out' as appending all of a vertex's neighbours to the <code>expanding</code> set (At least those that we haven't already been expanded).</p>
@@ -151,19 +164,19 @@ We'll call these the <code>expanding</code> vertex (Because we want to 'expand' 
 <p>@[video]<a target="_blank" href="assets/videos/Pathfinding/bfs_dfs">sectioned</a> { sections: [(0, 'Breadth Favouring'), (16, 'Depth Favouring')] } (~</p>
 <p>~)</p>
 <p>I'm going to write up the answer for (1), but it'd be a good exercise to try the same for (2):</p>
-<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">:</span>
-    <span class="n">vertex</span><span class="o">.</span><span class="n">expanded</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="n">expanding</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
-<span class="k">while</span> <span class="ow">not</span> <span class="n">graph</span><span class="o">.</span><span class="n">end</span><span class="o">.</span><span class="n">expanded</span><span class="p">:</span>
-    <span class="n">new_expanding</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">expanding</span><span class="p">:</span>
-        <span class="n">vertex</span><span class="o">.</span><span class="n">expanded</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">expanding</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">neighbour</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">neighbours</span><span class="p">(</span><span class="n">vertex</span><span class="p">):</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">neighbour</span><span class="o">.</span><span class="n">expanded</span><span class="p">:</span>
-                <span class="n">new_expanding</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">neighbour</span><span class="p">)</span>
-    <span class="n">expanding</span> <span class="o">=</span> <span class="n">new_expanding</span>
-</code></pre></div>
+<pre class="codehilite"><code class="language-python3">for vertex in graph:
+    vertex.expanded = False
+expanding = set(graph.start)
+while not graph.end.expanded:
+    new_expanding = set()
+    for vertex in expanding:
+        vertex.expanded = True
+    for vertex in expanding:
+        for neighbour in graph.neighbours(vertex):
+            if not neighbour.expanded:
+                new_expanding.add(neighbour)
+    expanding = new_expanding
+</code></pre>
 
 <p>So, to keep it in simple english, we first look at all vertices which are 0 distance from the start,
 then 1 distance from the start, then 2 distance, and so on, until we find the end vertex.</p>

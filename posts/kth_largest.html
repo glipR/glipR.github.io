@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+
+    <title>glipR | Jackson's site</title>
+
+    <meta property="og:title" content="glipR" />
+    <meta name="author" content="glipR" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="description" content="Jackson's site" />
+    <meta property="og:description" content="Jackson's site" />
+    <link rel="canonical" href="https://glipR.xyz/" />
+    <meta property="og:url" content="https://glipR.xyz/" />
+    <meta property="og:site_name" content="glipR" />
+    <meta property="og:image" content="https://glipR.xyz/favicon.png" />
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "headline": "glipR",
+            "sameAs": [
+                "https://github.com/glipR",
+            ],
+            "url": "https://glipR.xyz/",
+            "name": "glipR",
+            "author": {
+                "@type": "Person",
+                "name": "glipR"
+            },
+            "image": "https://glipR.xyz/favicon.png",
+            "description": "Jackson's site"
+        }
+    </script>
+    <script src="../js/pixi.min.js"></script>
+    <script src="../js/particle-emitter.min.js"></script>
+    <script src="../js/scrolls.js" async></script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['$$', '$$']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Quicksand:wght@300;400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    </head>
+    <body id="post_body">
+        <input type="checkbox" class="topswitch" id="themeswitch" name="themeswitch" alt="Change theme" title="Change theme">
+
+        <div id="realbody">
+
+            <input type="checkbox" class="topswitch" id="bgswitch" name="bgwitch" alt="Toggle background" title="Toggle background">
+
+            <div id="bgcanvas-wrap"></div>
+            <!--<script type="module" src="../js/bg.js" async></script>-->
+
+            <div id="post" class="main toppanel">
+                <div class="toppanel-content-container">
+                    <div class="toppanel-post">
+                        <a class="no-invert home-link" href="index.html"><input type="checkbox" class="topswitch home-switch" name="home-switch" alt="Go home" title="Go home"></a>
+                        <h1>My Post</h1>
+                    </div>
+                    <div class="toppanel-content">
+                        <h1>Intro</h1>
+<p>Intro text goes here.</p>
+<h1>Static kth largest</h1>
+<h2>Application for static kth largest</h2>
+<h2>Solution for static kth largest</h2>
+<h3>Solution 1: Sort</h3>
+<h3>Solution 2: Quick Select</h3>
+<h1>Dynamic kth largest</h1>
+<h2>Application for dynamic kth largest</h2>
+<p>Pagination of Leaderboards</p>
+<h2>Solution for dynamic kth largest</h2>
+<h3>Solution 1: Either of the previous solutions, with append</h3>
+<h3>Solution 2.1: Balanced BST with subtree_size when k is unknown</h3>
+<h3>Solution 2.2: k-size heap when k is known</h3>
+<h1>Weighted Cubes</h1>
+<h2>Problem</h2>
+<p>Imagine we have a large $n \times m$ box of differently weighted cubes, that we balanced on one of the corners.</p>
+<p><img alt="Shuffling matrix example. Heavier colour sink to the bottom" src="../img/kth/shuffle.png" /></p>
+<p>By shaking the box vigorously, we can ensure that for any cube, any cubes directly below it are heavier than this cube.</p>
+<p><img alt="Visualising the diagonal &quot;beneath&quot; constraint. A cube is larger than the cubes to the lower left and lower right." src="../img/kth/order.png" /></p>
+<p>We'd like to find the weight of the kth heaviest cube. You're given an $n \times m$ matrix, where the bottom left corner represents the bottom corner being balanced.</p>
+<h2>Solution</h2>
+<p>Hint 0: For this problem you might want to know some of the following programming concepts (but not necessarily all of them):</p>
+<ul>
+<li>Trees</li>
+<li>Binary Search</li>
+<li>Djikstra's Algorithm</li>
+<li>Heaps</li>
+<li>Two pointer method</li>
+<li>Fast prime factorisation</li>
+</ul>
+<p>TODO: Add links</p>
+<p>Hint 1: The rule about heavier cubes sinking is stated as those directly bellow must be heavy, but this implies something much more global about the array. What is it?</p>
+<p>Hint 2: What is the heaviest cube in the array, what is the second heaviest?</p>
+<p>Hint 3: The problem can be solved in worst case time complexity:</p>
+<ul>
+<li>$k \log_2(k)$</li>
+<li>$(n+m)\log_2(\max(\text{matrix}) - \min(\text{matrix}))$</li>
+<li>$(n+m)\log(nm)$ ??</li>
+</ul>
+<h3>Solution 1: Grow from largest to kth largest with a heap</h3>
+<p>From the first hint, we know that each row and column is sorted from left to right and bottom to top. From this, there is only a single spot possible where the heaviest cube can sit - in the bottom left corner.</p>
+<p>One thing we can intuit from this is that taking any path that only moves right and up through the matrix always decreases in weight. As such the second heaviest cube must appear directly next to the heaviest, either to the right or above.</p>
+<p><img alt="Placing cubes far away means nodes on the right/up path must sit in-between in weight" src="../img/kth/2nd_largest.png" /></p>
+<p>We can continue this argument to show that the $k^{\text{th}}$ heaviest cube will always sit next to the $j^{\text{th}}$ heaviest cube for some $j &lt; k$.</p>
+<p>As such, we can find the $k^{\text{th}}$ heaviest cube by repeatedly finding the $i^{\text{th}}$ heaviest cubes, taking $i$ from $1$ to $k$. As we continue, we keep track of all adjacent cubes and add them to a maximum heap.</p>
+<p>TODO: GIF</p>
+<p>This requires $k$ removals from the heap, and at most $2k$ additions to the heap, so the total complexity is bound by</p>
+<p>$$
+    k\log_2(2k) + 2k\log_2(2k) = \mathcal{O}(k\log_2(k))
+$$</p>
+<p>TODO: Pseudocode</p>
+<h3>Solution 2: Binary search approach</h3>
+<p>Notice that for a particular value $p$, we can find the total number of cubes heavier than $p$ kg in $\mathcal{O}(n+m)$ time, by noticing that the boundary of those greater than $p$ kg form a diagonal line through the board, which only ever moves right or down:</p>
+<p><img alt="Partitioning the matrix into those larger/smaller than p kilograms reveals a boundary that only moves right or downwards" src="../img/kth/partition.png" /></p>
+<p>Therefore we can binary search on the kilogram weight of the kth largest cube, and at every iteration check the actual number of cubes heavier than $p$ kilograms.</p>
+<p>TODO: Pseudocode</p>
+<h3>Solution 3: Funky binary search approach</h3>
+<p>I don't know the complexity of this approach but it seems faster, given it is not reliant on the matrix value ranges, although it seems to be logarithmic with a less forgiving base.</p>
+<p>Rather than doing a traditional binary search, we'd like to reduce our search window in two dimensions simultaneously, without restricting ourselves to a rectangular search window.
+So instead, on each row and column we'll store the minimum and maximum index currently available.</p>
+<p>When selecting a new pivot point to find the boundary of, the worst possible outcome is that all this removes from the search space are the points in the bottom right or top left of the search space.</p>
+<p>TODO: Image</p>
+<p>So select the square which maximises the minimum of these two areas using an additional binary search on each row/column in $\mathcal{O}(n+m)\log_2(n+m)$.</p>
+<p>TODO: Pseudocode</p>
+<p>I'm not sure how you'd prove that this minimum reduced search space decreases as time goes on, but initial testing makes it seem like it is bounded below by a TODO.</p>
+<p>TODO: Image analysis graph</p>
+<h1>Aggregate of multiple kth largest</h1>
+<h2>Application of aggregate kth largest</h2>
+<p>TODO: Explain</p>
+<p>You've been given multiple weather vanes, which have been capturing temperature data daily, for the last century. For each of these weather vanes, you can query it, asking for the $i^{\text{th}}$ hottest day recorded by this vane (and this is the only type of query you can make) Let's say this query has complexity $\mathcal{O}(F)$, which is very large (and so you want to minimise the queries required).</p>
+<p>You'd like to compute the $k^{\text{th}}$ hottest recording aggregated over all of the weather vanes, and which weather vane gave this recording.</p>
+<p>TODO: Image of solution, with top-k results for all weather vanes.</p>
+<h2>Solutions - 2 vanes</h2>
+<p>This problem gets a bit easier when only 2 weather vanes are involved.</p>
+<p>Hint 1: The easiest solution is simply to find the top k recordings on both weather vanes, and then sort the resulting list of 2k recordings, finding the $k^{\text{th}}$ index. This solution has complexity $\mathcal{O}(k \times F + k\log_2(k))$</p>
+<p>Hint 2: With a very similar approach to Hint 1, we can achieve $\mathcal{O}(k \times F)$ complexity.</p>
+<p>Hint 3: Suppose that the $k^{\text{th}}$ hottest reading was the $a^{\text{th}}$ hottest reading on weather vane 1. How many readings from weather vane 2 must be hotter than the $k^{\text{th}}$ hottest reading?
+Answer: $k - a$, since in total there are $k-1$ readings hotter than the $k^{\text{th}}$, and $a - 1$ of them come from weather vane 1.</p>
+<p>TODO: Explain solution 1 - merge approach</p>
+<p>TODO: Pseudocode</p>
+<p>TODO: Explain solution 2 - binary search</p>
+<p>TODO: Pseudocode</p>
+<h2>Solutions - &gt;2 vanes</h2>
+<h3>Solution 1 when &gt;2 vanes: Heap moving forward</h3>
+<h3>Solution 2 when p&gt;2 vanes: Removing 1/p each time</h3>
+<h3>Solution 3 when &gt;2 vanes: Modified binary search</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

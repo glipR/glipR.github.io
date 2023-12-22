@@ -200,6 +200,29 @@ class CustomBlockProcessor(markdown.blockprocessors.BlockProcessor):
             self.block_number += 1
 
 
+class HeaderProcessor(CustomBlockProcessor):
+    """
+    Creates a parallax header with a given title.
+    """
+
+    start_defn = r"@header-parallax"
+
+    def get_before_content(self, block_data, block_number):
+        # TODO Use skew property and https://simpleparallax.com/
+        # You can "unskew" the image.
+        # Do I even want skew? Or do I just want header to animate left to right
+        return f"""
+<div class='parallax-header' id='header-{block_number}'>
+<div class='parallax-content'>
+    <div class='parallax-image'></div>
+    <div class='parallax-top-block' /></div>
+    <div class='parallax-bottom-block' /></div>
+    <div class='parallax-text'>
+        """
+
+    def get_after_content(self, block_data, block_number):
+        return "</div></div></div>"
+
 class FlowProcessor(CustomBlockProcessor):
     """
     Creates a flow diagram with given edge and vertex set.
@@ -527,6 +550,7 @@ class MyExtension(markdown.extensions.Extension):
     block_processors = [
         (CodeIncluder, 3000),
         (FlowProcessor, 5000),
+        (HeaderProcessor, 5000),
         (TaskProcessor, 5000),
         (CheckpointProcessor, 5000),
         (NoteProcessor, 5000),

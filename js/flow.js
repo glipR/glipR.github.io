@@ -160,15 +160,20 @@ class Edge {
         this.graphics.alpha = 1;
         this.graphics.x = 0;
         this.graphics.y = 0;
+        this.bg_graphics = new PIXI.Graphics();
+        this.bg_graphics.alpha = 1;
+        this.bg_graphics.x = 0;
+        this.bg_graphics.y = 0;
         this.mask_graphics = new PIXI.Graphics();
-        this.graphics.alpha = 1;
-        this.graphics.x = 0;
-        this.graphics.y = 0;
         this.emitter_graphics = new PIXI.Graphics();
         this.emitter_graphics.alpha = 1;
         this.emitter_graphics.x = 0;
         this.emitter_graphics.y = 0;
         this.emitter_graphics.mask = this.mask_graphics;
+        this.water_graphics = new PIXI.Graphics();
+        this.water_graphics.alpha = 1;
+        this.water_graphics.x = 0;
+        this.water_graphics.y = 0;
         this.start_vertex = start_vertex
         this.start_position = start_vertex.position;
         this.end_vertex = end_vertex
@@ -178,18 +183,18 @@ class Edge {
         this.ignore_length = ignore_length;
 
         this.line_color = "0x000000"
-        this.background = "0xeeeeee"
+        this.background = "0xeeeebb"
         this.edge_dist = 0;
         this.edge_mult = 1;
 
         this.changed = true;
 
-        this.emitter = new PIXI.particles.Emitter(
+        this.emitter_front = new PIXI.particles.Emitter(
             this.emitter_graphics,
             PIXI.particles.upgradeConfig({
                 "alpha": {
-                    "start": 1,
-                    "end": 0.5
+                    "start": 0.9,
+                    "end": 0.1
                 },
                 "scale": {
                     "start": 0.8,
@@ -197,12 +202,12 @@ class Edge {
                     "minimumScaleMultiplier": 0.5
                 },
                 "color": {
-                    "start": "#b5eaff",
-                    "end": "#29cdff"
+                    "start": "#eeeeff",
+                    "end": "#40a0ff"
                 },
                 "speed": {
-                    "start": 0,
-                    "end": 0,
+                    "start": 200,
+                    "end": -100,
                     "minimumSpeedMultiplier": 0.6
                 },
                 "acceleration": {
@@ -235,17 +240,71 @@ class Edge {
                 "spawnType": "rect",
                 "spawnRect": {
                     "x": -10,
-                    "y": 0,
-                    "w": 20,
+                    "y": 8,
+                    "w": 30,
                     "h": 0
                 }
             }, particle)
         )
-        var vec = this.end_position.sub(this.start_position);
-        var rot = -Math.atan2(-vec.y, vec.x);
-        console.log(vec.x, vec.y, rot * 180 / Math.PI)
-        this.emitter.rotate(rot - Math.PI/2);
-        this.emitter.emit = true;
+        this.emitter_front.emit = true;
+        this.emitter_back = new PIXI.particles.Emitter(
+            this.emitter_graphics,
+            PIXI.particles.upgradeConfig({
+                "alpha": {
+                    "start": 1,
+                    "end": 0
+                },
+                "scale": {
+                    "start": 0.8,
+                    "end": 0.2,
+                    "minimumScaleMultiplier": 0.5
+                },
+                "color": {
+                    "start": "#ffffff",
+                    "end": "#ffffff"
+                },
+                "speed": {
+                    "start": -200,
+                    "end": 100,
+                    "minimumSpeedMultiplier": 0.6
+                },
+                "acceleration": {
+                    "x": 0,
+                    "y": 0
+                },
+                "maxSpeed": 0,
+                "startRotation": {
+                    "min": -90,
+                    "max": -90
+                },
+                "noRotation": true,
+                "rotationSpeed": {
+                    "min": 0,
+                    "max": 0
+                },
+                "lifetime": {
+                    "min": 0.1,
+                    "max": 0.4
+                },
+                "blendMode": "normal",
+                "frequency": 0.003,
+                "emitterLifetime": -1,
+                "maxParticles": 500,
+                "pos": {
+                    "x": start_vertex.position.x,
+                    "y": start_vertex.position.y
+                },
+                "addAtBack": true,
+                "spawnType": "rect",
+                "spawnRect": {
+                    "x": -10,
+                    "y": -30,
+                    "w": 30,
+                    "h": 0
+                }
+            }, particle)
+        )
+        this.emitter_back.emit = false;
     }
 
     update() {
@@ -258,14 +317,25 @@ class Edge {
             this.end_position = this.end_vertex.position;
         }
 
-        this.emitter.update(0.01);
+        this.emitter_front.update(0.01);
+        this.emitter_back.update(0.01);
         this.emitter_position = this.start_position.add(this.end_position.sub(this.start_position).mult(this.edge_dist));
-        this.emitter.updateSpawnPos(this.emitter_position.x, this.emitter_position.y);
-        this.edge_dist += 0.01 * this.edge_mult;
+        this.emitter_front.updateSpawnPos(this.emitter_position.x, this.emitter_position.y);
+        this.emitter_back.updateSpawnPos(this.emitter_position.x, this.emitter_position.y);
+        this.edge_dist += 4 * this.edge_mult / this.end_position.sub(this.start_position).length();
         if (this.edge_dist >= 1 || this.edge_dist <= 0) {
             this.edge_mult = this.edge_mult * -1;
-            this.emitter.rotate(this.emitter.rotation + Math.PI)
             this.edge_dist = Math.max(0, Math.min(this.edge_dist, 1));
+
+            this.emitter_back.emit = !this.emitter_back.emit;
+            this.emitter_front.emit = !this.emitter_front.emit;
+        }
+
+        if (this.changed) {
+            var vec = this.end_position.sub(this.start_position);
+            var rot = -Math.atan2(-vec.y, vec.x);
+            this.emitter_front.rotate(rot - Math.PI/2);
+            this.emitter_back.rotate(rot - Math.PI/2);
         }
     }
 
@@ -280,18 +350,32 @@ class Edge {
             const pipe_1_end = this.end_position.add(offset);
             const pipe_2_end = this.end_position.sub(offset);
 
+            const emitter_1 = this.emitter_position.add(offset);
+            const emitter_2 = this.emitter_position.sub(offset);
+
             // BG
-            this.graphics.beginFill(this.background);
-            this.graphics.drawPolygon([
+            this.bg_graphics.clear();
+            this.bg_graphics.beginFill(this.background);
+            this.bg_graphics.drawPolygon([
                 new PIXI.Point(pipe_1_start.x, pipe_1_start.y),
                 new PIXI.Point(pipe_2_start.x, pipe_2_start.y),
                 new PIXI.Point(pipe_2_end.x, pipe_2_end.y),
                 new PIXI.Point(pipe_1_end.x, pipe_1_end.y),
             ]);
-            this.graphics.endFill();
-            this.graphics.clear();
+            this.bg_graphics.endFill();
+            // Water
+            this.water_graphics.clear();
+            this.water_graphics.beginFill(0x29cdff);
+            this.water_graphics.drawPolygon([
+                new PIXI.Point(pipe_1_start.x, pipe_1_start.y),
+                new PIXI.Point(pipe_2_start.x, pipe_2_start.y),
+                new PIXI.Point(emitter_2.x, emitter_2.y),
+                new PIXI.Point(emitter_1.x, emitter_1.y),
+            ]);
+            this.water_graphics.endFill();
 
             // Mask
+            this.mask_graphics.clear();
             this.mask_graphics.beginFill(this.background);
             this.mask_graphics.drawPolygon([
                 new PIXI.Point(pipe_1_start.x, pipe_1_start.y),
@@ -352,6 +436,8 @@ graph.E.forEach(edge => {
     edges.push(e);
     app.stage.addChildAt(e.graphics, 0);
     app.stage.addChildAt(e.emitter_graphics, 0);
+    app.stage.addChildAt(e.water_graphics, 0);
+    app.stage.addChildAt(e.bg_graphics, 0);
 })
 
 const bg = new PIXI.Graphics();
