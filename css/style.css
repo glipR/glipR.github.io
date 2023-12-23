@@ -9,6 +9,7 @@
     --intro-mask-dark: 1;
     --main-bg-lght: #eeeeee;
     --main-bg-dark: #111111;
+    --disabled-text: #7d7d7d;
     /*
     --toppanel-bg-lght: #ffffffe0;
     --toppanel-bg-dark: #080808f0;
@@ -19,6 +20,8 @@
     --toppanel-content-header-bg-dark: #311c0d59;
     --post-bg-lght: #fff5e9de;
     --post-bg-dark: #110a04c5;
+    --draws-bg-lght: #f0f0f0;
+    --draws-bg-dark: #252525;
     --about-bg-lght: #fce9ffde;
     --about-bg-dark: #0a0411c5;
     --tutoring-bg-lght: #ecffe9de;
@@ -150,6 +153,10 @@
     width: 48pt;
     height: 48pt;
 }
+.home-switch-half {
+    width: 24pt;
+    height: 24pt;
+}
 .home-switch::before {
     background-image: var(--home-icon);
 }
@@ -170,6 +177,7 @@
     --main-bg-inv: var(--main-bg-dark);
     --about-bg: var(--about-bg-lght);
     --post-bg: var(--post-bg-lght);
+    --draws-bg: var(--draws-bg-lght);
     --tutoring-bg: var(--tutoring-bg-lght);
     --projects-bg: var(--projects-bg-lght);
     --games-bg: var(--games-bg-lght);
@@ -192,6 +200,7 @@
     --main-bg-inv: var(--main-bg-lght);
     --about-bg: var(--about-bg-dark);
     --post-bg: var(--post-bg-dark);
+    --draws-bg: var(--draws-bg-dark);
     --tutoring-bg: var(--tutoring-bg-dark);
     --projects-bg: var(--projects-bg-dark);
     --games-bg: var(--games-bg-dark);
@@ -216,6 +225,7 @@
         --main-bg-inv: var(--main-bg-lght);
         --about-bg: var(--about-bg-dark);
         --post-bg: var(--post-bg-dark);
+        --draws-bg: var(--draws-bg-dark);
         --tutoring-bg: var(--tutoring-bg-dark);
         --projects-bg: var(--projects-bg-dark);
         --games-bg: var(--games-bg-dark);
@@ -240,6 +250,7 @@
         --main-bg-inv: var(--main-bg-dark);
         --about-bg: var(--about-bg-lght);
         --post-bg: var(--post-bg-lght);
+        --draws-bg: var(--draws-bg-lght);
         --tutoring-bg: var(--tutoring-bg-lght);
         --projects-bg: var(--projects-bg-lght);
         --games-bg: var(--games-bg-lght);
@@ -567,6 +578,9 @@ a label {
 .toppanel#post {
     background-color: var(--post-bg);
 }
+.toppanel#draws {
+    background-color: var(--draws-bg);
+}
 .toppanel#about {
     background-color: var(--about-bg);
 }
@@ -604,6 +618,12 @@ a label {
 }
 .toppanel-nav > h1,
 .toppanel-post > h1 {
+    padding-top: calc(120px/2 - 64px/2);
+    text-align: center;
+    vertical-align: middle;
+}
+
+.toppanel-post > h2 {
     padding-top: calc(120px/2 - 64px/2);
     text-align: center;
     vertical-align: middle;
@@ -801,6 +821,201 @@ html::-webkit-scrollbar {
 .tgdivider {
     height: 64pt;
 }
+
+/* Draws */
+
+.draws_container {
+    margin: auto;
+    width: 90%;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.draws_singular {
+    flex-grow: 1;
+    max-height: 140px;
+    min-height: 90px;
+    margin: 10px 0px;
+    display: block;
+}
+
+.draws_box,
+.draws_extra {
+    background-color: #ffbe0b;
+}
+.draws_box.box_1,
+.draws_extra.box_1 {
+    background-color: #ffbe0b;
+}
+.draws_box.box_2,
+.draws_extra.box_2 {
+    background-color: #fb5607;
+}
+.draws_box.box_3,
+.draws_extra.box_3 {
+    background-color: #ff006e;
+}
+.draws_box.box_4,
+.draws_extra.box_4 {
+    background-color: #8338ec;
+}
+.draws_box.box_5,
+.draws_extra.box_5 {
+    background-color: #3a86ff;
+}
+
+.draws_box {
+    height: 100%;
+    width: 75%;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    position: relative;
+
+    .draws_action {
+        vertical-align: middle;
+
+        font-weight: bold;
+        font-size: x-large;
+        padding-left: 10px;
+    }
+
+    .draws_checkbox {
+        position: absolute;
+        right: 10px;
+        margin: auto;
+    }
+    .draws_checkbox.inactive {
+        color: var(--disabled-text)
+    }
+}
+
+.draws_extra {
+    float: right;
+    height: 100%;
+    width: 20%;
+    position: relative;
+
+    .draws_timer,
+    .draws_cards {
+        display: inline-block;
+        position: absolute;
+        bottom: 10px;
+        width: 48px;
+        left: 0px;
+        right: 0px;
+        margin: auto;
+    }
+
+    .draws_debt {
+        display: inline-block;
+        position: absolute;
+        top: 10px;
+        left: 0px;
+        right: 0px;
+        margin: auto;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .draws_timer.inactive,
+    .draws_cards.inactive {
+        color: var(--disabled-text)
+    }
+
+}
+
+.material-symbols-outlined {
+    font-size: 48px;
+    line-height: 48px;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24
+}
+
+
+button#draws_config_button {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    background: #06d6a0;
+    border: 0px;
+    border-radius: 5px;
+    color: var(--main-fg);
+    width: 150px;
+    height: 40px;
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.center-modal {
+    display: none;
+    position: fixed;
+    z-index: 20;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.center-modal-content {
+    background-color: var(--main-bg);
+    border: var(--main-bg-inv) 5px solid;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 80%;
+    height: 80%;
+    padding: 20px;
+
+    animation-name: animate_from_below;
+    animation-duration: 0.4s;
+}
+
+/* Add Animation */
+@keyframes animate_from_below {
+    from {bottom: -300px; opacity: 0}
+    to {bottom: 0px; opacity: 1}
+}
+
+#configInput {
+    display: block;
+    height: 90%;
+    width: 100%;
+}
+
+button#configSetButton {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    background: #06d6a0;
+    border: 0px;
+    border-radius: 5px;
+    color: var(--main-fg);
+    width: 150px;
+    height: 40px;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+/* Icon */
 
 div#mainicon {
     position: relative;
