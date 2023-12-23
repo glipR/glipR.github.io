@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+
+    <title>glipR | Jackson's site</title>
+
+    <meta property="og:title" content="glipR" />
+    <meta name="author" content="glipR" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="description" content="Jackson's site" />
+    <meta property="og:description" content="Jackson's site" />
+    <link rel="canonical" href="https://glipR.xyz/" />
+    <meta property="og:url" content="https://glipR.xyz/" />
+    <meta property="og:site_name" content="glipR" />
+    <meta property="og:image" content="https://glipR.xyz/favicon.png" />
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "headline": "glipR",
+            "sameAs": [
+                "https://github.com/glipR",
+            ],
+            "url": "https://glipR.xyz/",
+            "name": "glipR",
+            "author": {
+                "@type": "Person",
+                "name": "glipR"
+            },
+            "image": "https://glipR.xyz/favicon.png",
+            "description": "Jackson's site"
+        }
+    </script>
+    <script src="../js/pixi.min.js"></script>
+    <script src="../js/particle-emitter.min.js"></script>
+    <script src="../js/scrolls.js" async></script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['$$', '$$']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Quicksand:wght@300;400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    </head>
+    <body id="post_body">
+        <input type="checkbox" class="topswitch" id="themeswitch" name="themeswitch" alt="Change theme" title="Change theme">
+
+        <div id="realbody">
+
+            <div id="bgcanvas-wrap"></div>
+
+            <div id="draws" class="main toppanel">
+                <div class="toppanel-content-container">
+                    <div class="toppanel-post" style="height: 80px">
+                        <a class="no-invert home-link" href="index.html"><input type="checkbox" class="topswitch home-switch home-switch-half" name="home-switch" alt="Go home" title="Go home"></a>
+                        <h2 id="the_date"></h2>
+                    </div>
+                    <div class="toppanel-content">
+                        <script type="module" src="../js/draws.js" async></script>
+                        <div class="draws_container"></div>
+                        <button id="draws_config_button">CONFIG</button>
+                    </div>
+                </div>
+            </div>
+            <div id="configModal" class="center-modal">
+                <div class="center-modal-content">
+                    <textarea id="configInput"></textarea>
+                    <button id="configSetButton">Set</button>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
