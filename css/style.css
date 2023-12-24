@@ -908,17 +908,6 @@ html::-webkit-scrollbar {
     width: 20%;
     position: relative;
 
-    .draws_timer,
-    .draws_cards {
-        display: inline-block;
-        position: absolute;
-        bottom: 10px;
-        width: 48px;
-        left: 0px;
-        right: 0px;
-        margin: auto;
-    }
-
     .draws_debt {
         display: inline-block;
         position: absolute;
@@ -931,9 +920,21 @@ html::-webkit-scrollbar {
         font-weight: bold;
     }
 
-    .draws_timer.inactive,
-    .draws_cards.inactive {
-        color: var(--disabled-text)
+    a {
+        display: inline-block;
+        position: absolute;
+        bottom: 10px;
+        width: 48px;
+        height: 48px;
+        left: 0px;
+        right: 0px;
+        margin: auto;
+        color: var(--main-fg);
+
+        .draws_timer.inactive,
+        .draws_cards.inactive {
+            color: var(--disabled-text)
+        }
     }
 
 }
@@ -993,6 +994,18 @@ button#draws_config_button {
 
     animation-name: animate_from_below;
     animation-duration: 0.4s;
+}
+
+#cardsModalContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .draws_singular {
+        .draws_box {
+            width: 100%;
+        }
+    }
 }
 
 /* Add Animation */

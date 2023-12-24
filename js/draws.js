@@ -122,6 +122,7 @@ class Category {
             debt.className = "draws_debt";
             debt.innerHTML = `${debt_value}${this.unit}`;
 
+            const timerLink = document.createElement("a");
             const timer = document.createElement("span");
             if (debt_value !== 0) {
                 timer.className = "draws_timer material-symbols-outlined";
@@ -129,14 +130,31 @@ class Category {
                 timer.className = "draws_timer inactive material-symbols-outlined";
             }
             timer.innerHTML = "timer";
+            timerLink.appendChild(timer);
 
             extra.appendChild(debt);
-            extra.appendChild(timer);
+            extra.appendChild(timerLink);
+
+            timerLink.onclick = () => {
+                const timeModal = document.getElementById("timeModal");
+                const timeSet = document.getElementById("timeSetButton");
+                const timeInput = document.getElementById("timeInput");
+
+                timeModal.style.display = "block";
+
+                timeSet.onclick = () => {
+                    this.LogDebt(timeInput.value, debt, timer);
+
+                    timeModal.style.display = "none";
+                    timeModal.onclick = null;
+                }
+            }
         } else {
             const debt = document.createElement("span");
             debt.className = "draws_debt";
             debt.innerHTML = `${debt_value.length}`
 
+            const cardsLink = document.createElement("a");
             const cards = document.createElement("span");
             if (debt_value.length !== 0) {
                 cards.className = "draws_cards material-symbols-outlined";
@@ -145,14 +163,64 @@ class Category {
             }
             cards.innerHTML = "web_stories";
 
+            cardsLink.appendChild(cards);
             extra.appendChild(debt);
-            extra.appendChild(cards);
+            extra.appendChild(cardsLink);
+
+            cardsLink.onclick = () => {
+                this.showCardsModal(debt, cards);
+            }
         }
 
         singular.appendChild(extra);
 
         return singular;
 
+    }
+
+    showCardsModal(debt, cards) {
+        const cardsModal = document.getElementById("cardsModal");
+        const cardsModalContainer = document.getElementById("cardsModalContainer");
+
+        cardsModal.style.display = "block";
+
+        while (cardsModalContainer.children.length > 0) {
+            cardsModalContainer.removeChild(cardsModalContainer.children[0]);
+        }
+
+        this.debt_value.forEach((option, index2) => {
+            const singular_option = document.createElement("div");
+            singular_option.className = "draws_singular";
+
+            const box_option = document.createElement("div");
+            box_option.className = `draws_box box_${this.index+1}`
+
+            const action_option = document.createElement("p");
+            action_option.className = "draws_action";
+            if (option.value === null) {
+                action_option.innerHTML = "Nothing"
+            } else if (this.numeric_category) {
+                action_option.innerHTML = `${this.category_name} ${option.value}${this.unit}`
+            } else {
+                action_option.innerHTML = `${option.value}`
+            }
+
+            const checkLink_option = document.createElement("a");
+            const checkbox_option = document.createElement("span");
+            checkbox_option.className = "draws_checkbox material-symbols-outlined";
+            checkbox_option.innerHTML = "check_box_outline_blank";
+
+            checkLink_option.appendChild(checkbox_option);
+            box_option.appendChild(action_option);
+            box_option.appendChild(checkLink_option);
+            singular_option.appendChild(box_option);
+
+            cardsModalContainer.appendChild(singular_option);
+
+            checkLink_option.onclick = () => {
+                this.CompleteCard(index2, debt, cards);
+            }
+        })
     }
 
     ToggleComplete(elem) {
@@ -168,6 +236,29 @@ class Category {
             setval = true;
         }
         this.manager.setCompleted(this.index, setval);
+    }
+
+    LogDebt(amount, debt, timer) {
+        this.debt_value = this.debt_value - amount;
+        debt.innerHTML = `${this.debt_value}${this.unit}`;
+
+        this.manager.reduceDebt(this.index, amount);
+
+        if (this.debt_value === 0) {
+            timer.classList.add("inactive");
+        }
+    }
+
+    CompleteCard(card_index, debt, cards) {
+        this.manager.completeCard(this.index, card_index);
+
+        debt.innerHTML = `${this.debt_value.length}`
+
+        if (this.debt_value.length === 0) {
+            cards.classList.add("inactive");
+        }
+
+        this.showCardsModal(debt, cards);
     }
 }
 
@@ -200,8 +291,8 @@ class CategoryManager {
         });
         if (manager.currentDay !== date_string) {
             manager.rolloverDay();
-            manager.save();
         }
+        manager.save();
         return manager;
     }
 
@@ -253,6 +344,7 @@ class CategoryManager {
     generateElements() {
         const container = [];
         this.categories.forEach((category, index) => {
+            category.debt_value = this.debts[index];
             container.push(category.generateElement(index+1, this.debts[index], this.complete[index]));
         });
         return container;
@@ -260,6 +352,16 @@ class CategoryManager {
 
     setCompleted(index, val) {
         this.complete[index] = val;
+        this.save();
+    }
+
+    reduceDebt(index, amount) {
+        this.debts[index] = this.debts[index] - amount;
+        this.save();
+    }
+
+    completeCard(index, index2) {
+        this.debts[index].splice(index2, 1);
         this.save();
     }
 }
@@ -319,6 +421,9 @@ elements.forEach(element => {
     document.getElementsByClassName("draws_container")[0].appendChild(element);
 })
 
+var timeModalMain = document.getElementById("timeModal");
+var cardsModalMain = document.getElementById("cardsModal");
+
 var configModal = document.getElementById("configModal");
 var configBtn = document.getElementById("draws_config_button");
 var configInput = document.getElementById("configInput");
@@ -346,6 +451,12 @@ configSetButton.onclick = function () {
 window.onclick = function(event) {
     if (event.target == configModal) {
         configModal.style.display = "none";
+    }
+    if (event.target == timeModalMain) {
+        timeModalMain.style.display = "none";
+    }
+    if (event.target == cardsModalMain) {
+        cardsModalMain.style.display = "none";
     }
 }
 
