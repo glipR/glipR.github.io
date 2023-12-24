@@ -883,14 +883,23 @@ html::-webkit-scrollbar {
         padding-left: 10px;
     }
 
-    .draws_checkbox {
+    a {
         position: absolute;
         right: 10px;
         margin: auto;
+        width: 48px;
+        height: 48px;
+
+        .draws_checkbox {
+            color: var(--main-fg);
+            margin: auto;
+        }
+
+        .draws_checkbox.inactive {
+            color: var(--disabled-text)
+        }
     }
-    .draws_checkbox.inactive {
-        color: var(--disabled-text)
-    }
+
 }
 
 .draws_extra {

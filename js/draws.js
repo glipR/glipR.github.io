@@ -98,6 +98,7 @@ class Category {
             action.innerHTML = `${this.current.value}`
         }
 
+        const checkLink = document.createElement("a");
         const checkbox = document.createElement("span");
         if (complete) {
             checkbox.className = "draws_checkbox inactive material-symbols-outlined";
@@ -106,10 +107,11 @@ class Category {
             checkbox.className = "draws_checkbox material-symbols-outlined";
             checkbox.innerHTML = "check_box_outline_blank";
         }
-        checkbox.onclick = (elem) => this.ToggleComplete(elem.originalTarget);
+        checkLink.onclick = () => this.ToggleComplete(checkbox);
 
+        checkLink.appendChild(checkbox);
         box.appendChild(action);
-        box.appendChild(checkbox);
+        box.appendChild(checkLink);
         singular.appendChild(box);
 
         const extra = document.createElement("div");
