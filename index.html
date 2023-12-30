@@ -37,15 +37,22 @@
     </script>
     <script src="https://pixijs.download/release/pixi.min.js"></script>
     <script src="./js/scrolls.js" async></script>
+    <script src="./js/teaching_boxes.js" async></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#000000">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Quicksand:wght@300;400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
     <link rel="stylesheet" href="./css/style.css">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     </head>
     <body>
@@ -182,79 +189,237 @@
                     <h1>Tutoring</h1>
                 </div>
                 <div class="toppanel-content-container">
-                    <div class="toppanel-content">
-                        <div class="panel-text">
+                    <div class="toppanel-content" style="max-width: 1496px;">
+                        <div class="panel-text" style="margin-bottom: 15px;">
                             <h4>I've been a university tutor since 2020.</h4>
                             <h4>To disambiguate what is a very weird choice of name, university tutors run tutes/workshops, which are run in conjunction with lectures.</h4>
                             <h4>Depending on the faculty and year level, this can be as informal as being available to answer questions, and asking probing questions, to as formal as a high-school teacher might run a class; Working through problems, explaining concepts, etc.</h4>
                         </div>
 
-                        <div class="panel">
-                            <h1>Computer Science</h1>
-
-                            <h2>FIT1045 - Algorithms and Programming Fundamentals</h2>
-                            <p>
-                                FIT1045 is the first introduction to the Computer Science degree.<br>
-                                It mainly focuses on the basics of programming, introducing this through Python.
-                            </p>
-                            <p class="footnote-size">Tutored in: 2021 October Semester</p>
-
-                            <h2>FIT1008 - Introduction to Computer Science</h2>
-                            <p>
-                                FIT1008 is the next unit in the Computer Science course.<br>
-                                It starts by tackling what computers do at a much lower level, requiring students to write MIPS code.<br>
-                                Then the more theoretical parts of computer science are introduced fully, such as Runtime Complexity.
-                            </p>
-                            <p class="footnote-size">Tutored in: 2021S1, 2021S2, 2022S1(Admin Tutor)</p>
-
-                            <h2>FIT2004 - Algorithms and Data Structures</h2>
-                            <p>
-                                FIT2004 is the next unit in the Computer Science course.<br>
-                                Taking everything from first year as a starting point.<br>
-                                We further some of the concepts in algorithmic analysis and cover many new algorithms/concepts.
-                            </p>
-                            <p class="footnote-size">Tutored in: 2022S1</p>
-
-                            <h2>FIT2014 - Theory of Computation</h2>
-                            <p>
-                                FIT2014 juggles many theoretical concepts from computer science, including but not limited to:<br>
-                                Logical Expressions and Quantifiers<br>
-                                Regular Languages, Context Free Languages<br>
-                                Finite Automata (DFA/NFA/GNFA), Push Down Automata, Turing Machines<br>
-                                Computability/Decidability and the "Complexity Playground"
-                            </p>
-                            <p class="footnote-size">Tutored in: 2021S2</p>
-                        </div>
-
-                        <div class="panel">
-                            <h1>Maths</h1>
-
-                            <h2>MTH3170 - Graph Theory</h2>
-                            <p>
-                                MTH3170 is one of the capstone units at Monash, and builds many theorems about graphs from the ground up.<br>
-                                This starts with the basics of Graph Theory, then continues to discuss algorithms and theorems on Matchings and Flows,<br>
-                                then finishes by discussing planarity, colouring, Ramsey theory and the probabilistic method.
-                            </p>
-                            <p class="footnote-size">Tutored in: 2021S2</p>
-
-                            <h2>MAT1830 - Discrete Mathematics for Computer Science</h2>
-                            <p>
-                                MAT1830 covers a lot of general ground which is useful in Combinatorics.
-                            </p>
-                            <p class="footnote-size">Tutored in: 2020S2, 2022S1</p>
-
-                            <h2>MAST30011 - Graph Theory</h2>
-                            <p>
-                                A very similar unit to MTH3170, but taught at University of Melbourne instead of Monash University.
-                            </p>
-                            <p class="footnote-size">Tutored in: 2021S1</p>
-
-                            <h2>MAST20026 - Real Analysis</h2>
-                            <p>
-                                MAST20026 gets student's accustomed to formal proof-writing concepts, and does this through the basics of Real Analysis.<br>
-                                Spending most of its time in definitions of continuity and derivative, and only touching on a few theorems (IVT and the like), this unit is very beginner-friendly.
-                            </p>
-                            <p class="footnote-size">Tutored in: 2021S2</p>
+                        <div class="teaching-container container">
+                            <div class="teaching-row-container row">
+                                <div class="col-12 col-lg-5">
+                                    <div class="teaching-box teaching-box-wide">
+                                        <div class="teaching-box-images">
+                                            <div class="carousel slide" data-ride="carousel">
+                                                <div class="carousel-inner">
+                                                    <div class="carousel-item active" style="background-color: #f2f2f2;">
+                                                        <img src="img/tutoring/1008/bst.png" alt="First slide">
+                                                    </div>
+                                                    <div class="carousel-item" style="background-color: #ffffff;">
+                                                        <img src="img/tutoring/1008/beekeeper.png" alt="Second slide">
+                                                    </div>
+                                                    <div class="carousel-item" style="background-color: #ffffff;">
+                                                        <img src="img/tutoring/1008/kvick-sort.png" alt="Third slide">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="teaching-box-blurb">
+                                            <h3>FIT1008</h3>
+                                            <p>FIT1008 covers the fundamentals of algorithms, including basic data structures, a semi-formal introduction to complexity analysis, sorting algorithms, and a few more complicated data structures like BSTs and Heaps</p>
+                                            <p>I was a TA for this unit from 2021-2023, and was Admin TA for the unit for 3 semesters. As part of this work I created lessons, assignments, and helped deliver/alter the content as the syllabus changed.</p>
+                                        </div>
+                                        <div class="teaching-box-info">
+                                            <h3>FIT1008</h3>
+                                            <span class="material-symbols-outlined">
+                                                info
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-3">
+                                    <div class="teaching-col-container">
+                                        <div class="teaching-box teaching-box-small">
+                                            <div class="teaching-box-images">
+                                                <div class="carousel slide" data-ride="carousel">
+                                                    <div class="carousel-inner">
+                                                        <div class="carousel-item active" style="background-color: #f5d3d3;">
+                                                            <img src="img/tutoring/1045/invariant.png" alt="First slide">
+                                                        </div>
+                                                        <div class="carousel-item" style="background-color: #ffffff;">
+                                                            <img src="img/tutoring/1045/pythontutor.png" alt="Second slide">
+                                                        </div>
+                                                        <div class="carousel-item" style="background-color: #ffffff;">
+                                                            <img src="img/tutoring/1045/complexity.png" alt="Third slide">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="teaching-box-blurb">
+                                                <h3>FIT1045</h3>
+                                                <p>FIT1045 is the first introduction to the Computer Science degree. It mainly focuses on the basics of programming, introducing this through Python.</p>
+                                                <p class="small taught-bottom">Taught in: October Semester of 2021.</p>
+                                            </div>
+                                            <div class="teaching-box-info">
+                                                <h3>FIT1045</h3>
+                                                <span class="material-symbols-outlined">
+                                                    info
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="teaching-box teaching-box-small">
+                                            <div class="teaching-box-images">
+                                                <div class="carousel slide" data-ride="carousel">
+                                                    <div class="carousel-inner">
+                                                        <div class="carousel-item active" style="background-color: #ffffff;">
+                                                            <img src="img/tutoring/20026/sin.png" alt="First slide">
+                                                        </div>
+                                                        <div class="carousel-item" style="background-color: #ffffff;">
+                                                            <img src="img/tutoring/20026/epsilon-delta.jpg" alt="Second slide">
+                                                        </div>
+                                                        <div class="carousel-item" style="background-color: #ffffff;">
+                                                            <img src="img/tutoring/20026/dedekind.png" alt="Third slide">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="teaching-box-blurb">
+                                                <h3>MAST 20026</h3>
+                                                <p>MAST20026 is a real analysis unit taught at UoM. It covers a introduction to proof methods, the reals through Dedekind cuts, and various results following from this about limits of sequences and series.</p>
+                                                <p class="small taught-bottom">Taught in: 2021 S2</p>
+                                            </div>
+                                            <div class="teaching-box-info">
+                                                <h3>MAST20026</h3>
+                                                <span class="material-symbols-outlined">
+                                                    info
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-4">
+                                    <div class="teaching-box teaching-box">
+                                        <div class="teaching-box-images">
+                                            <div class="carousel slide" data-ride="carousel">
+                                                <div class="carousel-inner">
+                                                    <div class="carousel-item active" style="background-color: #ffffff;">
+                                                        <img src="img/tutoring/2014/nfa.png" alt="First slide">
+                                                    </div>
+                                                    <div class="carousel-item" style="background-color: #ffffff;">
+                                                        <img src="img/tutoring/2014/pump.png" alt="Second slide">
+                                                    </div>
+                                                    <div class="carousel-item" style="background-color: #ffffff;">
+                                                        <img src="img/tutoring/2014/enumerable.png" alt="Third slide">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="teaching-box-blurb">
+                                            <h3>FIT2014</h3>
+                                            <p>FIT2014 is called the Theory of Computation. It takes a whirlwind pass through Languages (Finite, Regular, Context Free, etc), Turing Machines, Computability / Decidability, and the "Complexity Zoo"</p>
+                                            <p>I was a TA for this unit in 2021 S2 and 2022 S2</p>
+                                        </div>
+                                        <div class="teaching-box-info">
+                                            <h3>FIT2014</h3>
+                                            <span class="material-symbols-outlined">
+                                                info
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="teaching-row-container row">
+                                <div class="col-12 col-lg-4">
+                                    <div class="teaching-box teaching-box">
+                                        <div class="teaching-box-images">
+                                            <div class="carousel slide" data-ride="carousel">
+                                                <div class="carousel-inner">
+                                                    <div class="carousel-item active" style="background-color: #ffffff;">
+                                                        <img src="img/tutoring/2004/dijkstra.png" alt="First slide">
+                                                    </div>
+                                                    <div class="carousel-item" style="background-color: #ffffff;">
+                                                        <img src="img/tutoring/2004/demands.png" alt="Second slide">
+                                                    </div>
+                                                    <div class="carousel-item" style="background-color: #ffffff;">
+                                                        <img src="img/tutoring/2004/suffix.png" alt="Third slide">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="teaching-box-blurb">
+                                            <h3>FIT2004</h3>
+                                            <p>
+                                                FIT2004 continues on from FIT1008, cover more algorithms and data structures.
+                                                This includes Dynamic Programming, Graph Algorithms, Network Flow with Circulation and Demands, and an intro to suffix tries/trees.
+                                            </p>
+                                            <p>I was a TA for this unit in 2022 S1 and 2023 S1</p>
+                                        </div>
+                                        <div class="teaching-box-info">
+                                            <h3>FIT2004</h3>
+                                            <span class="material-symbols-outlined">
+                                                info
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-4">
+                                    <div class="teaching-box teaching-box">
+                                        <div class="teaching-box-images">
+                                            <div class="carousel slide" data-ride="carousel">
+                                                <div class="carousel-inner">
+                                                    <div class="carousel-item active" style="background-color: #ffffff;">
+                                                        <img src="img/tutoring/3170/chess.png" alt="First slide">
+                                                    </div>
+                                                    <div class="carousel-item" style="background-color: #ffffff;">
+                                                        <img src="img/tutoring/3170/4colour.png" alt="Second slide">
+                                                    </div>
+                                                    <div class="carousel-item" style="background-color: #ffffff;">
+                                                        <img src="img/tutoring/3170/kuratowski.png" alt="Third slide">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="teaching-box-blurb">
+                                            <h3>MTH3170</h3>
+                                            <p>
+                                                MTH3170 is one of the capstone units at Monash, and builds many theorems about graphs from the ground up.
+                                                This starts with the basics of Graph Theory, then continues to discuss algorithms and theorems on Matchings and Flows,
+                                                then finishes by discussing planarity, colouring, Ramsey theory and the probabilistic method.</p>
+                                            <p>I was a TA for this unit in 2021 S2 and 2022 S2</p>
+                                        </div>
+                                        <div class="teaching-box-info">
+                                            <h3>MTH3170</h3>
+                                            <span class="material-symbols-outlined">
+                                                info
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-4">
+                                    <div class="teaching-box teaching-box">
+                                        <div class="teaching-box-images">
+                                            <div class="carousel slide" data-ride="carousel">
+                                                <div class="carousel-inner">
+                                                    <div class="carousel-item active" style="background-color: #ffffff;">
+                                                        <img src="img/tutoring/1830/truth.png" alt="First slide">
+                                                    </div>
+                                                    <div class="carousel-item" style="background-color: #ffffff;">
+                                                        <img src="img/tutoring/1830/venn.png" alt="Second slide">
+                                                    </div>
+                                                    <div class="carousel-item" style="background-color: #ffffff;">
+                                                        <img src="img/tutoring/1830/induction.png" alt="Third slide">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="teaching-box-blurb">
+                                            <h3>MAT1830</h3>
+                                            <p>
+                                                MAT1830 is the introduction to discrete mathematics, with some particular focus on topics helpful for computer scientists.
+                                                This touches on some basics of formal logic, number theory, combinatorics, and graph theory.
+                                            </p>
+                                            <p>I was a TA for this unit in 2020 S2 and 2022 S1</p>
+                                        </div>
+                                        <div class="teaching-box-info">
+                                            <h3>MAT1830</h3>
+                                            <span class="material-symbols-outlined">
+                                                info
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
