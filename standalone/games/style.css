@@ -1,0 +1,9 @@
+.cell-output-display {
+    overflow-x: clip!important;
+}
+
+.column.vert-center-cell {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
