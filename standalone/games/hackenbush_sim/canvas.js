@@ -682,7 +682,7 @@ canvas.onmouseup = function (event) {
           x: dragEnd.x - 1,
           y: dragEnd.y - 1,
         }, 2, 2, (x, y, button, c) => {startEdge(c.treeNode.position.x, c.treeNode.position.y, button, c.treeNode)}, 5);
-      const node = new Node(dragEnd.x, dragEnd.y, 2, 'black');
+      const node = new Node(dragEnd.x, dragEnd.y, 1, 'black');
       EDGES.push(edge);
       CLICK_AREAS.push(clickArea);
       NODES.push(node);
