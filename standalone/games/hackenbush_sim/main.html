@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Canvas Example</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Hackenbush Game</h1>
+  <canvas id="myCanvas"></canvas>
+  <div class="controls">
+    <div id="game_outcome" class="unknown">
+      <span id="outcome_text">?</span>
+    </div>
+    <button id="calculate">Calculate Game</button>
+    <button id="save">Save Game</button>
+    <button id="reset">Reset Game</button>
+
+    <span id="downArrow"></span>
+  </div>
+  <div id="explanation" class="explanation">
+    <section>
+      <h3>Creating Edges</h3>
+
+      <p>Click and drag on the canvas to create a new edge, either on the black base-line or nodes at the top of edges.</p>
+
+      <p>To create Blue, Green or Red edges, use the left, middle and right mouse buttons, or the left mouse button holding the numbers 1, 2 and 3.</p>
+    </section>
+    <section>
+      <h3>Navigating</h3>
+
+      <p>You can hold shift and click elsewhere in the canvas to drag your view around. You can also scroll in and out from a point.</p>
+    </section>
+    <section>
+      <h3>Cutting Edges</h3>
+
+      <p>Edges can be cut by simply clicking and dragging your mouse across the edge (No check is made to see if this is within the rules)</p>
+    </section>
+    <section>
+      <h3>Saving Games</h3>
+
+      <p>If you want to save games with known values to use later, simply press Enter, or press the 'Save' button and give it a name.</p>
+
+      <p>To add it to your current game, drag it in from the right sidebar. Hold shift before dragging to invert the game.</p>
+    </section>
+    <section>
+      <h3>Evaluating Games</h3>
+
+      <p>Press the "Calculate Game" button to evaluate whether your game is a win for Red (R), Blue (B), the 1st (||) or 2nd (0) player.</p>
+    </section>
+  </div>
+
+  <div id="modalDimmer">
+    <div id="nameModal">
+      <h3>Enter the name for your game:</h3>
+      <input type="text" id="gameName" placeholder="Game Name">
+      <div class="confirm_buttons">
+        <button id="confirm_cancel">Cancel</button>
+        <button id="confirm_save">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="canvas.js"></script>
+</body>
+</html>

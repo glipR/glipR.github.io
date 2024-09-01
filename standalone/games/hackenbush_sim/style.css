@@ -1,0 +1,175 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  font-family: 'Roboto', sans-serif;
+}
+canvas {
+  display: block;
+}
+
+h1 {
+  margin-block-end: 0px;
+  margin-block-start: 0px;
+  text-align: center;
+  margin: 0;
+  padding: 5px 20px;
+  font-size: 2.5em;
+  height: 56px;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100px;
+  width: 100%;
+  background-color: gray;
+  position: relative;
+}
+
+.controls > #downArrow {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.explanation {
+  background-color: gray;
+  display: flex;
+  justify-content: space-between;
+  align-self: center;
+  flex-wrap: wrap;
+}
+
+.explanation > section {
+  padding: 15px 10px;
+  flex-basis: 1;
+  max-width: calc(max(33% - 20px, 300px));
+}
+
+button {
+  font-size: 1.5em;
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+}
+
+button#confirm_cancel {
+  background-color: #f44336;
+}
+
+button:hover {
+  background-color: #7ec282;
+}
+
+button:hover#confirm_cancel {
+  background-color: #fc7e72;
+}
+
+button:active {
+  background-color: #226225;
+}
+
+button:hover#confirm_cancel {
+  background-color: #b21f1f;
+}
+
+#game_outcome {
+  width: 48px;
+  height: 48px;
+  border-radius: 32px;
+  display: inline-block;
+  text-align: center;
+  position: relative;
+}
+
+.unknown {
+  background-color: #acacac;
+}
+
+#outcome_text {
+  font-size: 1.5em;
+  position: absolute;
+  height: 28px;
+  width: 28px;
+  top: 10px;
+  left: 10px;
+}
+
+.zero {
+  background-color: #313131;
+  color: #e2e2e2;
+}
+
+.fuzzy {
+  background-color: #f7f7f7;
+}
+
+.blue {
+  background-color: blue;
+  color: #e2e2e2;
+}
+
+.red {
+  background-color: red;
+  color: #e2e2e2;
+}
+
+#modalDimmer {
+  display: none;
+  position: fixed;
+  background-color: #00000080;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#nameModal {
+  display: none;
+  position: fixed;
+  z-index: 2;
+  top: 30%;
+  left: 30%;
+  width: 40%;
+  background-color: white;
+
+  padding: 30px;
+}
+
+#modalDimmer.active {
+  display: block;
+}
+
+#modalDimmer.active > #nameModal {
+  display: block;
+}
+
+#gameName {
+  font-size: 2em;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 20px;
+  width: calc(100% - 4px);
+  display: block;
+}
+
+.confirm_buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
