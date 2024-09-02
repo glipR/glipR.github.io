@@ -235,7 +235,6 @@ class TreeNode {
     if (child != this) {
       this.children.push({child, childEdge});
       child.parents.push(this);
-      console.log(this, child);
     }
     if (childEdge) {
       childEdge.startNode = this;
@@ -355,7 +354,7 @@ class TreeNode {
   deleteEdge(edge) {
     let removed = null;
     this.children.forEach(child => {
-      if (child.childEdge.key === edge.key) {
+      if (child.childEdge && child.childEdge.key === edge.key) {
         removed = child;
 
         child.child.parents = child.child.parents.filter(par => par.key !== this.key);
@@ -702,6 +701,7 @@ canvas.onmouseup = function (event) {
       const newNode = saveDraggingTree.treeNode.deepcopy(null);
       newNode.shift(dx, 0);
       baseNode.addChild(newNode, null);
+      newNode.parent = baseNode;
       EDGES.push(...newNode.collectEdges());
       NODES.push(...newNode.collectNodes());
       CLICK_AREAS.push(...newNode.collectClickAreas());
