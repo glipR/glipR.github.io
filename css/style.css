@@ -22,14 +22,14 @@
     --post-bg-dark: #110a04c5;
     --draws-bg-lght: #f0f0f0;
     --draws-bg-dark: #252525;
-    --about-bg-lght: #fce9ffde;
-    --about-bg-dark: #0a0411c5;
+    --about-bg-lght: #fce9ffe2;
+    --about-bg-dark: #0a0411ef;
     --tutoring-bg-lght: #ecffe9de;
-    --tutoring-bg-dark: #041107c5;
-    --projects-bg-lght: #fff7e9de;
-    --projects-bg-dark: #110e04c5;
-    --games-bg-lght: #e9feffde;
-    --games-bg-dark: #041011c5;
+    --tutoring-bg-dark: #041107dd;
+    --projects-bg-lght: #fff7e9e2;
+    --projects-bg-dark: #110e04ef;
+    --games-bg-lght: #e9feffe2;
+    --games-bg-dark: #041011ee;
     --panel-border-lght: #080808a3;
     --panel-border-dark: #fafafa6a;
     --panel-border-hover-lght: #00adeef9;
@@ -237,6 +237,14 @@
         --contrast-fg: var(--contrast-fg-dark);
         --netdata: var(--netdata-dark);
     }
+
+    #themeswitch ~ #realbody .teaching-box-images img {
+        filter: invert(1) hue-rotate(180deg);
+    }
+
+    #themeswitch ~ #realbody .teaching-box-images .carousel-item {
+        background-color: #000000 !important;
+    }
     #themeswitch:checked,
     #themeswitch:checked ~ #realbody {
         --darkmode: none;
@@ -261,6 +269,13 @@
         --main-fg: var(--main-fg-lght);
         --contrast-fg: var(--contrast-fg-lght);
         --netdata: var(--netdata-lght);
+    }
+    #themeswitch:checked ~ #realbody .teaching-box-images img {
+      filter: none;
+    }
+
+    #themeswitch:checked ~ #realbody .teaching-box-images .carousel-item {
+        background-color: #ffffff !important;
     }
 }
 
