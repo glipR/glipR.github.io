@@ -9,6 +9,8 @@
     --intro-mask-dark: 1;
     --main-bg-lght: #eeeeee;
     --main-bg-dark: #111111;
+    --teaching-blurb-bg-lght: #ffffffd0;
+    --teaching-blurb-bg-dark: #111111d0;
     --disabled-text: #7d7d7d;
     /*
     --toppanel-bg-lght: #ffffffe0;
@@ -175,6 +177,7 @@
     --intro-mask: var(--intro-mask-lght);
     --main-bg: var(--main-bg-lght);
     --main-bg-inv: var(--main-bg-dark);
+    --teaching-blurb-bg: var(--teaching-blurb-bg-lght);
     --about-bg: var(--about-bg-lght);
     --post-bg: var(--post-bg-lght);
     --draws-bg: var(--draws-bg-lght);
@@ -198,6 +201,7 @@
     --intro-mask: var(--intro-mask-dark);
     --main-bg: var(--main-bg-dark);
     --main-bg-inv: var(--main-bg-lght);
+    --teaching-blurb-bg: var(--teaching-blurb-bg-dark);
     --about-bg: var(--about-bg-dark);
     --post-bg: var(--post-bg-dark);
     --draws-bg: var(--draws-bg-dark);
@@ -223,6 +227,7 @@
         --intro-mask: var(--intro-mask-dark);
         --main-bg: var(--main-bg-dark);
         --main-bg-inv: var(--main-bg-lght);
+        --teaching-blurb-bg: var(--teaching-blurb-bg-dark);
         --about-bg: var(--about-bg-dark);
         --post-bg: var(--post-bg-dark);
         --draws-bg: var(--draws-bg-dark);
@@ -256,6 +261,7 @@
         --intro-mask: var(--intro-mask-lght);
         --main-bg: var(--main-bg-lght);
         --main-bg-inv: var(--main-bg-dark);
+        --teaching-blurb-bg: var(--teaching-blurb-bg-lght);
         --about-bg: var(--about-bg-lght);
         --post-bg: var(--post-bg-lght);
         --draws-bg: var(--draws-bg-lght);
@@ -1381,7 +1387,7 @@ input[value="bg"]:checked {
         margin: auto;
         padding: 17px 27px;
 
-        background-color: #ffffffd0;
+        background-color: var(--teaching-blurb-bg);
         display: flex;
         opacity: 0;
         flex-direction: column;
