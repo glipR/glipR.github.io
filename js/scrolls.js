@@ -10,10 +10,14 @@ function setScrolls(show) {
     }
     for (var i=0; i<el.length; i++) {
         el[i].scrollTo(0, 0);
-        if (show != "none")            
-            setTimeout(()=>{window.scroll(0, document.body.scrollHeight)}, 100)
-        else
+        if (show != "none") {
+            const targetElement = document.getElementById(show);
+            if (targetElement) {
+                setTimeout(()=>{targetElement.scrollIntoView({behavior: 'smooth'})}, 100)
+            }
+        } else {
             setTimeout(()=>{window.scroll(0, 0)}, 100)
+        }
     }
 }
 window.onload = ()=>{setScrolls("none")};

@@ -18,9 +18,9 @@ function addTutorOnlicks() {
 
             if (blurb && info) {
                 const blurbStyle = getComputedStyle(blurb);
-                const infoStyle = getComputedStyle(info);
-                blurb.style.opacity = 1 - parseFloat(blurbStyle.opacity);
-                info.style.opacity = 1 - parseFloat(infoStyle.opacity);
+                const targetOpacity = Math.round(1 - parseFloat(blurbStyle.opacity));
+                blurb.style.opacity = targetOpacity;
+                info.style.opacity = 1 - targetOpacity;
             }
         }
     }
