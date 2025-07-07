@@ -18,6 +18,10 @@ let susieRemote = null;
 
 let normalSusieTimeout = null;
 
+// Dialog animation state
+let dialogAnimationTimeout = null;
+let dialogHideTimeout = null;
+
 function initTV() {
     // Hide all TV images initially
     allTVImages = document.querySelectorAll('img[src*="cook"], img[src*="travel"], img[src*="dino"]');
@@ -102,12 +106,14 @@ function cycleMusic1() {
     music1.style.display = 'none';
     music2.style.display = 'block';
     setTimeout(cycleMusic2, 166 * 2);
+    document.getElementById('music-flash').src = 'img/room/flashes/music2.png';
 }
 
 function cycleMusic2() {
     music1.style.display = 'block';
     music2.style.display = 'none';
     setTimeout(cycleMusic1, 166 * 2);
+    document.getElementById('music-flash').src = 'img/room/flashes/music1.png';
 }
 
 // Initialize when page loads
@@ -117,3 +123,59 @@ document.addEventListener('DOMContentLoaded', initMusic);
 // Expose functions globally
 window.cycleTV = cycleAnimation;
 window.setTVFrameRate = setFrameRate;
+
+function phoneDialog(profile, text) {
+    // Cancel any existing animation and hide timeouts
+    if (dialogAnimationTimeout) {
+        clearTimeout(dialogAnimationTimeout);
+        dialogAnimationTimeout = null;
+    }
+    if (dialogHideTimeout) {
+        clearTimeout(dialogHideTimeout);
+        dialogHideTimeout = null;
+    }
+
+    document.getElementById('dr-text-profile').src = profile;
+    const textBox = document.querySelector('.dr-text-box');
+    const textElement = document.querySelector('.dr-text-text');
+
+    // Store the original text
+    const originalText = text;
+
+    // Show the dialog box
+    textBox.style.display = 'flex';
+
+    // Clear the text initially
+    textElement.textContent = '';
+
+    // Animate text character by character
+    let currentIndex = 0;
+    const textSpeed = 25; // milliseconds per character
+
+    function typeNextCharacter() {
+        if (currentIndex < originalText.length) {
+            textElement.textContent += originalText[currentIndex];
+            currentIndex++;
+            dialogAnimationTimeout = setTimeout(typeNextCharacter, textSpeed);
+        }
+    }
+
+    // Start the typing animation
+    typeNextCharacter();
+
+    // Calculate total animation time
+    const totalAnimationTime = originalText.length * textSpeed;
+
+    // Hide dialog after 4 seconds total (or at least 2 seconds after animation completes)
+    const hideDelay = Math.max(4000, totalAnimationTime + 2000);
+
+    dialogHideTimeout = setTimeout(() => {
+        textBox.style.display = 'none';
+        // Reset text for next time
+        textElement.textContent = originalText;
+        // Clear the timeout references
+        dialogHideTimeout = null;
+    }, hideDelay);
+}
+
+window.phoneDialog = phoneDialog;

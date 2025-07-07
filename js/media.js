@@ -1,5 +1,15 @@
 // Media Collection Modal Functionality
 
+// Flash and Modal System:
+// - Elements with data-category="category-name" will trigger flash effects on hover
+// - Elements with both data-category and data-modal will also open modals on click
+// - Flash images should have data-flash="category-name" to link to the category
+//
+// Example HTML:
+// <div data-category="games" data-modal>Click to open games modal with flash effect</div>
+// <div data-category="music">Hover for flash effect only</div>
+// <div data-flash="games">This flashes when games category is hovered</div>
+
 // Media data with personal blurbs
 const mediaData = {
     "A Silent Voice": {
@@ -386,26 +396,40 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add click listeners to all media items
     const mediaItems = document.querySelectorAll('.media-item');
     mediaItems.forEach(item => {
-        item.addEventListener('click', function() {
+        const clickHandler = function(event) {
+            event.preventDefault(); // Prevent default touch behavior
             const title = this.getAttribute('data-title');
             openMediaModal(title);
-        });
+        };
+
+        item.addEventListener('click', clickHandler);
+        item.addEventListener('touchstart', clickHandler);
     });
 
     // Close modal when clicking the X
     const closeBtn = document.querySelector('.media-modal-close');
     if (closeBtn) {
-        closeBtn.addEventListener('click', closeMediaModal);
+        const closeHandler = function(event) {
+            event.preventDefault();
+            closeMediaModal();
+        };
+
+        closeBtn.addEventListener('click', closeHandler);
+        closeBtn.addEventListener('touchstart', closeHandler);
     }
 
     // Close modal when clicking outside of it
     const modal = document.getElementById('media-modal');
     if (modal) {
-        modal.addEventListener('click', function(event) {
+        const modalClickHandler = function(event) {
             if (event.target === modal) {
+                event.preventDefault();
                 closeMediaModal();
             }
-        });
+        };
+
+        modal.addEventListener('click', modalClickHandler);
+        modal.addEventListener('touchstart', modalClickHandler);
     }
 
     // Close modal with Escape key
@@ -419,18 +443,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Apply random positioning to all media covers
     randomizeMediaPositions();
 
-    // Room clickable functionality
-    const roomClickables = document.querySelectorAll('.room-clickable');
-    roomClickables.forEach(clickable => {
-        clickable.addEventListener('click', function() {
-            const category = this.getAttribute('data-category');
-            openCategoryModal(category);
-            // Remove active class from any flash images when clicking
-            removeAllFlashActive();
-        });
-
+    // Universal flash effect functionality for all elements with data-category
+    const elementsWithCategory = document.querySelectorAll('[data-category]');
+    elementsWithCategory.forEach(element => {
         // Add hover effects for flash images
-        clickable.addEventListener('mouseenter', function() {
+        element.addEventListener('mouseenter', function() {
             const category = this.getAttribute('data-category');
             const flashImage = getFlashImageForCategory(category);
             if (flashImage) {
@@ -438,57 +455,66 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        clickable.addEventListener('mouseleave', function() {
+        element.addEventListener('mouseleave', function() {
             const category = this.getAttribute('data-category');
             const flashImage = getFlashImageForCategory(category);
             if (flashImage) {
                 flashImage.classList.remove('active');
             }
         });
+
+        const clickHandler = function(event) {
+            event.preventDefault(); // Prevent default touch behavior
+            const hasModal = this.hasAttribute('data-modal');
+            if (hasModal) {
+                const category = this.getAttribute('data-category');
+                openCategoryModal(category);
+            }
+            // Remove active class from any flash images when clicking
+            removeAllFlashActive();
+        };
+
+        element.addEventListener('click', clickHandler);
+        element.addEventListener('touchstart', clickHandler);
     });
 
     // Add click listeners to category modal close buttons
     const categoryModalCloseButtons = document.querySelectorAll('.category-modal-close');
     categoryModalCloseButtons.forEach(button => {
-        button.addEventListener('click', closeCategoryModal);
+        const closeHandler = function(event) {
+            event.preventDefault();
+            closeCategoryModal();
+        };
+
+        button.addEventListener('click', closeHandler);
+        button.addEventListener('touchstart', closeHandler);
     });
 
     // Add click listeners to category modal items
     const categoryModalItems = document.querySelectorAll('.category-media-item');
     categoryModalItems.forEach(item => {
-        item.addEventListener('click', function() {
+        const clickHandler = function(event) {
+            event.preventDefault(); // Prevent default touch behavior
             const title = this.getAttribute('data-title');
             openMediaModal(title); // Open the media modal without closing category modal
-        });
-    });
+        };
 
-    // Add hover effects for category modal items
-    categoryModalItems.forEach(item => {
-        item.addEventListener('mouseenter', function() {
-            const category = this.getAttribute('data-type');
-            const flashImage = getFlashImageForCategory(category);
-            if (flashImage) {
-                flashImage.classList.add('active');
-            }
-        });
-
-        item.addEventListener('mouseleave', function() {
-            const category = this.getAttribute('data-type');
-            const flashImage = getFlashImageForCategory(category);
-            if (flashImage) {
-                flashImage.classList.remove('active');
-            }
-        });
+        item.addEventListener('click', clickHandler);
+        item.addEventListener('touchstart', clickHandler);
     });
 
     // Close category modals when clicking outside
-    document.addEventListener('click', function(event) {
+    const outsideClickHandler = function(event) {
         if (event.target.classList.contains('center-modal')) {
             if (event.target.id.includes('-modal')) {
+                event.preventDefault();
                 closeCategoryModal();
             }
         }
-    });
+    };
+
+    document.addEventListener('click', outsideClickHandler);
+    document.addEventListener('touchstart', outsideClickHandler);
 });
 
 // Category modal functions
@@ -517,21 +543,7 @@ function closeCategoryModal() {
 
 // Helper function to find flash image for a given category
 function getFlashImageForCategory(category) {
-    // Define the mapping between categories and flash data attributes
-    const categoryToFlashMap = {
-        'tv': 'tv',
-        'books': 'book'
-        // music and games have no corresponding flash images
-        // movies are now combined with tv
-    };
-
-    const flashDataValue = categoryToFlashMap[category];
-    if (!flashDataValue) {
-        return null; // No flash image for this category
-    }
-
-    // Find the flash image with matching data-flash attribute
-    return document.querySelector(`[data-flash="${flashDataValue}"]`);
+    return document.querySelector(`[data-flash="${category}"]`);
 }
 
 // Helper function to remove active class from all flash images
@@ -541,6 +553,21 @@ function removeAllFlashActive() {
         img.classList.remove('active');
     });
 }
+
+// Generic function to make onclick elements touch-friendly
+function makeTouchFriendly(element) {
+    if (!element || !element.onclick) return;
+
+    const originalOnClick = element.onclick;
+
+    const touchHandler = function(event) {
+        event.preventDefault();
+        originalOnClick.call(this, event);
+    };
+
+    element.addEventListener('touchstart', touchHandler);
+}
+window.makeTouchFriendly = makeTouchFriendly;
 
 // Function to apply random positioning to all media covers
 function randomizeMediaPositions() {

@@ -601,32 +601,58 @@
                         <div id="room-overlay" style="position: absolute; pointer-events: none; width: 100%; height: 100%;">
                             <img src="img/room/couch.png" alt="My Couch" class="pixel-image" style="position: absolute; bottom: 0; left: 55%; transform: translateX(-50%); width: 70%;" />
                             <img src="img/room/chairiel.png" alt="Chairiel" class="pixel-image" style="position: absolute; bottom: 42%; left: 28%; transform: translateX(-50%) translateY(50%); width: 20%;" />
-                            <img src="img/room/krisHead.png" alt="Kris" class="pixel-image" style="position: absolute; bottom: 9.25%; left: 38%; transform: translateX(-50%); width: 8%;" />
-                            <img src="img/room/susieNormal.png" id="susie-normal" alt="Susie" class="pixel-image" onclick="cycleTV()" style="position: absolute; bottom: 3.25%; right: 25%; transform: translateX(-50%); width: 16%; cursor: pointer; pointer-events: auto;" />
+                            <img src="img/room/krisHead.png" id="krisHead" alt="Kris" class="pixel-image" data-category="kris" style="position: absolute; bottom: 9.25%; left: 38%; transform: translateX(-50%); width: 8%; cursor: pointer; pointer-events: auto;" onclick="phoneDialog(`img/room/susie-confuse-profile.png`, `Why are you poking the back of your head?`)" />
+                            <img src="img/room/susieNormal.png" id="susie-normal" alt="Susie" class="pixel-image" data-category="susie" onclick="cycleTV()" style="position: absolute; bottom: 3.25%; right: 25%; transform: translateX(-50%); width: 16%; cursor: pointer; pointer-events: auto;" />
                             <img src="img/room/susieRemote.png" id="susie-remote" alt="Susie" class="pixel-image" style="position: absolute; bottom: 3.25%; right: 25%; transform: translateX(-50%); width: 16%; display: none;" />
                             <img src="img/room/susieSmile.png" id="susie-smile" alt="Susie" class="pixel-image" style="position: absolute; bottom: 3.25%; right: 25%; transform: translateX(-50%); width: 16%; display: none;" />
-                            <img src="img/room/cook1.png" alt="TV Screen" class="pixel-image room-clickable" data-category="tv" style="position: absolute; top: 8%; left: 48%; transform: translateX(-50%) translateY(50%); width: 18%; cursor: pointer;" />
-                            <img src="img/room/cook2.png" alt="TV Screen" class="pixel-image room-clickable" data-category="tv" style="position: absolute; top: 8%; left: 48%; transform: translateX(-50%) translateY(50%); width: 18%; cursor: pointer;" />
-                            <img src="img/room/travel1.png" alt="TV Screen" class="pixel-image room-clickable" data-category="tv" style="position: absolute; top: 8%; left: 48%; transform: translateX(-50%) translateY(50%); width: 18%; cursor: pointer;" />
-                            <img src="img/room/travel2.png" alt="TV Screen" class="pixel-image room-clickable" data-category="tv" style="position: absolute; top: 8%; left: 48%; transform: translateX(-50%) translateY(50%); width: 18%; cursor: pointer;" />
-                            <img src="img/room/dino1.png" alt="TV Screen" class="pixel-image room-clickable" data-category="tv" style="position: absolute; top: 8%; left: 48%; transform: translateX(-50%) translateY(50%); width: 18%; cursor: pointer;" />
-                            <img src="img/room/dino2.png" alt="TV Screen" class="pixel-image room-clickable" data-category="tv" style="position: absolute; top: 8%; left: 48%; transform: translateX(-50%) translateY(50%); width: 18%; cursor: pointer;" />
+                            <img src="img/room/tv-click-area.png" alt="TV Screen" class="pixel-image room-clickable" data-category="tv" data-modal="true" style="position: absolute; top: 8%; left: 48%; transform: translateX(-50%) translateY(50%); width: 18%; cursor: pointer;" />
+                            <img src="img/room/cook1.png" alt="TV Screen" class="pixel-image" style="position: absolute; top: 8%; left: 48%; transform: translateX(-50%) translateY(50%); width: 18%; cursor: unset;" />
+                            <img src="img/room/cook2.png" alt="TV Screen" class="pixel-image" style="position: absolute; top: 8%; left: 48%; transform: translateX(-50%) translateY(50%); width: 18%; cursor: unset;" />
+                            <img src="img/room/travel1.png" alt="TV Screen" class="pixel-image" style="position: absolute; top: 8%; left: 48%; transform: translateX(-50%) translateY(50%); width: 18%; cursor: unset;" />
+                            <img src="img/room/travel2.png" alt="TV Screen" class="pixel-image" style="position: absolute; top: 8%; left: 48%; transform: translateX(-50%) translateY(50%); width: 18%; cursor: unset;" />
+                            <img src="img/room/dino1.png" alt="TV Screen" class="pixel-image" style="position: absolute; top: 8%; left: 48%; transform: translateX(-50%) translateY(50%); width: 18%; cursor: unset;" />
+                            <img src="img/room/dino2.png" alt="TV Screen" class="pixel-image" style="position: absolute; top: 8%; left: 48%; transform: translateX(-50%) translateY(50%); width: 18%; cursor: unset;" />
                             <img src="img/room/tenna1.png" id="tenna-overlay" alt="Tenna Overlay" class="pixel-image" style="position: absolute; top: 8%; left: 48%; transform: translateX(-50%) translateY(50%); width: 18%; display: none;" />
-                            <img src="img/room/phone.png" alt="Phone" class="pixel-image" style="position: absolute; bottom: 44.5%; left: 6%; transform: translateX(-50%) translateY(50%); width: 9%;" />
-                            <img src="img/room/book.png" alt="Book" class="pixel-image room-clickable" data-category="books" style="position: absolute; bottom: 5.5%; right: 10.25%; transform: translateX(-50%) translateY(50%); width: 5%; cursor: pointer;" />
-                            <img src="img/room/music1.png" id="music1" alt="Music" class="pixel-image room-clickable" data-category="music" style="position: absolute; bottom: 44.1%; left: 32.25%; transform: translateX(-50%) translateY(50%); width: 9.8%; cursor: pointer;" />
-                            <img src="img/room/music2.png" id="music2" alt="Music" class="pixel-image room-clickable" data-category="music" style="position: absolute; bottom: 44.1%; left: 32.25%; transform: translateX(-50%) translateY(50%); width: 9.8%; display: none; cursor: pointer;" />
+                            <img src="img/room/phone.png" id="phone" alt="Phone" data-category="phone" class="pixel-image" style="position: absolute; bottom: 44.5%; left: 6%; transform: translateX(-50%) translateY(50%); width: 9%; cursor: pointer; pointer-events: auto;" onclick="phoneDialog(`img/room/susie-smile-profile.png`, `Let's just watch some TV, we can call Noelle for help with the homework later.`)" />
+                            <img src="img/room/book.png" alt="Book" class="pixel-image room-clickable" data-category="books" data-modal="true" style="position: absolute; bottom: 5.5%; right: 10.25%; transform: translateX(-50%) translateY(50%); width: 5%; cursor: pointer;" />
+                            <img src="img/room/mus-click-area.png" alt="Music" class="pixel-image room-clickable" data-category="music" data-modal="true" style="position: absolute; bottom: 44.1%; left: 32.25%; transform: translateX(-50%) translateY(50%); width: 9.8%; cursor: pointer;" />
+                            <img src="img/room/music1.png" id="music1" alt="Music" class="pixel-image" style="position: absolute; bottom: 44.1%; left: 32.25%; transform: translateX(-50%) translateY(50%); width: 9.8%; cursor: unset;" />
+                            <img src="img/room/music2.png" id="music2" alt="Music" class="pixel-image" style="position: absolute; bottom: 44.1%; left: 32.25%; transform: translateX(-50%) translateY(50%); width: 9.8%; display: none; cursor: unset;" />
 
                             <img src="img/room/flashes/tv.png" data-flash="tv" id="tv-flash" class="pixel-image flash-image" style="position: absolute; top: 8%; left: 48%; transform: translateX(-50%) translateY(50%); width: 18%;" />
+                            <img src="img/room/flashes/krisHead.png" data-flash="kris" id="kris-flash" class="pixel-image flash-image" style="position: absolute; bottom: 9.25%; left: 38%; transform: translateX(-50%); width: 8%;" />
                             <img src="img/room/flashes/susie.png" data-flash="susie" id="susie-flash" class="pixel-image flash-image" style="position: absolute; bottom: 3.25%; right: 25%; transform: translateX(-50%); width: 16%;" />
                             <img src="img/room/flashes/phone.png" class="pixel-image flash-image" style="position: absolute; bottom: 44.5%; left: 6%; transform: translateX(-50%) translateY(50%); width: 9%;" />
-                            <img src="img/room/flashes/book.png" data-flash="book" alt="Book" class="pixel-image flash-image" style="position: absolute; bottom: 5.5%; right: 10.25%; transform: translateX(-50%) translateY(50%); width: 5%;" />
+                            <img src="img/room/flashes/book.png" data-flash="books" alt="Book" class="pixel-image flash-image" style="position: absolute; bottom: 5.5%; right: 10.25%; transform: translateX(-50%) translateY(50%); width: 5%;" />
+                            <img src="img/room/flashes/phone.png" data-flash="phone" alt="Phone" class="pixel-image flash-image" style="position: absolute; bottom: 44.5%; left: 6%; transform: translateX(-50%) translateY(50%); width: 9%;" />
+                            <img src="img/room/flashes/music1.png" data-flash="music" id="music-flash" alt="Music" class="pixel-image flash-image" style="position: absolute; bottom: 44.1%; left: 32.25%; transform: translateX(-50%) translateY(50%); width: 9.8%;" />
 
-                            <img src="img/room/game.png" alt="Game" class="pixel-image room-clickable" data-category="games" style="position: absolute; bottom: 31%; right: 37.8%; transform: translateX(-50%) translateY(50%); width: 14%; cursor: pointer;" />
+                            <img src="img/room/game.png" alt="Game" class="pixel-image room-clickable" data-category="games" data-modal="true" style="position: absolute; bottom: 31%; right: 37.8%; transform: translateX(-50%) translateY(50%); width: 14%; cursor: pointer;" />
+                            <img src="img/room/flashes/game.png" data-flash="games" alt="Game" class="pixel-image flash-image" style="position: absolute; bottom: 31%; right: 37.8%; transform: translateX(-50%) translateY(50%); width: 14%;" />
+
+                            <div class="dr-text-box" style="position: absolute; top: 5%; bottom: 75%; left: 5%; right: 5%; display: none;">
+                                <img src="img/room/susie-smile-profile.png" id="dr-text-profile" class="dr-text-profile pixel-image" />
+                                <p class="dr-text-text">Let's just watch some TV, we can call Noelle for help with the homework later.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Initialize touch-friendly elements after all scripts load -->
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Small delay to ensure async scripts are loaded
+                    setTimeout(function() {
+                        if (window.makeTouchFriendly) {
+                            makeTouchFriendly(document.getElementById('susie-normal'));
+                            makeTouchFriendly(document.getElementById('krisHead'));
+                            makeTouchFriendly(document.getElementById('phone'));
+                        }
+                    }, 100);
+                });
+            </script>
+
             <!-- Media Modal -->
             <div id="media-modal" class="center-modal">
                 <div class="media-modal-content">

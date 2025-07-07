@@ -1,5 +1,12 @@
 /* Variables n themeing */
 
+@font-face {
+    font-family: 'Undertale';
+    src: url('../font/ut-dr.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 :root {
     --themeicon-lght: url(../img/themelight.png);
     --themeicon-dark: url(../img/themedark.png);
@@ -2588,4 +2595,35 @@ input[value="bg"]:checked {
 
 .flash-image.active {
     opacity: 0.7;
+}
+
+.dr-text-box {
+  border: 10px solid white;
+  background: black;
+  padding: 30px;
+  font-size: 3rem;
+  line-height: 4rem;
+  font-family: 'Undertale', 'Space Mono', monospace;
+  display: flex;
+}
+
+.dr-text-profile {
+  height: 100%;
+  flex-grow: 0;
+}
+
+.dr-text-text {
+  flex-grow: 1;
+  padding-left: 90px;
+  color: white;
+}
+
+.dr-text-text::before {
+  content: "*";
+  font-size: 3rem;
+  font-family: 'Undertale', 'Space Mono', monospace;
+  color: white;
+
+  margin-left: -50px;
+  margin-right: 20px;
 }
