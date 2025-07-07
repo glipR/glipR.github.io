@@ -54,6 +54,22 @@ const mediaData = {
         cover: "img/media/ergo_proxy.webp",
         spotify: "https://open.spotify.com/embed/track/4Ljv20Qfsp3Ul6BBml37Xb?utm_source=generator"
     },
+    "Better Call Saul": {
+        type: "TV Series",
+        blurb: "",
+        cover: "img/media/better_call_saul.jpg",
+        spotify: "https://open.spotify.com/embed/track/41fWOLOAoyRdiN2kjvmCef?utm_source=generator"
+    },
+    "Taskmaster": {
+        type: "TV Series",
+        blurb: "",
+        cover: "img/media/taskmaster.jpg",
+    },
+    "Catch Me If You Can": {
+        type: "Movie",
+        blurb: "",
+        cover: "img/media/catch_me.jpg"
+    },
     "Brave New World": {
         type: "Book",
         blurb: "",
@@ -69,161 +85,77 @@ const mediaData = {
         blurb: "",
         cover: "img/media/our_mathematical_universe.jpg"
     },
-    "Don't Wait Too Long": {
+    "Careless Love": {
         type: "Music",
         blurb: "",
         cover: "img/media/careless_love.jpg",
         spotify: "https://open.spotify.com/embed/track/2JgQULmVwV0J3Gds7YfBCu?utm_source=generator"
     },
-    "Someday": {
+    "Is This It": {
         type: "Music",
         blurb: "",
         cover: "img/media/is_this_it.webp",
         spotify: "https://open.spotify.com/embed/track/56NkIxSZZiMpFP5ZNSxtnT?utm_source=generator"
     },
-    "Distant Storm": {
+    "Sara Gazarek": {
         type: "Music",
         blurb: "",
         cover: "img/media/thirsty_ghost.jpg",
         spotify: "https://open.spotify.com/embed/track/2lIFQ2swhPnyhQRpk4Z1Dd?utm_source=generator"
     },
-    "Acolyte": {
+    "Birdie": {
         type: "Music",
         blurb: "",
         cover: "img/media/acolyte.jpeg",
         spotify: "https://open.spotify.com/embed/track/12sUmjgHS0mI5LrsqrhdnN?utm_source=generator"
     },
-    "Heroes": {
+    "David Bowie": {
         type: "Music",
         blurb: "",
         cover: "img/media/heroes.png",
         spotify: "https://open.spotify.com/embed/track/7Jh1bpe76CNTCgdgAdBw4Z?utm_source=generator"
     },
-    "Wake Up": {
+    "Arcade Fire": {
         type: "Music",
         blurb: "",
         cover: "img/media/funeral.jpg",
         spotify: "https://open.spotify.com/embed/track/6Hmj7SrLRbreLVfVS7mV1S?utm_source=generator"
     },
-    "Good Luck": {
+    "Broken Bells": {
         type: "Music",
         blurb: "",
-        cover: "img/media/good_luck.jpg",
+        cover: "img/media/into_the_blue.jpeg",
         spotify: "https://open.spotify.com/embed/track/2apLrBlEQvFa8ob0dQcu6i?utm_source=generator"
     },
-    "TRY": {
+    "Madison McFerrin": {
         type: "Music",
         blurb: "",
         cover: "img/media/TRY.jpeg",
         spotify: "https://open.spotify.com/embed/track/1htTRt6dZPPeqduos5PAmC?utm_source=generator"
     },
-    "Soft Shoulder": {
+    "Kaki King": {
         type: "Music",
         blurb: "",
         cover: "img/media/soft_shoulder.jpg",
         spotify: "https://open.spotify.com/embed/track/1HBFG53NNg7jqm1ehWpAVS?utm_source=generator"
     },
-    "Hold Me Tight": {
+    "Berlinist": {
         type: "Music",
         blurb: "",
         cover: "img/media/hold_me_tight.jpg",
         spotify: "https://open.spotify.com/embed/track/3JQ1n3bt7Hl6ilW46i8QOf?utm_source=generator"
     },
-    "Undertale OST": {
-        type: "Music",
-        blurb: "",
-        cover: "img/media/undertale.jpeg",
-        spotify: ""
-    },
-    "Shiki no Uta": {
-        type: "Music",
-        blurb: "",
-        cover: "img/media/shiki_no_uta.jpeg",
-        spotify: ""
-    },
-    "Farewell": {
+    "Lena Raine": {
         type: "Music",
         blurb: "",
         cover: "img/media/farewell.jpg",
-        spotify: ""
+        spotify: "https://open.spotify.com/embed/track/2DSbk7BEJV2FFne8tiGfOn?utm_source=generator"
     },
-    "The Bird Man": {
+    "Aaron Cherof": {
         type: "Music",
         blurb: "",
-        cover: "img/media/bird_man.jpeg",
-        spotify: ""
-    },
-    "Until Next Time": {
-        type: "Music",
-        blurb: "",
-        cover: "img/media/deltarune.jpeg",
-        spotify: ""
-    },
-    "You're Mine": {
-        type: "Music",
-        blurb: "",
-        cover: "img/media/furi.jpg",
-        spotify: ""
-    },
-    "Blowout": {
-        type: "Music",
-        blurb: "",
-        cover: "img/media/noisemaker.jpg",
-        spotify: ""
-    },
-    "Stand Tall": {
-        type: "Music",
-        blurb: "",
-        cover: "img/media/stand_tall.jpeg",
-        spotify: ""
-    },
-    "Do the Impossible": {
-        type: "Music",
-        blurb: "",
-        cover: "img/media/chicory.jpg",
-        spotify: ""
-    },
-    "Abandon Me": {
-        type: "Music",
-        blurb: "",
-        cover: "img/media/chicory.jpg",
-        spotify: ""
-    },
-    "HARMONY": {
-        type: "Music",
-        blurb: "",
-        cover: "img/media/harmony.jpg",
-        spotify: ""
-    },
-    "After Eating, Grand Line!": {
-        type: "Music",
-        blurb: "",
-        cover: "img/media/grand_line.jpg",
-        spotify: ""
-    },
-    "Euthanasia Rollercoaster": {
-        type: "Music",
-        blurb: "",
-        cover: "img/media/euthanasia_rollercoaster.jpg",
-        spotify: ""
-    },
-    "You are the end": {
-        type: "Music",
-        blurb: "",
-        cover: "img/media/furi.jpg",
-        spotify: ""
-    },
-    "City of Tears": {
-        type: "Music",
-        blurb: "",
-        cover: "img/media/hollow_knight.jpg",
-        spotify: ""
-    },
-    "Gris Part 2": {
-        type: "Music",
-        blurb: "",
-        cover: "img/media/gris.jpeg",
-        spotify: ""
+        cover: "img/media/cobalt_core.jpeg",
+        spotify: "https://open.spotify.com/embed/track/5bcfmoF83LKqaUYTjghTbo?utm_source=generator"
     },
     "A Pathway in Monet's Garden": {
         type: "Art",
@@ -354,8 +286,8 @@ function openMediaModal(title) {
         modalCover.src = mediaInfo.cover;
         modalCover.alt = `${title} Cover`;
 
-        // Show/hide Spotify embed based on media type and availability
-        if (mediaInfo.spotify && (mediaInfo.type === 'Music' || mediaInfo.type === 'Game')) {
+        // Show/hide Spotify embed based on availability
+        if (mediaInfo.spotify) {
             modalSpotify.style.display = 'block';
             spotifyEmbed.src = mediaInfo.spotify;
         } else {
