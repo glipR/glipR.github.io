@@ -226,7 +226,7 @@ const mediaData = {
     "Metroid Prime": {
         type: "Game",
         blurb: "",
-        cover: "",
+        cover: "img/media/metroid_prime.png",
         yt_music: "https://www.youtube.com/watch?v=ZbbUv1hz6mE&list=RDZbbUv1hz6mE&start_radio=1"
     },
     "Ori and the Will of the Wisps": {
@@ -438,7 +438,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Close category modals when clicking outside
     const outsideClickHandler = function(event) {
         if (event.target.classList.contains('center-modal')) {
-            if (event.target.id.includes('-modal')) {
+            // Only close category modals, not the media modal
+            if (event.target.id.includes('-modal') && event.target.id !== 'media-modal') {
                 event.preventDefault();
                 closeCategoryModal();
             }
