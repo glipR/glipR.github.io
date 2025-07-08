@@ -640,15 +640,18 @@
 
             <!-- Initialize touch-friendly elements after all scripts load -->
             <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    // Small delay to ensure async scripts are loaded
+                window.addEventListener('load', function() {
+                    // Delay to ensure async scripts are loaded
                     setTimeout(function() {
                         if (window.makeTouchFriendly) {
                             makeTouchFriendly(document.getElementById('susie-normal'));
                             makeTouchFriendly(document.getElementById('krisHead'));
                             makeTouchFriendly(document.getElementById('phone'));
+                        } else {
+                            console.warn('makeTouchFriendly not available, retrying...');
+                            setTimeout(arguments.callee, 100);
                         }
-                    }, 100);
+                    }, 200);
                 });
             </script>
 

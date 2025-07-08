@@ -23,19 +23,29 @@ let dialogAnimationTimeout = null;
 let dialogHideTimeout = null;
 
 function initTV() {
-    // Hide all TV images initially
-    allTVImages = document.querySelectorAll('img[src*="cook"], img[src*="travel"], img[src*="dino"]');
-    allTVImages.forEach(img => img.style.display = 'none');
+    // Small delay to ensure all images are fully loaded and processed
+    setTimeout(() => {
+        // Hide all TV images initially
+        allTVImages = document.querySelectorAll('img[src*="cook"], img[src*="travel"], img[src*="dino"]');
+        allTVImages.forEach(img => img.style.display = 'none');
 
-    tennaOverlay = document.getElementById('tenna-overlay');
-    susieNormal = document.getElementById('susie-normal');
-    susieRemote = document.getElementById('susie-remote');
+        tennaOverlay = document.getElementById('tenna-overlay');
+        susieNormal = document.getElementById('susie-normal');
+        susieRemote = document.getElementById('susie-remote');
 
-    // Show first frame of first set
-    showCurrentFrame();
+        // Verify we found all the elements we need
+        if (allTVImages.length === 0) {
+            console.warn('TV images not found, retrying...');
+            setTimeout(initTV, 100);
+            return;
+        }
 
-    // Start animation
-    startAnimation();
+        // Show first frame of first set
+        showCurrentFrame();
+
+        // Start animation
+        startAnimation();
+    }, 100);
 }
 
 function showCurrentFrame() {
@@ -47,6 +57,8 @@ function showCurrentFrame() {
     const currentImage = document.querySelector(`img[src*="${currentImageName}"]`);
     if (currentImage) {
         currentImage.style.display = 'block';
+    } else {
+        console.warn(`Could not find image for: ${currentImageName}`);
     }
 }
 
@@ -97,9 +109,20 @@ let music1 = null;
 let music2 = null;
 
 function initMusic() {
-    music1 = document.getElementById('music1');
-    music2 = document.getElementById('music2');
-    cycleMusic1();
+    // Small delay to ensure all images are fully loaded and processed
+    setTimeout(() => {
+        music1 = document.getElementById('music1');
+        music2 = document.getElementById('music2');
+
+        // Verify we found all the elements we need
+        if (!music1 || !music2) {
+            console.warn('Music elements not found, retrying...');
+            setTimeout(initMusic, 100);
+            return;
+        }
+
+        cycleMusic1();
+    }, 100);
 }
 
 function cycleMusic1() {
@@ -116,9 +139,9 @@ function cycleMusic2() {
     document.getElementById('music-flash').src = 'img/room/flashes/music1.png';
 }
 
-// Initialize when page loads
-document.addEventListener('DOMContentLoaded', initTV);
-document.addEventListener('DOMContentLoaded', initMusic);
+// Initialize when page loads - wait for images to load
+window.addEventListener('load', initTV);
+window.addEventListener('load', initMusic);
 
 // Expose functions globally
 window.cycleTV = cycleAnimation;
