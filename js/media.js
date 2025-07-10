@@ -324,130 +324,133 @@ function closeMediaModal() {
 }
 
 // Event listeners
-document.addEventListener('DOMContentLoaded', function() {
-    // Add click listeners to all media items
-    const mediaItems = document.querySelectorAll('.media-item');
-    mediaItems.forEach(item => {
-        const clickHandler = function(event) {
-            event.preventDefault(); // Prevent default touch behavior
-            const title = this.getAttribute('data-title');
-            openMediaModal(title);
-        };
+window.addEventListener('load', function() {
+    // Delay to ensure async scripts are loaded
+    setTimeout(function() {
+        // Add click listeners to all media items
+        const mediaItems = document.querySelectorAll('.media-item');
+        mediaItems.forEach(item => {
+            const clickHandler = function(event) {
+                event.preventDefault(); // Prevent default touch behavior
+                const title = this.getAttribute('data-title');
+                openMediaModal(title);
+            };
 
-        item.addEventListener('click', clickHandler);
-        item.addEventListener('touchstart', clickHandler);
-    });
+            item.addEventListener('click', clickHandler);
+            item.addEventListener('touchstart', clickHandler);
+        });
 
-    // Close modal when clicking the X
-    const closeBtn = document.querySelector('.media-modal-close');
-    if (closeBtn) {
-        const closeHandler = function(event) {
-            event.preventDefault();
-            closeMediaModal();
-        };
-
-        closeBtn.addEventListener('click', closeHandler);
-        closeBtn.addEventListener('touchstart', closeHandler);
-    }
-
-    // Close modal when clicking outside of it
-    const modal = document.getElementById('media-modal');
-    if (modal) {
-        const modalClickHandler = function(event) {
-            if (event.target === modal) {
+        // Close modal when clicking the X
+        const closeBtn = document.querySelector('.media-modal-close');
+        if (closeBtn) {
+            const closeHandler = function(event) {
                 event.preventDefault();
                 closeMediaModal();
-            }
-        };
+            };
 
-        modal.addEventListener('click', modalClickHandler);
-        modal.addEventListener('touchstart', modalClickHandler);
-    }
-
-    // Close modal with Escape key
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape') {
-            closeMediaModal();
-            closeCategoryModal();
+            closeBtn.addEventListener('click', closeHandler);
+            closeBtn.addEventListener('touchstart', closeHandler);
         }
-    });
 
-    // Apply random positioning to all media covers
-    randomizeMediaPositions();
+        // Close modal when clicking outside of it
+        const modal = document.getElementById('media-modal');
+        if (modal) {
+            const modalClickHandler = function(event) {
+                if (event.target === modal) {
+                    event.preventDefault();
+                    closeMediaModal();
+                }
+            };
 
-    // Universal flash effect functionality for all elements with data-category
-    const elementsWithCategory = document.querySelectorAll('[data-category]');
-    elementsWithCategory.forEach(element => {
-        // Add hover effects for flash images
-        element.addEventListener('mouseenter', function() {
-            const category = this.getAttribute('data-category');
-            const flashImage = getFlashImageForCategory(category);
-            if (flashImage) {
-                flashImage.classList.add('active');
-            }
-        });
+            modal.addEventListener('click', modalClickHandler);
+            modal.addEventListener('touchstart', modalClickHandler);
+        }
 
-        element.addEventListener('mouseleave', function() {
-            const category = this.getAttribute('data-category');
-            const flashImage = getFlashImageForCategory(category);
-            if (flashImage) {
-                flashImage.classList.remove('active');
-            }
-        });
-
-        const clickHandler = function(event) {
-            event.preventDefault(); // Prevent default touch behavior
-            const hasModal = this.hasAttribute('data-modal');
-            if (hasModal) {
-                const category = this.getAttribute('data-category');
-                openCategoryModal(category);
-            }
-            // Remove active class from any flash images when clicking
-            removeAllFlashActive();
-        };
-
-        element.addEventListener('click', clickHandler);
-        element.addEventListener('touchstart', clickHandler);
-    });
-
-    // Add click listeners to category modal close buttons
-    const categoryModalCloseButtons = document.querySelectorAll('.category-modal-close');
-    categoryModalCloseButtons.forEach(button => {
-        const closeHandler = function(event) {
-            event.preventDefault();
-            closeCategoryModal();
-        };
-
-        button.addEventListener('click', closeHandler);
-        button.addEventListener('touchstart', closeHandler);
-    });
-
-    // Add click listeners to category modal items
-    const categoryModalItems = document.querySelectorAll('.category-media-item');
-    categoryModalItems.forEach(item => {
-        const clickHandler = function(event) {
-            event.preventDefault(); // Prevent default touch behavior
-            const title = this.getAttribute('data-title');
-            openMediaModal(title); // Open the media modal without closing category modal
-        };
-
-        item.addEventListener('click', clickHandler);
-        item.addEventListener('touchstart', clickHandler);
-    });
-
-    // Close category modals when clicking outside
-    const outsideClickHandler = function(event) {
-        if (event.target.classList.contains('center-modal')) {
-            // Only close category modals, not the media modal
-            if (event.target.id.includes('-modal') && event.target.id !== 'media-modal') {
-                event.preventDefault();
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeMediaModal();
                 closeCategoryModal();
             }
-        }
-    };
+        });
 
-    document.addEventListener('click', outsideClickHandler);
-    document.addEventListener('touchstart', outsideClickHandler);
+        // Apply random positioning to all media covers
+        randomizeMediaPositions();
+
+        // Universal flash effect functionality for all elements with data-category
+        const elementsWithCategory = document.querySelectorAll('[data-category]');
+        elementsWithCategory.forEach(element => {
+            // Add hover effects for flash images
+            element.addEventListener('mouseenter', function() {
+                const category = this.getAttribute('data-category');
+                const flashImage = getFlashImageForCategory(category);
+                if (flashImage) {
+                    flashImage.classList.add('active');
+                }
+            });
+
+            element.addEventListener('mouseleave', function() {
+                const category = this.getAttribute('data-category');
+                const flashImage = getFlashImageForCategory(category);
+                if (flashImage) {
+                    flashImage.classList.remove('active');
+                }
+            });
+
+            const clickHandler = function(event) {
+                event.preventDefault(); // Prevent default touch behavior
+                const hasModal = this.hasAttribute('data-modal');
+                if (hasModal) {
+                    const category = this.getAttribute('data-category');
+                    openCategoryModal(category);
+                }
+                // Remove active class from any flash images when clicking
+                removeAllFlashActive();
+            };
+
+            element.addEventListener('click', clickHandler);
+            element.addEventListener('touchstart', clickHandler);
+        });
+
+        // Add click listeners to category modal close buttons
+        const categoryModalCloseButtons = document.querySelectorAll('.category-modal-close');
+        categoryModalCloseButtons.forEach(button => {
+            const closeHandler = function(event) {
+                event.preventDefault();
+                closeCategoryModal();
+            };
+
+            button.addEventListener('click', closeHandler);
+            button.addEventListener('touchstart', closeHandler);
+        });
+
+        // Add click listeners to category modal items
+        const categoryModalItems = document.querySelectorAll('.category-media-item');
+        categoryModalItems.forEach(item => {
+            const clickHandler = function(event) {
+                event.preventDefault(); // Prevent default touch behavior
+                const title = this.getAttribute('data-title');
+                openMediaModal(title); // Open the media modal without closing category modal
+            };
+
+            item.addEventListener('click', clickHandler);
+            item.addEventListener('touchstart', clickHandler);
+        });
+
+        // Close category modals when clicking outside
+        const outsideClickHandler = function(event) {
+            if (event.target.classList.contains('center-modal')) {
+                // Only close category modals, not the media modal
+                if (event.target.id.includes('-modal') && event.target.id !== 'media-modal') {
+                    event.preventDefault();
+                    closeCategoryModal();
+                }
+            }
+        };
+
+        document.addEventListener('click', outsideClickHandler);
+        document.addEventListener('touchstart', outsideClickHandler);
+    }, 200);
 });
 
 // Category modal functions
