@@ -734,6 +734,7 @@ html::-webkit-scrollbar {
 
 .panel-text {
     margin-top: 15px;
+    padding: 0 20px;
 }
 
 .footnote-size {
