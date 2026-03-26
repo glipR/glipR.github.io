@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FIT2004 Credit Discussions — Book an Appointment</title>
+  <style>
+    :root {
+      --bg: #f8f9fa;
+      --card-bg: #fff;
+      --border: #e0e0e0;
+      --primary: #1a73e8;
+      --primary-hover: #1557b0;
+      --text: #202124;
+      --text-secondary: #5f6368;
+      --disabled-bg: #f1f3f4;
+      --disabled-text: #9aa0a6;
+      --tag-bg: #e8f0fe;
+      --tag-text: #1967d2;
+      --shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
+      --past-bg: #fafafa;
+      --past-text: #bdc1c6;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Loading / Error states */
+    .loading {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-secondary);
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      border: 3px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 1rem;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .error-state {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: #d93025;
+      background: #fce8e6;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+
+    /* Filter panel */
+    .filter-panel {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .filter-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .filter-header h2 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+    }
+
+    .filter-actions button {
+      background: none;
+      border: none;
+      color: var(--primary);
+      cursor: pointer;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .filter-actions button:hover {
+      background: var(--tag-bg);
+    }
+
+    .filter-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .week-group {
+      background: var(--bg);
+      border-radius: 10px;
+      padding: 0.625rem 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .week-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .week-group-label {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 0.375rem;
+    }
+
+    .filter-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.375rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+      background: var(--card-bg);
+    }
+
+    .filter-chip:hover {
+      border-color: var(--primary);
+    }
+
+    .filter-chip.active {
+      background: var(--tag-bg);
+      border-color: var(--primary);
+      color: var(--tag-text);
+    }
+
+    .chip-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Schedule list */
+    .schedule-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .schedule-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.15s ease;
+    }
+
+    .schedule-card:hover {
+      border-color: var(--primary);
+    }
+
+    .schedule-card.past {
+      background: var(--past-bg);
+      border-color: var(--border);
+      opacity: 0.55;
+    }
+
+    .schedule-card.past:hover {
+      border-color: var(--border);
+      opacity: 0.7;
+    }
+
+    .schedule-card.hidden {
+      display: none;
+    }
+
+    .card-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      min-width: 0;
+    }
+
+    .card-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .card-info {
+      min-width: 0;
+    }
+
+    .card-name {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .card-schedule {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    .card-meta {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .card-duration {
+      color: var(--text-secondary);
+      font-size: 0.8125rem;
+    }
+
+    .card-badge {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      padding: 0.125rem 0.5rem;
+      border-radius: 10px;
+    }
+
+    .badge-past {
+      background: var(--disabled-bg);
+      color: var(--disabled-text);
+    }
+
+    .card-right {
+      flex-shrink: 0;
+      margin-left: 1rem;
+    }
+
+    .book-btn {
+      display: inline-block;
+      padding: 0.5rem 1.25rem;
+      background: var(--primary);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: background 0.15s ease;
+    }
+
+    .book-btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .schedule-card.past .book-btn {
+      background: var(--disabled-text);
+      pointer-events: none;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-secondary);
+    }
+
+    .result-count {
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    .last-updated {
+      font-size: 0.75rem;
+      color: var(--disabled-text);
+      text-align: right;
+      margin-top: 1.5rem;
+    }
+
+    /* Toggle switch */
+    .toggle-row {
+      margin-bottom: 1rem;
+    }
+
+    .toggle-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .toggle-label input { display: none; }
+
+    .toggle-switch {
+      position: relative;
+      width: 36px;
+      height: 20px;
+      background: var(--border);
+      border-radius: 10px;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform 0.2s;
+    }
+
+    .toggle-label input:checked + .toggle-switch {
+      background: var(--primary);
+    }
+
+    .toggle-label input:checked + .toggle-switch::after {
+      transform: translateX(16px);
+    }
+
+    /* Unavailable card */
+    .schedule-card.unavailable {
+      background: var(--disabled-bg);
+      border-color: var(--border);
+      opacity: 0.6;
+    }
+
+    .schedule-card.unavailable:hover {
+      border-color: var(--border);
+    }
+
+    .schedule-card.unavailable .card-name,
+    .schedule-card.unavailable .card-schedule,
+    .schedule-card.unavailable .card-duration {
+      color: var(--disabled-text);
+    }
+
+    .schedule-card.unavailable .book-btn {
+      background: var(--disabled-text);
+      pointer-events: none;
+    }
+
+    @media (max-width: 600px) {
+      .schedule-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+      .card-right {
+        margin-left: 0;
+        align-self: stretch;
+      }
+      .book-btn {
+        display: block;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>FIT2004 Credit Discussions</h1>
+    <p class="subtitle">Select a person and time slot that works for you.</p>
+
+    <div id="loadingState" class="loading">
+      <div class="spinner"></div>
+      <p>Loading schedules...</p>
+    </div>
+
+    <div id="errorState" class="error-state" style="display:none;"></div>
+
+    <div id="mainContent" style="display:none;">
+      <div class="filter-panel">
+        <div class="filter-header">
+          <h2>Filter by person</h2>
+          <div class="filter-actions">
+            <button onclick="toggleAll(true)">Select all</button>
+            <button onclick="toggleAll(false)">Clear all</button>
+          </div>
+        </div>
+        <p style="font-size: 0.8125rem; color: var(--text-secondary); font-style: italic; margin-bottom: 0.75rem;">
+          Reminder, you must book with a different TA for each credit interview
+        </p>
+        <div class="filter-chips" id="filterChips"></div>
+      </div>
+
+      <div class="filter-panel">
+        <div class="filter-header">
+          <h2>Filter by problem set</h2>
+          <div class="filter-actions">
+            <button onclick="toggleAllWeeks(true)">Select all</button>
+            <button onclick="toggleAllWeeks(false)">Clear all</button>
+          </div>
+        </div>
+        <div class="filter-chips" id="weekChips"></div>
+      </div>
+
+      <div class="toggle-row">
+        <label class="toggle-label">
+          <input type="checkbox" id="showUnavailable" onchange="toggleUnavailable()">
+          <span class="toggle-switch"></span>
+          Show schedules with no available slots
+        </label>
+      </div>
+
+      <div class="result-count" id="resultCount"></div>
+      <div class="schedule-list" id="scheduleList"></div>
+      <div class="empty-state" id="emptyState" style="display:none;">
+        <p>No schedules match your filters.</p>
+      </div>
+      <div class="last-updated" id="lastUpdated"></div>
+    </div>
+  </div>
+
+  <script>
+    // =====================================================================
+    // CONFIGURATION
+    // =====================================================================
+
+    // The appointment page hash (from the URL after /appointments/)
+    const APPOINTMENT_PAGE_ID = "AcZssZ1v0hRRF5evjvBSCs1yVT1pI74ZAzxd_MtmDH0=";
+
+    // Google Calendar public API key (embedded in the appointment page)
+    const API_KEY = "AIzaSyA7GKm43l8WNxlLTjsldq9z9n80CL6KW4U";
+
+    // Backend API on Render (update this URL after deploying to Render)
+    const API_URL = "https://two004-booking-page.onrender.com/api/schedules";
+
+    const BOOKING_BASE = "https://calendar.google.com/calendar/appointments/schedules/";
+
+    const COLORS = [
+      "#1a73e8", "#e8710a", "#0b8043", "#d93025",
+      "#8430ce", "#007b83", "#c5221f", "#1967d2",
+      "#e37400", "#188038", "#a142f4", "#129eaf",
+    ];
+
+    // Week booking windows: each week can be booked within a 2-week date range.
+    // W2 is a special case. W4 spans 3 weeks (midsem break). W5+ shifted by 1 week.
+    const WEEKS = (() => {
+      const weeks = {};
+      // W2: Mar 18 – Mar 31
+      weeks[2] = { start: new Date(2026, 2, 18), end: new Date(2026, 2, 31) };
+      // W3: starts Mon Mar 23, 2-week window
+      weeks[3] = { start: new Date(2026, 2, 23), end: new Date(2026, 3, 5) };
+      // W4: starts Mon Mar 30, 3-week window (midsem break)
+      weeks[4] = { start: new Date(2026, 2, 30), end: new Date(2026, 3, 19) };
+      // W5 onwards: shifted by 1 extra week due to midsem break
+      // W5 starts Mon Apr 20, each subsequent week +7 days, 2-week windows
+      for (let w = 5; w <= 11; w++) {
+        const start = new Date(2026, 3, 20 + (w - 5) * 7); // Apr 20 + offset
+        const end = new Date(start);
+        end.setDate(end.getDate() + 13); // 2-week window
+        weeks[w] = { start, end };
+      }
+      return weeks;
+    })();
+
+    // =====================================================================
+    // STATE
+    // =====================================================================
+
+    let people = [];         // unique people with color
+    let schedules = [];      // parsed schedule entries
+    let visiblePeople = new Set();
+    let selectedWeeks = new Set(); // empty = show all weeks (no filter)
+    let showUnavailable = false;
+
+    // =====================================================================
+    // FETCH & PARSE
+    // =====================================================================
+
+    async function fetchSchedules() {
+      const resp = await fetch(`${API_URL}?id=${encodeURIComponent(APPOINTMENT_PAGE_ID)}`);
+
+      if (!resp.ok) {
+        throw new Error(`API returned ${resp.status}`);
+      }
+
+      const data = await resp.json();
+      // Server returns { schedules: [...], availability: { scheduleId: { hasSlots, slotCount } } }
+      const raw = data.schedules?.[0] || [];
+      const availability = data.availability || {};
+      return { raw, availability };
+    }
+
+    function getWeeksForSchedule(startDate, endDate) {
+      // A schedule covers week W if its date range overlaps with that week's booking window
+      const weeks = [];
+      if (!startDate || !endDate) return weeks;
+      for (const [w, range] of Object.entries(WEEKS)) {
+        // Two ranges overlap if one starts before the other ends and vice versa
+        if (startDate <= range.end && endDate >= range.start) {
+          weeks.push(parseInt(w));
+        }
+      }
+      return weeks.sort((a, b) => a - b);
+    }
+
+    function parseSchedules(raw, availability) {
+      const now = new Date();
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+      const personColorMap = new Map();
+      let colorIdx = 0;
+
+      return raw.map(entry => {
+        const title = entry[1] || "";
+        // Name is everything before the last " - "
+        const dashIdx = title.indexOf(" - ");
+        const name = dashIdx > -1 ? title.substring(0, dashIdx).trim() : title;
+        const scheduleTitle = dashIdx > -1 ? title.substring(dashIdx + 3).trim() : "";
+
+        // Dates: [year, month, day]
+        const startArr = entry[12];
+        const endArr = entry[13];
+        const startDate = startArr ? new Date(startArr[0], startArr[1] - 1, startArr[2]) : null;
+        const endDate = endArr ? new Date(endArr[0], endArr[1] - 1, endArr[2]) : null;
+
+        // Duration in minutes
+        const duration = entry[5]?.[0]?.[0] || null;
+
+        // Schedule ID for direct booking link
+        const scheduleId = entry[6] || "";
+
+        // Custom question (often contains week number info)
+        const question = entry[11]?.[0]?.[0]?.[0] || "";
+
+        // Assign color per person
+        if (!personColorMap.has(name)) {
+          personColorMap.set(name, COLORS[colorIdx % COLORS.length]);
+          colorIdx++;
+        }
+
+        // A schedule is "past" if its end date is before today
+        const isPast = endDate ? endDate < today : false;
+
+        // Check availability from the server response
+        const avail = availability[scheduleId];
+        const hasSlots = avail ? avail.hasSlots : true; // default to showing if unknown
+
+        return {
+          name,
+          scheduleTitle,
+          fullTitle: title,
+          startDate,
+          endDate,
+          duration,
+          scheduleId,
+          question,
+          bookingUrl: scheduleId ? BOOKING_BASE + encodeURIComponent(scheduleId) : null,
+          color: personColorMap.get(name),
+          isPast,
+          hasSlots,
+          slotCount: avail ? avail.slotCount : -1,
+          weeks: getWeeksForSchedule(startDate, endDate),
+        };
+      })
+      .filter(s => !s.isPast) // Hide past schedules
+      .sort((a, b) => {
+        // Available first, then unavailable
+        if (a.hasSlots !== b.hasSlots) return a.hasSlots ? -1 : 1;
+        const dateA = a.startDate || new Date(0);
+        const dateB = b.startDate || new Date(0);
+        if (dateA.getTime() !== dateB.getTime()) return dateA - dateB;
+        return a.name.localeCompare(b.name);
+      });
+    }
+
+    // =====================================================================
+    // RENDER
+    // =====================================================================
+
+    function formatDate(d) {
+      if (!d) return "";
+      const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+      const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+      return `${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]}`;
+    }
+
+    function formatDateRange(start, end) {
+      if (!start && !end) return "";
+      if (!end || (start && start.getTime() === end.getTime())) return formatDate(start);
+      return `${formatDate(start)} \u2013 ${formatDate(end)}`;
+    }
+
+    function escapeAttr(s) {
+      return s.replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/'/g,"&#39;").replace(/</g,"&lt;");
+    }
+
+    function renderFilters() {
+      const container = document.getElementById("filterChips");
+      container.innerHTML = people.map(p => `
+        <label class="filter-chip ${visiblePeople.has(p.name) ? 'active' : ''}"
+               onclick="togglePerson('${escapeAttr(p.name)}')">
+          <span class="chip-dot" style="background:${p.color}"></span>
+          ${p.name}
+        </label>
+      `).join("");
+    }
+
+    function renderWeekFilters() {
+      const container = document.getElementById("weekChips");
+      const groups = [
+        { label: "Credit Discussion 1", weeks: [2, 3, 4] },
+        { label: "Credit Discussion 2", weeks: [5, 6, 7] },
+        { label: "Credit Discussion 3", weeks: [8, 9, 10, 11] },
+      ];
+
+      container.innerHTML = groups.map(g => `
+        <div class="week-group">
+          <div class="week-group-label">${g.label}</div>
+          <div class="filter-chips">
+            ${g.weeks.map(w => `
+              <label class="filter-chip ${selectedWeeks.has(w) ? 'active' : ''}"
+                     onclick="toggleWeek(${w})">
+                W${w}
+              </label>
+            `).join("")}
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function renderSchedules() {
+      const list = document.getElementById("scheduleList");
+      const empty = document.getElementById("emptyState");
+      const countEl = document.getElementById("resultCount");
+
+      let cards = [];
+      for (const s of schedules) {
+        const personHidden = !visiblePeople.has(s.name);
+        const weekHidden = selectedWeeks.size > 0 && !s.weeks.some(w => selectedWeeks.has(w));
+        const unavailableHidden = !s.hasSlots && !showUnavailable;
+        const hidden = personHidden || weekHidden || unavailableHidden;
+        const classes = [
+          "schedule-card",
+          !s.hasSlots ? "unavailable" : "",
+          hidden ? "hidden" : "",
+        ].filter(Boolean).join(" ");
+
+        const dateStr = formatDateRange(s.startDate, s.endDate);
+        const durationStr = s.duration ? `${s.duration} min` : "";
+        const slotStr = s.slotCount > 0 ? `${s.slotCount} slot${s.slotCount !== 1 ? 's' : ''}` : "";
+
+        cards.push(`
+          <div class="${classes}" data-person="${escapeAttr(s.name)}">
+            <div class="card-left">
+              <span class="card-dot" style="background:${s.color}"></span>
+              <div class="card-info">
+                <div class="card-name">${s.name}</div>
+                <div class="card-schedule">${dateStr}</div>
+                <div class="card-meta">
+                  ${durationStr ? `<span class="card-duration">${durationStr}</span>` : ""}
+                  ${slotStr ? `<span class="card-duration">${slotStr} available</span>` : ""}
+                  ${s.weeks.length ? `<span class="card-duration">${s.weeks.map(w => `W${w}`).join(', ')}</span>` : ""}
+                </div>
+              </div>
+            </div>
+            <div class="card-right">
+              ${s.hasSlots
+                ? `<a class="book-btn" href="${s.bookingUrl || `https://calendar.google.com/calendar/appointments/${encodeURIComponent(APPOINTMENT_PAGE_ID)}`}" target="_blank" rel="noopener">Book</a>`
+                : `<span class="book-btn">Full</span>`
+              }
+            </div>
+          </div>
+        `);
+      }
+
+      list.innerHTML = cards.join("");
+
+      const visibleCount = list.querySelectorAll(".schedule-card:not(.hidden)").length;
+
+      if (visibleCount === 0) {
+        empty.style.display = "block";
+        countEl.textContent = "";
+      } else {
+        empty.style.display = "none";
+        countEl.textContent = `Showing ${visibleCount} schedule${visibleCount !== 1 ? 's' : ''} with available slots`;
+      }
+    }
+
+    // =====================================================================
+    // INTERACTIONS
+    // =====================================================================
+
+    function togglePerson(name) {
+      if (visiblePeople.has(name)) {
+        visiblePeople.delete(name);
+      } else {
+        visiblePeople.add(name);
+      }
+      renderFilters();
+      renderSchedules();
+    }
+
+    function toggleAll(show) {
+      if (show) {
+        people.forEach(p => visiblePeople.add(p.name));
+      } else {
+        visiblePeople.clear();
+      }
+      renderFilters();
+      renderSchedules();
+    }
+
+    function toggleWeek(w) {
+      if (selectedWeeks.has(w)) {
+        selectedWeeks.delete(w);
+      } else {
+        selectedWeeks.add(w);
+      }
+      renderWeekFilters();
+      renderSchedules();
+    }
+
+    function toggleUnavailable() {
+      showUnavailable = document.getElementById("showUnavailable").checked;
+      renderSchedules();
+    }
+
+    function toggleAllWeeks(show) {
+      if (show) {
+        for (let w = 2; w <= 11; w++) selectedWeeks.add(w);
+      } else {
+        selectedWeeks.clear();
+      }
+      renderWeekFilters();
+      renderSchedules();
+    }
+
+    // =====================================================================
+    // INIT
+    // =====================================================================
+
+    async function init() {
+      const loadingEl = document.getElementById("loadingState");
+      const errorEl = document.getElementById("errorState");
+      const mainEl = document.getElementById("mainContent");
+
+      try {
+        const { raw, availability } = await fetchSchedules();
+        schedules = parseSchedules(raw, availability);
+
+        // Build unique people list
+        const seen = new Map();
+        for (const s of schedules) {
+          if (!seen.has(s.name)) {
+            seen.set(s.name, { name: s.name, color: s.color });
+          }
+        }
+        people = Array.from(seen.values());
+        visiblePeople = new Set(people.map(p => p.name));
+
+        loadingEl.style.display = "none";
+        mainEl.style.display = "block";
+
+        renderFilters();
+        renderWeekFilters();
+        renderSchedules();
+
+        document.getElementById("lastUpdated").textContent =
+          `Fetched live from Google Calendar at ${new Date().toLocaleTimeString()}`;
+
+      } catch (err) {
+        loadingEl.style.display = "none";
+        errorEl.style.display = "block";
+        errorEl.textContent = `Failed to load schedules: ${err.message}. Try refreshing the page.`;
+        console.error("Fetch error:", err);
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>
