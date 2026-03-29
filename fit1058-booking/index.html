@@ -481,7 +481,7 @@
         const title = entry[1] || "";
         // Name is everything before the last " - "
         const dashIdx = title.indexOf(" - ");
-        const name = dashIdx > -1 ? title.substring(0, dashIdx).trim() : title;
+        let name = dashIdx > -1 ? title.substring(0, dashIdx).trim() : title;
         const scheduleTitle = dashIdx > -1 ? title.substring(dashIdx + 3).trim() : "";
 
         // Dates: [year, month, day]
@@ -489,6 +489,15 @@
         const endArr = entry[13];
         const startDate = startArr ? new Date(startArr[0], startArr[1] - 1, startArr[2]) : null;
         const endDate = endArr ? new Date(endArr[0], endArr[1] - 1, endArr[2]) : null;
+
+        // Convert email from "first.last@monash.edu" to "First Last"
+        let email = entry[22]?.[0] || "";
+        let personTitle = "";
+        if (email && email.endsWith("@monash.edu")) {
+          let parts = email.replace("@monash.edu", "").split(".");
+          personTitle = parts.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(" ");
+          name = personTitle;
+        }
 
         // Duration in minutes
         const duration = entry[5]?.[0]?.[0] || null;
