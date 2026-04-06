@@ -483,9 +483,9 @@
       // W4: starts Mon Mar 30, 3-week window (midsem break)
       weeks[4] = { start: new Date(2026, 2, 30), end: new Date(2026, 3, 19) };
       // W5 onwards: shifted by 1 extra week due to midsem break
-      // W5 starts Mon Apr 20, each subsequent week +7 days, 2-week windows
+      // W5 starts Mon Apr 13, each subsequent week +7 days, 2-week windows
       for (let w = 5; w <= 11; w++) {
-        const start = new Date(2026, 3, 20 + (w - 5) * 7); // Apr 20 + offset
+        const start = new Date(2026, 3, 13 + (w - 5) * 7); // Apr 13 + offset
         const end = new Date(start);
         end.setDate(end.getDate() + 13); // 2-week window
         weeks[w] = { start, end };
