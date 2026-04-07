@@ -493,6 +493,39 @@
       return weeks;
     })();
 
+    const WEEKS_BY_CD = (() => {
+      const weeks_by_cd = {};
+      weeks_by_cd[0] = {
+        2: WEEKS[2],
+        3: WEEKS[3],
+        4: WEEKS[4],
+        5: WEEKS[5],
+        6: WEEKS[6],
+        7: WEEKS[7],
+        8: WEEKS[8],
+        9: WEEKS[9],
+        10: WEEKS[10],
+        11: WEEKS[11],
+      }
+      weeks_by_cd[1] = {
+        2: WEEKS[2],
+        3: WEEKS[3],
+        4: WEEKS[4],
+      }
+      weeks_by_cd[2] = {
+        5: WEEKS[5],
+        6: WEEKS[6],
+        7: WEEKS[7],
+      }
+      weeks_by_cd[3] = {
+        8: WEEKS[8],
+        9: WEEKS[9],
+        10: WEEKS[10],
+        11: WEEKS[11],
+      }
+      return weeks_by_cd;
+    })();
+
     // =====================================================================
     // STATE
     // =====================================================================
@@ -521,11 +554,11 @@
       return { raw, availability };
     }
 
-    function getWeeksForSchedule(startDate, endDate) {
+    function getWeeksForSchedule(startDate, endDate, cdNumber) {
       // A schedule covers week W if its date range overlaps with that week's booking window
       const weeks = [];
       if (!startDate || !endDate) return weeks;
-      for (const [w, range] of Object.entries(WEEKS)) {
+      for (const [w, range] of Object.entries(WEEKS_BY_CD[cdNumber] ?? 0)) {
         // Two ranges overlap if one starts before the other ends and vice versa
         if (startDate <= range.end && endDate >= range.start) {
           weeks.push(parseInt(w));
@@ -547,6 +580,13 @@
         const dashIdx = title.indexOf(" - ");
         const name = dashIdx > -1 ? title.substring(0, dashIdx).trim() : title;
         const scheduleTitle = dashIdx > -1 ? title.substring(dashIdx + 3).trim() : "";
+        // Extract the CD number from the schedule title if present (e.g., "JG - CD 1" -> 1)
+        // Returns a number if found, otherwise null
+        let cdNumber = null;
+        const cdMatch = title.match(/\s*(\d+)\s*$/i);
+        if (cdMatch) {
+          cdNumber = parseInt(cdMatch[1], 10);
+        }
 
         // Dates: [year, month, day]
         const startArr = entry[12];
@@ -590,7 +630,7 @@
           isPast,
           hasSlots,
           slotCount: avail ? avail.slotCount : -1,
-          weeks: getWeeksForSchedule(startDate, endDate),
+          weeks: getWeeksForSchedule(startDate, endDate, cdNumber),
         };
       })
       .filter(s => !s.isPast) // Hide past schedules
