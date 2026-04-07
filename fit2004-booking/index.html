@@ -558,7 +558,7 @@
       // A schedule covers week W if its date range overlaps with that week's booking window
       const weeks = [];
       if (!startDate || !endDate) return weeks;
-      for (const [w, range] of Object.entries(WEEKS_BY_CD[cdNumber] ?? 0)) {
+      for (const [w, range] of Object.entries(WEEKS_BY_CD[cdNumber ?? 0])) {
         // Two ranges overlap if one starts before the other ends and vice versa
         if (startDate <= range.end && endDate >= range.start) {
           weeks.push(parseInt(w));
