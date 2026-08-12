@@ -456,7 +456,7 @@
     // =====================================================================
 
     // The appointment page hash (from the URL after /appointments/)
-    const APPOINTMENT_PAGE_ID = "AcZssZ1v0hRRF5evjvBSCs1yVT1pI74ZAzxd_MtmDH0=";
+    const APPOINTMENT_PAGE_ID = "AcZssZ1VPQCHoBNdwOa7j1No2Fs8Z7Kmac_KmDYVwVs=";
 
     // Google Calendar public API key (embedded in the appointment page)
     const API_KEY = "AIzaSyA7GKm43l8WNxlLTjsldq9z9n80CL6KW4U";
@@ -472,23 +472,17 @@
       "#e37400", "#188038", "#a142f4", "#129eaf",
     ];
 
-    // Week booking windows: each week can be booked within a 2-week date range.
-    // W2 is a special case. W4 spans 3 weeks (midsem break). W5+ shifted by 1 week.
+    // Week booking windows: Every week has a unique 2-problem set window.
     const WEEKS = (() => {
       const weeks = {};
-      // W2: Mar 18 – Mar 31
-      weeks[2] = { start: new Date(2026, 2, 18), end: new Date(2026, 2, 31) };
-      // W3: starts Mon Mar 23, 2-week window
-      weeks[3] = { start: new Date(2026, 2, 23), end: new Date(2026, 3, 5) };
-      // W4: starts Mon Mar 30, 3-week window (midsem break)
-      weeks[4] = { start: new Date(2026, 2, 30), end: new Date(2026, 3, 19) };
-      // W5 onwards: shifted by 1 extra week due to midsem break
-      // W5 starts Mon Apr 13, each subsequent week +7 days, 2-week windows
-      for (let w = 5; w <= 11; w++) {
-        const start = new Date(2026, 3, 13 + (w - 5) * 7); // Apr 13 + offset
-        const end = new Date(start);
-        end.setDate(end.getDate() + 13); // 2-week window
-        weeks[w] = { start, end };
+      // W2 Starts on Aug 17 and ends on Aug 23.
+      // Everything until midsem break is a single week of coverage.
+      for (let w = 2; w < 6; w++) {
+        weeks[w] = { start: new Date(2026, 7, 17 + (w - 2) * 7), end: new Date(2026, 7, 23 + (w - 2) * 7) };
+      }
+      // W8 Starts after the break
+      for (let w = 6; w <= 9; w++) {
+        weeks[w] = { start: new Date(2026, 8, 28 + (w - 6) * 7), end: new Date(2026, 9, 4 + (w - 6) * 7) };
       }
       return weeks;
     })();
@@ -504,24 +498,18 @@
         7: WEEKS[7],
         8: WEEKS[8],
         9: WEEKS[9],
-        10: WEEKS[10],
-        11: WEEKS[11],
       }
       weeks_by_cd[1] = {
         2: WEEKS[2],
         3: WEEKS[3],
         4: WEEKS[4],
+        5: WEEKS[5],
       }
       weeks_by_cd[2] = {
-        5: WEEKS[5],
         6: WEEKS[6],
         7: WEEKS[7],
-      }
-      weeks_by_cd[3] = {
         8: WEEKS[8],
         9: WEEKS[9],
-        10: WEEKS[10],
-        11: WEEKS[11],
       }
       return weeks_by_cd;
     })();
