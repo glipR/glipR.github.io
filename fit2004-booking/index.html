@@ -667,9 +667,8 @@
     function renderWeekFilters() {
       const container = document.getElementById("weekChips");
       const groups = [
-        { label: "Credit Discussion 1", weeks: [2, 3, 4] },
-        { label: "Credit Discussion 2", weeks: [5, 6, 7] },
-        { label: "Credit Discussion 3", weeks: [8, 9, 10, 11] },
+        { label: "Credit Discussion 1", weeks: [2, 3, 4, 5] },
+        { label: "Credit Discussion 2", weeks: [6, 7, 8, 9] },
       ];
 
       container.innerHTML = groups.map(g => `
@@ -679,7 +678,7 @@
             ${g.weeks.map(w => `
               <label class="filter-chip ${selectedWeeks.has(w) ? 'active' : ''}"
                      onclick="toggleWeek(${w})">
-                W${w}
+                W${w}-W${w==9?11:w+1}
               </label>
             `).join("")}
           </div>
@@ -718,7 +717,7 @@
                 <div class="card-meta">
                   ${durationStr ? `<span class="card-duration">${durationStr}</span>` : ""}
                   ${slotStr ? `<span class="card-duration">${slotStr} available</span>` : ""}
-                  ${s.weeks.length ? `<span class="card-duration">${s.weeks.map(w => `W${w}`).join(', ')}</span>` : ""}
+                  ${s.weeks.length ? `<span class="card-duration">${s.weeks.map(w => `W${w}-W${w==9?11:w+1}`).join(', ')}</span>` : ""}
                 </div>
               </div>
             </div>
@@ -786,7 +785,7 @@
 
     function toggleAllWeeks(show) {
       if (show) {
-        for (let w = 2; w <= 11; w++) selectedWeeks.add(w);
+        for (let w = 2; w <= 9; w++) selectedWeeks.add(w);
       } else {
         selectedWeeks.clear();
       }
