@@ -424,7 +424,7 @@
 
       <div class="filter-panel">
         <div class="filter-header">
-          <h2>Filter by problem set</h2>
+          <h2>Filter by applied sheet</h2>
           <div class="filter-actions">
             <button onclick="toggleAllWeeks(true)">Select all</button>
             <button onclick="toggleAllWeeks(false)">Clear all</button>
@@ -678,7 +678,7 @@
             ${g.weeks.map(w => `
               <label class="filter-chip ${selectedWeeks.has(w) ? 'active' : ''}"
                      onclick="toggleWeek(${w})">
-                W${w}-W${w==9?11:w+1}
+                A${w}-A${w==9?11:w+1}
               </label>
             `).join("")}
           </div>
@@ -717,7 +717,7 @@
                 <div class="card-meta">
                   ${durationStr ? `<span class="card-duration">${durationStr}</span>` : ""}
                   ${slotStr ? `<span class="card-duration">${slotStr} available</span>` : ""}
-                  ${s.weeks.length ? `<span class="card-duration">${s.weeks.map(w => `W${w}-W${w==9?11:w+1}`).join(', ')}</span>` : ""}
+                  ${s.weeks.length ? `<span class="card-duration">${s.weeks.map(w => `A${w}-A${w==9?11:w+1}`).join(', ')}</span>` : ""}
                 </div>
               </div>
             </div>
