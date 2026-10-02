@@ -606,7 +606,7 @@
         const avail = availability[scheduleId];
         const hasSlots = avail ? avail.hasSlots : true; // default to showing if unknown
 
-        const effectiveStartDate = startDate ? Math.max(startDate, today) : null;
+        const effectiveStartDate = startDate ? new Date(Math.max(startDate, today)) : null;
 
         return {
           name,
