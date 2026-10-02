@@ -477,13 +477,15 @@
       const weeks = {};
       // W2 Starts on Aug 17 and ends on Aug 23.
       // Everything until midsem break is a single week of coverage.
-      for (let w = 2; w < 6; w++) {
+      for (let w = 2; w < 7; w++) {
         weeks[w] = { start: new Date(2026, 7, 17 + (w - 2) * 7), end: new Date(2026, 7, 23 + (w - 2) * 7) };
       }
-      // W8 Starts after the break
-      for (let w = 6; w <= 9; w++) {
+      // W9 Starts after the break
+      for (let w = 7; w <= 8; w++) {
         weeks[w] = { start: new Date(2026, 8, 28 + (w - 6) * 7), end: new Date(2026, 9, 4 + (w - 6) * 7) };
       }
+      // W12 is the final week
+      weeks[9] = { start: new Date(2026, 9, 19), end: new Date(2026, 9, 25) };
       return weeks;
     })();
 
