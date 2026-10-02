@@ -606,11 +606,13 @@
         const avail = availability[scheduleId];
         const hasSlots = avail ? avail.hasSlots : true; // default to showing if unknown
 
+        const effectiveStartDate = startDate ? Math.max(startDate, today) : null;
+
         return {
           name,
           scheduleTitle,
           fullTitle: title,
-          startDate,
+          startDate: effectiveStartDate,
           endDate,
           duration,
           scheduleId,
@@ -620,7 +622,7 @@
           isPast,
           hasSlots,
           slotCount: avail ? avail.slotCount : -1,
-          weeks: getWeeksForSchedule(startDate, endDate, cdNumber),
+          weeks: getWeeksForSchedule(effectiveStartDate, endDate, cdNumber),
         };
       })
       .filter(s => !s.isPast) // Hide past schedules
